@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PrepAhead Prototype</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== Top bar: demo controls (shared) ===== -->
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="brand">
+      <h1>Prep<b>Ahead</b></h1>
+      <span class="muted small">Pre-order lunch. Cook what's needed.</span>
+    </div>
+    <div class="clock">
+      <label for="demo-time" class="small muted">Demo time</label>
+      <input type="range" id="demo-time" min="480" max="840" step="5">
+      <output id="demo-time-out" for="demo-time">09:40</output>
+    </div>
+    <div class="seg" role="group" aria-label="View">
+      <button type="button" data-view="both" aria-pressed="true">Both</button>
+      <button type="button" data-view="student" aria-pressed="false">Student</button>
+      <button type="button" data-view="vendor" aria-pressed="false">Stall</button>
+    </div>
+    <button type="button" class="link-btn" id="reset-demo">Reset demo</button>
+  </div>
+</header>
+
+<main class="stage" id="stage" data-view="both">
+  <!-- ===== Person A: student app ===== -->
+  <section class="pane-student" aria-label="Student app">
+    <div class="pane-label"><p class="eyebrow"><b>Student</b> · phone app</p></div>
+    <div class="phone"><div class="phone-screen" id="student-app"></div></div>
+  </section>
+
+  <!-- ===== Person B: stall dashboard ===== -->
+  <section class="pane-vendor" aria-label="Stall dashboard">
+    <div class="pane-label"><p class="eyebrow"><b>Stall</b> · tablet dashboard</p><p class="muted small">All figures are sample data</p></div>
+    <div class="dash" id="vendor-app"></div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="data.js"></script>
+<script src="student.js"></script>
+<script src="vendor.js"></script>
+<script>
+  /* Top-bar controls: demo clock, view switch, reset */
+  const range = document.getElementById("demo-time");
+  const out = document.getElementById("demo-time-out");
+  const stage = document.getElementById("stage");
+  function syncClock() { range.value = toMin(Store.get().demoTime); out.textContent = Store.get().demoTime; }
+  range.addEventListener("input", () => Store.update((s) => { s.demoTime = fromMin(Number(range.value)); }));
+  function setView(v) {
+    stage.dataset.view = v;
+    document.querySelectorAll(".seg button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.view === v)));
+    if (v !== "student") drawChart(stallById(Vendor.stallId));
+  }
+  document.querySelectorAll(".seg button").forEach((b) => b.addEventListener("click", () => setView(b.dataset.view)));
+  document.getElementById("reset-demo").addEventListener("click", () => {
+    Object.assign(Student, { screen: "home", stallId: null, cart: {}, slot: null, lastOrderId: null, agreeFee: false });
+    Store.reset();
+  });
+  Store.subscribe(syncClock);
+  if (window.matchMedia("(max-width: 760px)").matches) setView("student");
+  syncClock();
+  renderStudent();
+  renderVendor();
+</script>
+</body>
+</html>
