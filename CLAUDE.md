@@ -44,4 +44,72 @@ Cut-off times, lead time, slot spacing, no-show fee and grace period are placeho
 - `node --check data.js student.js vendor.js` catches syntax errors.
 - Then open `index.html` and click through: order on the student side → it appears on the stall side → Accept → Put on shelf → Check code → Collected. Drag Demo time past 10:00 to check cut-offs. Use "Reset demo" between tests.
 
+
+## Solution details: 
+Overview
+Main objective: Reduce food waste from over-prep at NTU canteen stalls by giving vendors reliable demand information before they decide how much to cook. 
+For vendors: Help stalls match the amount they need to prepare to actual demand, by combining historical sale trends with actual pre-orders received before cut-off time.
+For students: Make pre-ordering early worthwhile through shorter queues, discounts, and a chosen collection time, so students need not care about waste for our solution to work
+
+Solution Brief: Our solution is a waste-reduction extension to Cates. Part 1 should briefly explain Cates
+Why: Since Cates already handles ordering, payment and collection, and is being used by many students and faculty members within NTU.
+Pre-orders help signal d-day demand for vendors before they cook, with historical order trends increasing reliability in our system.
+We also want to make sure that our solution does not lead to further wastage ie. from uncollected orders.
+Design principles
+
+Principle
+P1. Demand info must reach stalls before they cook
+Batch-cooked stalls such as mixed veg rice need 2–4 hours’ notice to adjust how much they cook, but most students only pre-order about 30 minutes ahead. We want to encourage earlier ordering so that stalls can obtain demand information before their main preparation begins
+P2. Accurate and reliable system
+Vendors estimate preparation portions based on experience. We want to make use of historical sales data to give vendors a more reliable baseline for what to prepare, and also use pre-orders to account for same-day changes in demand that history cannot predict alone
+P3. Students shouldn’t need to care about waste to use it
+Most students surveyed (Add final number here) are unsure whether pre-ordering would reduce waste, but were strongly incentivised by shorter queues and discounts. We want our system to appeal to the everyday benefits so students/staff will be willing to use it. 
+P4. Little effort for vendors
+Vendors may find new technology intimidating and already struggle to balance walk-in customers with app orders. We want to make the system as simplistic as possible so that the system complements their existing routine rather than increasing their workload.
+
+
+P5. Don’t create new waste
+Pre-ordering introduces a risk of uncollected orders. We want to prevent this through our design as much as possible so we do not cause waste by side effects.
+
+
+User features
+- Early bird window
+- Recurring orders tied to timetables 
+- Staggered collection slots
+- QR collection
+
+Vendor features
+- Dashboard for preparation (forecasting)
+- Daily sales and leftover logging
+- Pre-order cap and sold out switch
+- Easy accept/decline system
+- Last-tray decision
+
+Managing risk of uncollected orders
+Prevent: reminders before slot, collection time chosen by student, free cancel before cutoff
+Deter: small non-refundable fee
+Recover: after grace period, uncollected orders resold at discount
+Monitor: track no show rate per stall and adjust fees accordingly
+
+Building consumer confidence
+Get consumers to sign up/ make use of our system by appealing to their benefits: discounts,shorter queues and collection times
+Waste reduction should be the side effect 
+over time can also inform users the positive impact our platform does to reduce waste to further incentivise usage: ie. show under stall “pre-orders saved 40 portions this week!”
+Pilot with some stalls first before expanding campus-wide
+
+
+Forecasting 
+AI/history sets baseline, preorder catch same day spikes
+Same day pre-orders can't change ingredients bought, so recurring orders matter
+
+Evaluation
+Prepped vs sold
+Kg wasted per day
+No show rate
+Uptake by users and vendors: how usable, easy is it 
+
+Limitations
+Uptake needs to be large enough to impact food preparation portions
+Purchasing of food items (usually fresh produce) occur before stall opens ie. before preorders start coming in
+
 See `README.md` for the showcase demo script.
