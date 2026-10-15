@@ -19,6 +19,10 @@ const RULES = {
   slotStepMins: 15,           // staggered slots spread the crowd
   noShowFee: 1.0,             // non-refundable fee if the order is not collected
   graceMins: 20,              // how long food is held after the slot before it counts as a no-show
+  earlyBirdUntil: "10:00",    // pre-orders placed before this time get the early-bird discount
+  earlyBirdDiscount: 0.1,     // early-bird discount (0.1 = 10% off)
+  resaleDiscount: 0.5,        // uncollected orders are resold at this discount (0.5 = 50% off)
+  lastTrayThreshold: 0.5,     // only cook another tray if we expect to be short by at least half a tray
 };
 
 /* ---- Stalls ----
@@ -27,12 +31,15 @@ const RULES = {
    cap:  max pre-order portions the stall accepts for lunch
    trayPortions: portions per cooking batch / tray
    history: average over the same weekday, last 4 weeks (sample)
-   week: last 5 weekdays, portions prepared vs sold (sample) */
+            noShowRate = share of pre-orders not collected (0.04 = 4%)
+   week: last 5 weekdays, portions prepared vs sold (sample)
+   savedThisWeek: portions not cooked this week thanks to pre-orders (sample, shown to students) */
 const STALLS = [
   {
     id: "caipng", name: "Mixed Veg Rice", type: "batch", cap: 40, trayPortions: 15,
-    history: { demand: 121, preorders: 20 },
+    history: { demand: 121, preorders: 20, noShowRate: 0.04 },
     week: { prepared: [150, 150, 165, 150, 150], sold: [118, 124, 131, 109, 122] },
+    savedThisWeek: 40,
     items: [
       { id: "cp1", name: "1 meat + 2 veg", price: 4.0 },
       { id: "cp2", name: "2 meat + 1 veg", price: 4.8 },
@@ -41,8 +48,9 @@ const STALLS = [
   },
   {
     id: "chickenrice", name: "Chicken Rice", type: "batch", cap: 35, trayPortions: 12,
-    history: { demand: 96, preorders: 15 },
+    history: { demand: 96, preorders: 15, noShowRate: 0.06 },
     week: { prepared: [120, 120, 132, 120, 120], sold: [92, 101, 99, 88, 97] },
+    savedThisWeek: 28,
     items: [
       { id: "cr1", name: "Roasted chicken rice", price: 4.2 },
       { id: "cr2", name: "Steamed chicken rice", price: 4.2 },
@@ -51,8 +59,9 @@ const STALLS = [
   },
   {
     id: "banmian", name: "Ban Mian", type: "made", cap: 30, trayPortions: 10,
-    history: { demand: 84, preorders: 10 },
+    history: { demand: 84, preorders: 10, noShowRate: 0.03 },
     week: { prepared: [95, 95, 100, 95, 95], sold: [80, 86, 90, 79, 85] },
+    savedThisWeek: 15,
     items: [
       { id: "bm1", name: "Ban mian soup", price: 4.5 },
       { id: "bm2", name: "Dry ban mian", price: 4.5 },
@@ -61,8 +70,9 @@ const STALLS = [
   },
   {
     id: "western", name: "Western", type: "made", cap: 25, trayPortions: 10,
-    history: { demand: 70, preorders: 8 },
+    history: { demand: 70, preorders: 8, noShowRate: 0.05 },
     week: { prepared: [80, 80, 85, 80, 80], sold: [66, 72, 74, 63, 71] },
+    savedThisWeek: 12,
     items: [
       { id: "we1", name: "Chicken chop", price: 6.5 },
       { id: "we2", name: "Fish and chips", price: 6.8 },
@@ -72,6 +82,24 @@ const STALLS = [
 ];
 
 const WEEK_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+const DEMO_DAY = "Wed";       // the demo pretends today is Wednesday (so "tomorrow" is Thursday)
+
+/* ---- When walk-in customers usually arrive (sample, same for every stall) ----
+   Share of a day's walk-in demand in each 15-minute block, starting at that time.
+   Adds up to 1. Used for the last-tray decision. */
+const LUNCH_CURVE = { "11:30": 0.06, "11:45": 0.10, "12:00": 0.15, "12:15": 0.16, "12:30": 0.15, "12:45": 0.13, "13:00": 0.11, "13:15": 0.08, "13:30": 0.06 };
+const CURVE_BLOCK_MINS = 15;
+
+/* ---- Sample student timetable: when this student is free for lunch ----
+   Used to suggest which days a recurring order should repeat on.
+   null = no lunch break that day. */
+const SAMPLE_TIMETABLE = {
+  Mon: { from: "12:00", to: "13:30" },
+  Tue: { from: "11:30", to: "12:30" },
+  Wed: { from: "12:00", to: "13:00" },
+  Thu: null,
+  Fri: { from: "12:30", to: "13:30" },
+};
 
 /* ---- Order format (BOTH sides must use exactly this shape) ----
 {
@@ -95,6 +123,38 @@ const SAMPLE_ORDERS = [
   { id: "A1007", code: "1185", stall: "banmian", items: [{ id: "bm1", name: "Ban mian soup", qty: 1, price: 4.5 }], slot: "12:30", status: "pending", placedAt: "09:35", mine: false },
 ];
 
+/* ---- Recurring order format (a separate list; the order format above does not change) ----
+{
+  id: "R1",
+  stall: "caipng",
+  items: [{ id, name, qty, price }],
+  slot: "12:30",
+  days: ["Mon", "Wed"],     // weekdays it repeats on (from the student's timetable)
+  mine: true,               // set up from this device's student view (sample ones are false)
+}
+Stalls see tomorrow's total early enough to buy ingredients. */
+const SAMPLE_RECURRING = [
+  { id: "R1", stall: "caipng", items: [{ id: "cp1", name: "1 meat + 2 veg", qty: 1, price: 4.0 }], slot: "12:00", days: ["Mon", "Wed", "Fri"], mine: false },
+  { id: "R2", stall: "caipng", items: [{ id: "cp2", name: "2 meat + 1 veg", qty: 2, price: 4.8 }], slot: "12:30", days: ["Tue", "Thu"], mine: false },
+  { id: "R3", stall: "caipng", items: [{ id: "cp3", name: "3 veg (vegetarian)", qty: 1, price: 3.5 }], slot: "12:15", days: ["Mon", "Tue", "Wed", "Thu", "Fri"], mine: false },
+  { id: "R4", stall: "caipng", items: [{ id: "cp1", name: "1 meat + 2 veg", qty: 3, price: 4.0 }], slot: "13:00", days: ["Thu"], mine: false },
+  { id: "R5", stall: "chickenrice", items: [{ id: "cr1", name: "Roasted chicken rice", qty: 2, price: 4.2 }], slot: "12:00", days: ["Tue", "Thu"], mine: false },
+  { id: "R6", stall: "banmian", items: [{ id: "bm2", name: "Dry ban mian", qty: 1, price: 4.5 }], slot: "12:45", days: ["Mon", "Thu"], mine: false },
+  { id: "R7", stall: "western", items: [{ id: "we1", name: "Chicken chop", qty: 1, price: 6.5 }], slot: "12:30", days: ["Wed", "Thu", "Fri"], mine: false },
+];
+
+/* ---- Last-minute deal format (an uncollected order resold at a discount) ----
+{
+  id: "D1",
+  orderId: "A1003",         // the uncollected order; read its items from there
+  stall: "caipng",
+  price: 20.0,              // total resale price
+  code: null,               // new collection code, given to whoever buys it
+  sold: false,
+  mine: false,              // bought from this device's student view
+}
+*/
+
 /* ---- Helpers ---- */
 const toMin = (t) => { const [h, m] = t.split(":").map(Number); return h * 60 + m; };
 const fromMin = (n) => `${String(Math.floor(n / 60)).padStart(2, "0")}:${String(n % 60).padStart(2, "0")}`;
@@ -116,11 +176,16 @@ function allSlots() {
 const Store = (() => {
   const KEY = "prepahead.v1";
   const listeners = [];
+  const copy = (x) => JSON.parse(JSON.stringify(x));
   const seed = () => ({
     demoTime: "09:40",
     caps: {},
     soldOut: {},
-    orders: SAMPLE_ORDERS.map((o) => JSON.parse(JSON.stringify(o))),
+    orders: copy(SAMPLE_ORDERS),
+    recurring: copy(SAMPLE_RECURRING), // recurring orders (see format above)
+    deals: [],                         // last-minute deals (see format above)
+    leftovers: {},                     // { stallId: portions left over at the end of today }, logged by the stall
+    portionsLeft: {},                  // { stallId: portions still on the counter now }, for the last-tray decision
   });
   const read = () => {
     try { const raw = localStorage.getItem(KEY); return raw ? JSON.parse(raw) : null; } catch (e) { return null; }
@@ -128,9 +193,12 @@ const Store = (() => {
   const write = () => {
     try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* storage blocked: still works in memory */ }
   };
-  let state = read() || seed();
+  // Data saved by an older version may be missing newer fields,
+  // so start from a fresh seed and put the saved data on top.
+  const load = () => ({ ...seed(), ...(read() || {}) });
+  let state = load();
   const emit = () => listeners.forEach((fn) => fn(state));
-  window.addEventListener("storage", (e) => { if (e.key === KEY) { state = read() || seed(); emit(); } });
+  window.addEventListener("storage", (e) => { if (e.key === KEY) { state = load(); emit(); } });
   return {
     get: () => state,
     update(fn) { fn(state); write(); emit(); },
@@ -177,4 +245,99 @@ function prepForecast(stall) {
   const trays = Math.ceil(suggested / stall.trayPortions);
   const usualPrep = Math.round(stall.week.prepared.reduce((a, b) => a + b, 0) / stall.week.prepared.length);
   return { pre, spike, suggested, trays, cooked: trays * stall.trayPortions, usualPrep, saved: Math.max(0, usualPrep - trays * stall.trayPortions) };
+}
+
+/* ---- Early bird (P1 + P3: reward ordering before stalls start cooking) ---- */
+function isEarlyBird() {
+  return toMin(Store.get().demoTime) < toMin(RULES.earlyBirdUntil);
+}
+// What a student pays for one item right now, rounded to cents.
+// Save this as items[].price when placing an order, so the order format stays the same.
+function priceNow(item) {
+  const p = isEarlyBird() ? item.price * (1 - RULES.earlyBirdDiscount) : item.price;
+  return Math.round(p * 100) / 100;
+}
+
+/* ---- Recurring orders tied to the timetable ---- */
+function nextWeekday(day) {
+  const i = WEEK_LABELS.indexOf(day);
+  return WEEK_LABELS[(i + 1) % WEEK_LABELS.length]; // Fri → Mon
+}
+// Weekdays this student is free to collect at this slot, from their timetable.
+function timetableDaysFor(slot) {
+  return WEEK_LABELS.filter((d) => {
+    const free = SAMPLE_TIMETABLE[d];
+    return free && toMin(free.from) <= toMin(slot) && toMin(slot) < toMin(free.to);
+  });
+}
+// Portions promised by recurring orders on a given weekday. Same-day pre-orders
+// come too late to change what ingredients are bought; this number does not.
+function standingPortions(stallId, day) {
+  return Store.get().recurring.filter((r) => r.stall === stallId && r.days.includes(day)).reduce((n, r) => n + orderQty(r), 0);
+}
+function newRecurringId() {
+  const nums = Store.get().recurring.map((r) => Number(r.id.slice(1)));
+  return "R" + (Math.max(0, ...nums) + 1);
+}
+
+/* ---- Uncollected orders: resell at a discount (P5: don't create new waste) ---- */
+// Overdue = still not collected after the slot plus the grace period.
+function isOverdue(o) {
+  const now = toMin(Store.get().demoTime);
+  return (o.status === "accepted" || o.status === "ready") && now > toMin(o.slot) + RULES.graceMins;
+}
+const resalePrice = (o) => Math.round(orderTotal(o) * (1 - RULES.resaleDiscount) * 100) / 100;
+const dealOrder = (d) => Store.get().orders.find((o) => o.id === d.orderId);
+// Stall side: mark the order as a no-show and list it as a last-minute deal, in one step.
+function resellOrder(orderId) {
+  Store.update((s) => {
+    const o = s.orders.find((x) => x.id === orderId);
+    if (!o || s.deals.some((d) => d.orderId === orderId)) return; // already listed
+    o.status = "noshow";
+    s.deals.push({ id: "D" + (s.deals.length + 1), orderId: o.id, stall: o.stall, price: resalePrice(o), code: null, sold: false, mine: false });
+  });
+}
+// Student side: buy a deal and get a fresh collection code.
+function buyDeal(dealId) {
+  Store.update((s) => {
+    const d = s.deals.find((x) => x.id === dealId);
+    if (!d || d.sold) return;
+    d.sold = true;
+    d.code = newCode();
+    d.mine = true;
+  });
+}
+
+/* ---- Leftover logging (end of day, one number per stall) ---- */
+// Last week's leftovers per day = prepared − sold.
+const weekLeftovers = (stall) => stall.week.prepared.map((p, i) => p - stall.week.sold[i]);
+// Today's numbers once the stall has logged leftovers. Assumes the stall cooked what the forecast suggested.
+function todayLog(stall) {
+  const leftover = Store.get().leftovers[stall.id];
+  if (leftover == null) return null; // not logged yet
+  const prepared = prepForecast(stall).cooked;
+  return { prepared, leftover, sold: Math.max(0, prepared - leftover) };
+}
+
+/* ---- Last-tray decision (late in lunch: cook one more tray or not?) ---- */
+// Walk-ins usually still to come after `time`, from LUNCH_CURVE (counts part of the current block).
+function usualWalkInsAfter(stall, time) {
+  const now = toMin(time);
+  let share = 0;
+  for (const [start, part] of Object.entries(LUNCH_CURVE)) {
+    const minsLeft = Math.min(CURVE_BLOCK_MINS, Math.max(0, toMin(start) + CURVE_BLOCK_MINS - now));
+    share += part * (minsLeft / CURVE_BLOCK_MINS);
+  }
+  return Math.round((stall.history.demand - stall.history.preorders) * share);
+}
+// Compares food on the counter with what is still needed. Returns null until the stall enters portionsLeft.
+function lastTrayAdvice(stall) {
+  const s = Store.get();
+  const left = s.portionsLeft[stall.id];
+  if (left == null) return null;
+  // "ready" orders are already packed on the shelf, so only pending + accepted still need counter food
+  const toPack = s.orders.filter((o) => o.stall === stall.id && (o.status === "pending" || o.status === "accepted")).reduce((n, o) => n + orderQty(o), 0);
+  const walkIns = usualWalkInsAfter(stall, s.demoTime);
+  const short = Math.max(0, toPack + walkIns - left); // portions we expect to run short by
+  return { left, toPack, walkIns, short, cook: short >= stall.trayPortions * RULES.lastTrayThreshold };
 }
