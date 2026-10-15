@@ -72,6 +72,7 @@ function ordersCard(st) {
   const order = ["pending", "accepted", "ready"];
   const open = orders.filter((o) => order.includes(o.status));
   const closed = orders.filter((o) => !order.includes(o.status));
+  const newCount = orders.filter((o) => o.status === "pending").length;
   const row = (o) => `
     <li class="v-order ${o.mine ? "is-new" : ""}">
       <div class="v-slot num">${o.slot}</div>
@@ -95,6 +96,7 @@ function ordersCard(st) {
   return `
   <section class="card">
     <div class="row"><h3>Pre-orders</h3><span class="muted small num">${open.length} open</span></div>
+    ${newCount ? `<div class="row-actions"><button class="btn sm" data-vact="accept-all">Accept all new (${newCount})</button></div>` : ""}
     ${open.length ? `<ul class="v-orders">${open.map(row).join("")}</ul>` : `<p class="muted">No open pre-orders. New ones appear here as students order.</p>`}
     ${closed.length ? `<details><summary class="small">Finished (${closed.length})</summary><ul class="v-orders">${closed.map(row).join("")}</ul></details>` : ""}
   </section>`;
@@ -105,7 +107,7 @@ function chartCard() {
   <section class="card">
     <div class="row"><h3>Last week: prepared vs sold</h3><span class="muted small">Sample data</span></div>
     <div class="chart-box"><canvas id="week-chart" aria-label="Portions prepared and sold, last five weekdays"></canvas></div>
-    <p class="muted small">The gap is food cooked but not sold. Logging it each day improves the next forecast.</p>
+    <p class="muted small">The gap is food cooked but not sold. That's the waste pre-orders aim to shrink.</p>
   </section>`;
 }
 
@@ -166,6 +168,8 @@ document.addEventListener("click", (e) => {
   const act = b.dataset.vact;
   const st = stallById(Vendor.stallId);
   if (act === "set") Store.update((s) => { s.orders.find((o) => o.id === b.dataset.id).status = b.dataset.s; });
+  // One tap accepts every new order for this stall (less tapping at lunch rush)
+  if (act === "accept-all") Store.update((s) => { s.orders.forEach((o) => { if (o.stall === st.id && o.status === "pending") o.status = "accepted"; }); });
   if (act === "cap") Store.update((s) => { s.caps[st.id] = Math.max(0, capFor(st) + Number(b.dataset.d)); });
   if (act === "soldout") Store.update((s) => { s.soldOut[st.id] = !s.soldOut[st.id]; });
   if (act === "verify") { Vendor.verifyFor = b.dataset.id; Vendor.verifyMsg = ""; renderVendor(); document.getElementById(`code-${b.dataset.id}`)?.focus(); }

@@ -27,6 +27,14 @@ function stallRule(stall) {
   return stall.type === "batch" ? `Order by ${RULES.batchCutoff} for lunch` : `Order ${RULES.madeToOrderLeadMins} min ahead`;
 }
 
+// When free cancellation ends. It's the same cut-off that closes ordering
+// (see isPastCutoff in data.js), so the wording always matches the Cancel button.
+function cancelUntil(stall, slot) {
+  if (stall.type === "batch") return RULES.batchCutoff;
+  if (slot) return fromMin(toMin(slot) - RULES.madeToOrderLeadMins);
+  return `${RULES.madeToOrderLeadMins} min before my slot`;
+}
+
 function statusPill(status) {
   const label = { pending: "Waiting for stall", accepted: "Confirmed", ready: "Ready to collect", collected: "Collected", declined: "Declined", cancelled: "Cancelled", noshow: "Not collected", voucher: "Voucher issued" }[status];
   return `<span class="pill pill-${status}">${label}</span>`;
@@ -40,8 +48,8 @@ function screenHome() {
   return `
     <div class="s-head">
       <p class="eyebrow">${APP.canteen}</p>
-      <h2>What's for lunch?</h2>
-      <p class="muted">Pick a stall and a collection time. Your order tells the stall how much to cook.</p>
+      <h2>Skip the lunch queue</h2>
+      <p class="muted">Order ahead, pick a collection time that suits you, and walk straight to the counter.</p>
     </div>
     ${reminderBanner()}
     <ul class="stall-list">
@@ -62,6 +70,7 @@ function screenHome() {
       }).join("")}
     </ul>
     ${mine.length ? `<button class="btn btn-ghost wide" data-act="go" data-to="orders">My orders (${mine.length})</button>` : ""}
+    <p class="muted small">Bonus: your order tells the stall how much to cook, so less food goes to waste.</p>
   `;
 }
 
@@ -96,7 +105,7 @@ function screenCheckout() {
   return `
     <button class="back" data-act="go" data-to="menu">← ${st.name}</button>
     <div class="s-head"><h2>Collection time</h2>
-      <p class="muted">Times are staggered so everyone doesn't arrive at 12:00.</p></div>
+      <p class="muted">Pick when you'll collect. Slots are spread out, so there's no 12:00 crush at the counter.</p></div>
     <div class="slots">
       ${allSlots().map((t) => {
         const c = canOrder(st, t, qty);
@@ -109,7 +118,7 @@ function screenCheckout() {
     </div>
     <label class="agree">
       <input type="checkbox" id="agree-fee" data-act="agree" ${Student.agreeFee ? "checked" : ""}>
-      <span>I understand a ${money(RULES.noShowFee)} fee applies if I don't collect within ${RULES.graceMins} min of my slot. I can cancel free until the stall starts cooking.</span>
+      <span>I understand a ${money(RULES.noShowFee)} fee applies if I don't collect within ${RULES.graceMins} min of my slot. I can cancel free until ${cancelUntil(st, Student.slot)}.</span>
     </label>
     <button class="btn wide" data-act="pay" ${Student.slot && Student.agreeFee ? "" : "disabled"}>
       Pay ${money(cartTotal())}${Student.slot ? ` · collect ${Student.slot}` : ""}
