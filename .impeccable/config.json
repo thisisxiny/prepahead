@@ -1,0 +1,26 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/assigned.html"
+        ],
+        "createdAt": "2026-10-15T08:05:27.864Z",
+        "reason": "Claude: non-shipping decision sketch of the unchosen Tingkat direction; kept only as the spent decision hand"
+      },
+      {
+        "rule": "kicker-above-heading",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/assigned.html"
+        ],
+        "createdAt": "2026-10-15T08:05:27.878Z",
+        "reason": "Claude: non-shipping decision sketch of the unchosen Tingkat direction; kept only as the spent decision hand"
+      }
+    ]
+  }
+}

@@ -1,0 +1,57 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,200..800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--teal:#00aba9;--mag:#e3007d;--lime:#8cbf26;--orange:#f09609;--w:#fff;--g:#9a9a9a}
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;background:var(--bg);color:var(--w);font-family:Archivo,sans-serif;font-size:17px}
+.top{height:64px;display:flex;align-items:center;gap:30px;padding:0 40px}
+.brand{font-weight:300;font-size:30px}.top .tag{margin-right:auto;color:var(--g);font-size:15px}
+.t{font-weight:300;font-size:32px;color:var(--teal)}
+.stage{display:grid;grid-template-columns:400px 1fr;gap:36px;padding:20px 40px}
+.phone{border:2px solid #333;border-radius:40px;padding:12px;height:800px}
+.screen{height:100%;padding:24px 18px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.huge{font-weight:200;font-size:110px;line-height:.85;letter-spacing:-.04em;white-space:nowrap;margin-left:-6px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.tile{height:150px;padding:12px;display:flex;flex-direction:column;justify-content:flex-end;font-size:22px;font-weight:400}
+.tile small{font-size:14px;opacity:.85}
+.pane{overflow:hidden}
+.pane .huge{font-size:150px}
+.row3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;margin-top:22px}
+.big{background:var(--teal);height:330px;padding:22px;display:flex;flex-direction:column;justify-content:space-between}
+.big b{font-weight:200;font-size:200px;line-height:.8;letter-spacing:-.05em}
+.big span{font-size:26px}
+.sq{height:160px;padding:16px;display:flex;flex-direction:column;justify-content:space-between;font-size:20px}
+.sq b{font-weight:300;font-size:64px;line-height:1}
+.list{margin-top:20px;display:grid;gap:2px}
+.li{display:grid;grid-template-columns:110px 1fr auto;gap:18px;align-items:center;padding:12px 0;font-size:20px}
+.li .s{font-weight:300;font-size:36px}
+.li .x{background:var(--mag);padding:6px 14px;font-size:15px}
+</style></head><body>
+<header class="top"><span class="brand">prepahead</span><span class="tag">a pre-order add-on for Cates (concept) · not affiliated</span><span class="t">09:40</span></header>
+<main class="stage">
+  <div class="phone"><div class="screen">
+    <p class="huge">lunch, sooner</p>
+    <p style="color:var(--g);font-size:18px">skip the queue · pick a time · walk to the counter</p>
+    <div class="tiles">
+      <div class="tile" style="background:var(--lime)">mixed veg rice<small>order by 10:00</small></div>
+      <div class="tile" style="background:var(--orange)">chicken rice<small>order by 10:00</small></div>
+      <div class="tile" style="background:var(--mag)">ban mian<small>30 min ahead</small></div>
+      <div class="tile" style="background:var(--teal)">western<small>30 min ahead</small></div>
+    </div>
+  </div></div>
+  <section class="pane">
+    <p class="huge">mixed veg rice</p>
+    <div class="row3">
+      <div class="big"><b>9</b><span>trays to cook · 135 portions · sample data</span></div>
+      <div style="display:grid;gap:10px"><div class="sq" style="background:#222">usual demand<b>121</b></div><div class="sq" style="background:#222">pre-ordered<b>16</b></div></div>
+      <div style="display:grid;gap:10px"><div class="sq" style="background:#222">extra<b>+0</b></div><div class="sq" style="background:var(--lime)">tomorrow<b>6</b></div></div>
+    </div>
+    <div class="list">
+      <div class="li"><span class="s">12:00</span><span>A1001 · 2 × 1 meat + 2 veg</span><span>accepted</span></div>
+      <div class="li"><span class="s">12:30</span><span>A1003 · 10 × 1 meat + 2 veg</span><span>accepted</span></div>
+      <div class="li"><span class="s">12:45</span><span>A1004 · 3 × 3 veg</span><span class="x">new</span></div>
+    </div>
+  </section>
+</main>
+</body></html>

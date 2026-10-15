@@ -1,0 +1,59 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Noto+Sans+SC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{--light:#ffffff;--red:#d7261e;--yellow:#ffd21f;--ink:#141414;--grey:#efefef;--muted:#555}
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;background:var(--grey);color:var(--ink);font-family:Archivo,sans-serif;font-size:17px}
+.top{height:72px;background:var(--ink);color:var(--light);display:flex;align-items:center;gap:28px;padding:0 40px}
+.brand{font-weight:900;font-stretch:125%;font-size:28px}.brand b{color:var(--yellow)}
+.top .tag{margin-right:auto;color:#bbb;font-size:15px}
+.t{font-weight:900;font-size:30px;color:var(--yellow)}
+.stage{display:grid;grid-template-columns:400px 1fr;gap:36px;padding:28px 40px}
+.phone{background:var(--ink);border-radius:46px;padding:12px;height:780px}
+.screen{background:var(--light);border-radius:36px;height:100%;padding:26px 20px;display:flex;flex-direction:column;gap:14px;overflow:hidden}
+h2{font-weight:900;font-stretch:110%;font-size:34px;line-height:1}
+.sign{display:grid;grid-template-columns:64px 1fr;border-radius:10px;overflow:hidden;box-shadow:0 0 0 3px var(--ink)}
+.plate{background:var(--light);display:grid;place-items:center;font-weight:900;font-size:30px;border-right:3px solid var(--ink)}
+.face{background:var(--red);color:var(--light);padding:10px 14px}
+.face .n{font-weight:900;font-size:24px;line-height:1.05}
+.face .zh{font-family:"Noto Sans SC";font-weight:900;font-size:22px;color:var(--yellow)}
+.strip{grid-column:1/-1;background:var(--yellow);padding:6px 14px;font-weight:800;font-size:15px;display:flex;justify-content:space-between}
+.dash{background:var(--light);border-radius:18px;overflow:hidden;height:780px;box-shadow:0 0 0 3px var(--ink)}
+.board{display:grid;grid-template-columns:120px 1fr auto;background:var(--red);color:var(--light);align-items:center}
+.board .plate{height:100%;font-size:56px;color:var(--ink)}
+.board h3{font-weight:900;font-stretch:115%;font-size:52px;padding:18px 24px;line-height:1}
+.board .zh{font-family:"Noto Sans SC";font-weight:900;font-size:46px;color:var(--yellow);padding-right:28px}
+.price{background:var(--yellow);display:flex;gap:40px;align-items:baseline;padding:16px 28px;border-bottom:3px solid var(--ink)}
+.price .big{font-weight:900;font-size:140px;line-height:.8;letter-spacing:-.04em}
+.price .u{font-weight:800;font-size:28px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:24px 28px}
+.box{border:3px solid var(--ink);border-radius:10px;padding:18px;display:grid;gap:10px}
+.k{display:flex;justify-content:space-between;font-size:18px}
+.row{display:flex;justify-content:space-between;align-items:center;border-top:2px solid var(--grey);padding:10px 0;font-size:17px}
+.slot{font-weight:900;font-size:28px}
+.b{background:var(--red);color:var(--light);padding:4px 12px;border-radius:6px;font-weight:800;font-size:14px}
+.btn{background:var(--ink);color:var(--yellow);padding:12px 18px;border-radius:8px;font-weight:800;display:inline-block}
+</style></head><body>
+<header class="top"><div class="brand">Prep<b>Ahead</b></div><span class="tag">A pre-order add-on for Cates (concept) · Not affiliated with Cates</span><span>Demo time</span><span class="t">09:40</span></header>
+<main class="stage">
+  <div class="phone"><div class="screen">
+    <h2>Skip the lunch queue</h2>
+    <div class="sign"><span class="plate">01</span><div class="face"><div class="n">Mixed Veg Rice</div><div class="zh">杂菜饭</div></div><div class="strip"><span>Order by 10:00</span><span>from $3.50</span></div></div>
+    <div class="sign"><span class="plate">02</span><div class="face"><div class="n">Chicken Rice</div><div class="zh">鸡饭</div></div><div class="strip"><span>Order by 10:00</span><span>from $4.20</span></div></div>
+    <div class="sign"><span class="plate">03</span><div class="face"><div class="n">Ban Mian</div><div class="zh">板面</div></div><div class="strip"><span>30 min ahead</span><span>from $4.50</span></div></div>
+    <div class="sign"><span class="plate">04</span><div class="face"><div class="n">Western</div><div class="zh">西餐</div></div><div class="strip"><span>30 min ahead</span><span>from $5.50</span></div></div>
+  </div></div>
+  <section class="dash">
+    <div class="board"><span class="plate">01</span><h3>Mixed Veg Rice</h3><span class="zh">杂菜饭</span></div>
+    <div class="price"><span class="big">9</span><span class="u">trays to cook · 135 portions</span><span style="margin-left:auto;font-weight:800">Updates until 10:00 · sample data</span></div>
+    <div class="cols">
+      <div class="box"><div class="k"><span>Usual demand</span><b>121</b></div><div class="k"><span>Pre-ordered</span><b>16</b></div><div class="k"><span>Extra above usual</span><b>+0</b></div><div class="k" style="border-top:3px solid var(--ink);padding-top:8px"><span>Suggested</span><b>121</b></div><p>Recurring orders tomorrow (Thu): 6 portions.</p></div>
+      <div class="box"><div class="k"><b>Pre-orders</b><span>4 open</span></div><span class="btn">Accept all new (1)</span>
+        <div class="row"><span class="slot">12:00</span><span>A1001 · 2 × 1 meat + 2 veg</span></div>
+        <div class="row"><span class="slot">12:30</span><span>A1003 · 10 × 1 meat + 2 veg</span></div>
+        <div class="row"><span class="slot">12:45</span><span>A1004 · 3 × 3 veg</span><span class="b">New</span></div></div>
+    </div>
+  </section>
+</main>
+</body></html>

@@ -1,0 +1,101 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--enamel:#f6f8fb;--white:#fff;--cobalt:#1d4ea3;--ink:#0f1d33;--muted:#4f5d73;--line:#d5dce8;--red:#d6402c;--jade:#257a52;--marigold:#e2a12b;--rose:#d4708a;--plum:#6f58a8}
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;background:var(--enamel);color:var(--ink);font-family:"Atkinson Hyperlegible",sans-serif;font-size:17px}
+.num{font-family:Archivo;font-variant-numeric:tabular-nums}
+.top{height:72px;background:var(--white);border-bottom:5px solid var(--cobalt);display:flex;align-items:center;gap:28px;padding:0 40px}
+.brand{font-family:Archivo;font-stretch:125%;font-weight:850;font-size:28px;color:var(--cobalt);letter-spacing:-.01em}
+.brand b{color:var(--ink)}
+.tag{color:var(--muted);font-size:15px;margin-right:auto}
+.clock{display:flex;align-items:center;gap:12px}
+.clock .bar{width:180px;height:8px;border-radius:4px;background:var(--line);position:relative}
+.clock .bar i{position:absolute;left:0;top:0;bottom:0;width:28%;background:var(--cobalt);border-radius:4px}
+.clock .t{font-family:Archivo;font-weight:800;font-size:30px}
+.seg{display:flex;border:2px solid var(--ink);border-radius:999px;padding:3px}
+.seg span{padding:6px 16px;border-radius:999px;font-weight:700;font-size:15px}
+.seg .on{background:var(--ink);color:var(--white)}
+.stage{display:grid;grid-template-columns:400px 1fr;gap:36px;padding:28px 40px}
+.phone{background:var(--ink);border-radius:46px;padding:12px;height:780px}
+.screen{background:var(--white);border-radius:36px;height:100%;padding:28px 22px;display:flex;flex-direction:column;gap:16px;overflow:hidden}
+.eyebrow{font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+h2{font-family:Archivo;font-stretch:112%;font-weight:850;font-size:34px;line-height:1.02}
+.lead{color:var(--muted);font-size:17px}
+.band{background:var(--cobalt);color:var(--white);border-radius:14px;padding:12px 16px;font-weight:700}
+.tier{border:2px solid var(--line);border-top:8px solid var(--c);border-radius:16px 16px 12px 12px;padding:12px 16px;display:grid;gap:4px}
+.tier .n{font-family:Archivo;font-weight:800;font-size:23px}
+.tier .m{color:var(--muted);font-size:15px;display:flex;justify-content:space-between}
+.dash{background:var(--white);border-radius:24px;border-top:6px solid var(--cobalt);overflow:hidden;height:780px}
+.head{background:var(--jade);color:var(--white);padding:22px 28px;display:flex;justify-content:space-between;align-items:flex-end}
+.head h3{font-family:Archivo;font-stretch:118%;font-weight:850;font-size:44px;line-height:1}
+.chip{border:2px solid var(--white);border-radius:999px;padding:4px 14px;font-weight:700;font-size:15px}
+.grid{display:grid;grid-template-columns:1.15fr 1fr;gap:24px;padding:24px 28px}
+.panel{border:2px solid var(--line);border-radius:18px;padding:20px;display:grid;gap:14px}
+.prep{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:end}
+.big{font-family:Archivo;font-weight:900;font-size:168px;line-height:.8;letter-spacing:-.04em}
+.big small{display:block;font-size:26px;font-weight:700;letter-spacing:0;margin-top:14px}
+.stack{display:flex;flex-direction:column-reverse;gap:5px}
+.stack i{height:24px;border:2px solid var(--cobalt);border-radius:7px 7px 5px 5px;background:var(--white)}
+.stack i.pre{background:var(--jade);border-color:var(--jade)}
+.stack i.part{background:linear-gradient(90deg,var(--jade) 7%,var(--white) 7%)}
+.stack i.spare{border-style:dashed}
+.keys{display:grid;gap:6px;font-size:16px}
+.keys div{display:flex;justify-content:space-between}
+.keys .sum{border-top:2px solid var(--ink);padding-top:6px;font-weight:700}
+.note{background:var(--enamel);border-radius:12px;padding:12px 14px;font-size:16px}
+.row{display:grid;grid-template-columns:78px 1fr auto;gap:14px;align-items:center;padding:12px 0;border-top:2px solid var(--line)}
+.slot{font-family:Archivo;font-weight:800;font-size:28px}
+.badge{border-radius:999px;padding:4px 12px;font-weight:700;font-size:14px;border:2px solid var(--cobalt);color:var(--cobalt)}
+.badge.new{background:var(--red);border-color:var(--red);color:var(--white)}
+.btn{background:var(--cobalt);color:var(--white);border-radius:12px;padding:12px 18px;font-weight:700;font-size:17px;display:inline-block}
+.btn.red{background:var(--red)}
+.ghost{background:none;color:var(--cobalt);border:2px solid var(--cobalt)}
+</style></head><body>
+<header class="top">
+  <div class="brand">Prep<b>Ahead</b></div>
+  <span class="tag">A pre-order add-on for Cates (concept) · Not affiliated with Cates</span>
+  <div class="clock"><span class="eyebrow">Demo time</span><span class="bar"><i></i></span><span class="t">09:40</span></div>
+  <div class="seg"><span class="on">Both</span><span>Student</span><span>Stall</span></div>
+</header>
+<main class="stage">
+  <div class="phone"><div class="screen">
+    <p class="eyebrow">North Spine Canteen</p>
+    <h2>Skip the lunch queue</h2>
+    <p class="lead">Order ahead, pick a time, walk straight to the counter.</p>
+    <div class="band">Early bird: order before 10:00, save 10%</div>
+    <div class="tier" style="--c:var(--jade)"><span class="n">Mixed Veg Rice</span><span class="m"><span>Order by 10:00</span><span class="num">16 / 40</span></span></div>
+    <div class="tier" style="--c:var(--marigold)"><span class="n">Chicken Rice</span><span class="m"><span>Order by 10:00</span><span class="num">6 / 35</span></span></div>
+    <div class="tier" style="--c:var(--rose)"><span class="n">Ban Mian</span><span class="m"><span>Order 30 min ahead</span><span class="num">1 / 30</span></span></div>
+    <div class="tier" style="--c:var(--plum)"><span class="n">Western</span><span class="m"><span>Order 30 min ahead</span><span class="num">0 / 25</span></span></div>
+  </div></div>
+  <section class="dash">
+    <div class="head"><div><p class="eyebrow" style="color:#ffffff">Stall dashboard · sample data</p><h3>Mixed Veg Rice</h3></div><span class="chip">Batch-cooked</span></div>
+    <div class="grid">
+      <div class="panel">
+        <p class="eyebrow">Today's lunch · updates until 10:00</p>
+        <div class="prep">
+          <p class="big num">9<small>trays to cook</small></p>
+          <div class="stack"><i class="part"></i><i class="pre" style="display:none"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="spare"></i></div>
+        </div>
+        <div class="keys num">
+          <div><span>Usual demand (history)</span><b>121</b></div>
+          <div><span>Pre-ordered so far</span><b>16 / 40</b></div>
+          <div><span>Extra above usual (20)</span><b>+0</b></div>
+          <div class="sum"><span>Suggested portions</span><b>121 → 135</b></div>
+        </div>
+        <p class="note">Recurring orders tomorrow (Thu): <b>6</b> portions, so buy ingredients for these.</p>
+      </div>
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:center"><p class="eyebrow">Pre-orders</p><span class="num" style="font-weight:700">4 open</span></div>
+        <span class="btn red">Accept all new (1)</span>
+        <div class="row"><span class="slot num">12:00</span><span><b>A1001</b> 2 × 1 meat + 2 veg</span><span class="badge">Accepted</span></div>
+        <div class="row"><span class="slot num">12:15</span><span><b>A1002</b> 1 × 2 meat + 1 veg</span><span class="badge">Accepted</span></div>
+        <div class="row"><span class="slot num">12:30</span><span><b>A1003</b> 10 × 1 meat + 2 veg</span><span class="badge">Accepted</span></div>
+        <div class="row"><span class="slot num">12:45</span><span><b>A1004</b> 3 × 3 veg</span><span class="badge new">New</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+</body></html>

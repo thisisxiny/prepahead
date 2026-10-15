@@ -26,6 +26,7 @@ const RULES = {
 };
 
 /* ---- Stalls ----
+   no:   stall number on the signboard (sample), zh: Chinese name on the signboard
    type: "batch" = cooked in bulk before lunch (benefits most)
          "made"  = cooked when ordered (benefits via ingredient + queue planning)
    cap:  max pre-order portions the stall accepts for lunch
@@ -36,7 +37,7 @@ const RULES = {
    savedThisWeek: portions not cooked this week thanks to pre-orders (sample, shown to students) */
 const STALLS = [
   {
-    id: "caipng", name: "Mixed Veg Rice", type: "batch", cap: 40, trayPortions: 15,
+    id: "caipng", no: "01", name: "Mixed Veg Rice", zh: "杂菜饭", type: "batch", cap: 40, trayPortions: 15,
     history: { demand: 121, preorders: 20, noShowRate: 0.04 },
     week: { prepared: [150, 150, 165, 150, 150], sold: [118, 124, 131, 109, 122] },
     savedThisWeek: 40,
@@ -47,7 +48,7 @@ const STALLS = [
     ],
   },
   {
-    id: "chickenrice", name: "Chicken Rice", type: "batch", cap: 35, trayPortions: 12,
+    id: "chickenrice", no: "02", name: "Chicken Rice", zh: "鸡饭", type: "batch", cap: 35, trayPortions: 12,
     history: { demand: 96, preorders: 15, noShowRate: 0.06 },
     week: { prepared: [120, 120, 132, 120, 120], sold: [92, 101, 99, 88, 97] },
     savedThisWeek: 28,
@@ -58,7 +59,7 @@ const STALLS = [
     ],
   },
   {
-    id: "banmian", name: "Ban Mian", type: "made", cap: 30, trayPortions: 10,
+    id: "banmian", no: "03", name: "Ban Mian", zh: "板面", type: "made", cap: 30, trayPortions: 10,
     history: { demand: 84, preorders: 10, noShowRate: 0.03 },
     week: { prepared: [95, 95, 100, 95, 95], sold: [80, 86, 90, 79, 85] },
     savedThisWeek: 15,
@@ -69,7 +70,7 @@ const STALLS = [
     ],
   },
   {
-    id: "western", name: "Western", type: "made", cap: 25, trayPortions: 10,
+    id: "western", no: "04", name: "Western", zh: "西餐", type: "made", cap: 25, trayPortions: 10,
     history: { demand: 70, preorders: 8, noShowRate: 0.05 },
     week: { prepared: [80, 80, 85, 80, 80], sold: [66, 72, 74, 63, 71] },
     savedThisWeek: 12,
@@ -163,6 +164,13 @@ const stallById = (id) => STALLS.find((s) => s.id === id);
 const orderTotal = (o) => o.items.reduce((sum, i) => sum + i.qty * i.price, 0);
 const orderQty = (o) => o.items.reduce((sum, i) => sum + i.qty, 0);
 const LIVE = ["pending", "accepted", "ready", "collected"];
+
+// Small line icons shared by both sides (24px grid, 2px stroke, colour follows the text).
+const ICON = {
+  minus: '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg>',
+  plus: '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
+  back: '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>',
+};
 
 function allSlots() {
   const out = [];

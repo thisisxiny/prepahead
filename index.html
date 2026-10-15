@@ -7,7 +7,8 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<!-- Archivo: signboard lettering + all UI text. Noto Sans SC: the Chinese stall names. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Noto+Sans+SC:wght@700;900&display=swap">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,10 +19,10 @@
     <!-- Concept framing: PrepAhead as an add-on to Cates. Our own colours only, no Cates logo or styling. -->
     <div class="brand">
       <h1>Prep<b>Ahead</b></h1>
-      <span class="muted small">A pre-order add-on for Cates (concept) · Not affiliated with Cates</span>
+      <span class="small">A pre-order add-on for Cates (concept) · Not affiliated with Cates</span>
     </div>
     <div class="clock">
-      <label for="demo-time" class="small muted">Demo time</label>
+      <label for="demo-time" class="small">Demo time</label>
       <input type="range" id="demo-time" min="480" max="840" step="5">
       <output id="demo-time-out" for="demo-time">09:40</output>
     </div>
@@ -37,13 +38,13 @@
 <main class="stage" id="stage" data-view="both">
   <!-- ===== Person A: student app ===== -->
   <section class="pane-student" aria-label="Student app">
-    <div class="pane-label"><p class="eyebrow"><b>Student</b> · phone app</p></div>
+    <p class="pane-label"><span><b>Student</b> phone app</span><span>Sample data</span></p>
     <div class="phone"><div class="phone-screen" id="student-app"></div></div>
   </section>
 
   <!-- ===== Person B: stall dashboard ===== -->
   <section class="pane-vendor" aria-label="Stall dashboard">
-    <div class="pane-label"><p class="eyebrow"><b>Stall</b> · tablet dashboard</p><p class="muted small">All figures are sample data</p></div>
+    <p class="pane-label"><span><b>Stall</b> counter tablet</span><span>All figures are sample data</span></p>
     <div class="dash" id="vendor-app"></div>
   </section>
 </main>
@@ -67,7 +68,7 @@
   }
   document.querySelectorAll(".seg button").forEach((b) => b.addEventListener("click", () => setView(b.dataset.view)));
   document.getElementById("reset-demo").addEventListener("click", () => {
-    Object.assign(Student, { screen: "home", stallId: null, cart: {}, slot: null, lastOrderId: null, agreeFee: false });
+    Object.assign(Student, { screen: "home", stallId: null, cart: {}, slot: null, lastOrderId: null, agreeFee: false, repeat: false, repeatDays: [], lastRecurringId: null, lastDealId: null });
     Store.reset();
   });
   Store.subscribe(syncClock);
