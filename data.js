@@ -1,5 +1,5 @@
 /* ============================================================
-   data.js  —  SHARED FILE (both people read it; change carefully)
+   data.js
    Holds: app settings, the pre-ordering rules, stalls + menus,
    sample history, and the "Store" that both sides talk through.
    All numbers here are SAMPLE data for the prototype.

@@ -23,7 +23,7 @@ A waste-reduction extension to Cates, the ordering app already used at NTU (conc
 
 ## Operating Context
 
-- A team member drives the prototype on a laptop while visitors stand around and watch. The default "Both" view shows the student phone and the stall dashboard side by side, so an order placed on one side appears on the other.
+- The presenter drives the prototype on a laptop while visitors stand around and watch. The default "Both" view shows the student phone and the stall dashboard side by side, so an order placed on one side appears on the other.
 - Demo controls in the top bar: a demo clock (08:00–14:00) to move past cut-offs and into lunch, a Both / Student / Stall view switch, and Reset demo between visitors. README.md holds the showcase demo script.
 - The depicted vendor uses the dashboard mid-service with little time and low comfort with new technology. The depicted student orders in a few taps between classes.
 
@@ -33,7 +33,7 @@ A waste-reduction extension to Cates, the ordering app already used at NTU (conc
 - **Stall side:** prep forecast (suggested = usual demand + max(0, today's pre-orders − usual pre-orders), rounded up to whole trays), tomorrow's recurring portions for ingredient buying, pre-order limit and sold-out switch, accept / accept all / decline / put on shelf / check code / no-show / voucher, resell uncollected orders at a discount, no-show rate, last-tray decision, end-of-day leftover logging, and a prepared / sold / leftover chart.
 - **Rules** (cut-offs, lead time, slot spacing, fees, grace period, discounts, thresholds) are placeholders the group may change. They live in `RULES` in data.js and are never hard-coded.
 - **Tech:** plain HTML, CSS and vanilla JavaScript. No frameworks, build step, npm or backend. Must work when index.html is opened directly from `file://`, so scripts are classic scripts sharing globals, and libraries load only by CDN script tags (Chart.js, qrcodejs). All state goes through `Store` in data.js (localStorage). The order format is fixed across both sides.
-- **Team:** students new to web development (Python, Java, SQL). Code must stay readable, commented and simple. Ownership: student.js is Person A's, vendor.js is Person B's, data.js / style.css / index.html are shared.
+- **Team:** students new to web development (Python, Java, SQL). Code must stay readable, commented and simple.
 
 ## Brand Commitments
 

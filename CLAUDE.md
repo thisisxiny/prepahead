@@ -17,15 +17,6 @@ Clickable prototype for a university group project (NTU, course CC0006, group T0
 - Style only with the CSS variables in `style.css` so light and dark mode both work.
 - The team are students new to web dev (background: Python, Java, SQL). Keep code readable, commented, and simple over clever.
 
-## File ownership (two people vibe-coding in parallel)
-| File | Owner |
-|---|---|
-| `student.js` | Person A — student phone app |
-| `vendor.js` | Person B — stall dashboard |
-| `data.js`, `style.css`, `index.html` | Shared — change only when asked, and keep both sides working |
-
-When asked to work on one side, **only edit that side's file** unless the user explicitly asks to change a shared file. If a shared change is needed, say so and explain why before making it.
-
 ## Order format (must not change without updating both sides)
 ```js
 { id: "A1023", code: "4821", stall: "caipng",

@@ -9,7 +9,7 @@ related_targets: ["style.css","student.js","vendor.js"]
 
 Scope: the whole prototype page: top bar with demo controls, the student phone app (student.js) and the stall counter tablet (vendor.js), in Both / Student / Stall views. Visitor mode: Operate. Two depicted tasks: a student pre-orders lunch; a stall decides how much to cook and handles orders.
 
-Audience and job: graders and classmates at the Week 10 showcase, watching over a teammate's shoulder on a laptop. They must follow one order from phone to tablet and see the cooking number change. Must stay readable from a step behind the screen.
+Audience and job: graders and classmates at the Week 10 showcase, watching over the presenter's shoulder on a laptop. They must follow one order from phone to tablet and see the cooking number change. Must stay readable from a step behind the screen.
 
 Constraints: keep the side-by-side Both view and the phone + tablet framing; plain HTML/CSS/vanilla JS, no build; every figure stays labelled sample data; light and dark both work.
 

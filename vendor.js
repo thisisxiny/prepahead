@@ -1,5 +1,5 @@
 /* ============================================================
-   vendor.js  —  PERSON B's FILE
+   vendor.js
    The stall's side: today's prep number (and tomorrow's recurring
    orders), pre-order limit, incoming orders (accept / decline /
    ready / collected, resell uncollected ones), last-minute deals,

@@ -1,5 +1,5 @@
 /* ============================================================
-   student.js  —  PERSON A's FILE
+   student.js
    The student app: browse stalls → pick food → pick a collection
    slot → pay → QR code → my orders. Each stall is drawn as its
    canteen signboard (see signParts and .sign in style.css).
