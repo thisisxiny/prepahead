@@ -11,7 +11,7 @@ Scope: the whole prototype page: top bar with demo controls, the student phone a
 
 Audience and job: graders and classmates at the Week 10 showcase, watching over the presenter's shoulder on a laptop. They must follow one order from phone to tablet and see the cooking number change. Must stay readable from a step behind the screen.
 
-Constraints: keep the side-by-side Both view and the phone + tablet framing; plain HTML/CSS/vanilla JS, no build; every figure stays labelled sample data; light and dark both work.
+Constraints: keep the side-by-side Both view and the phone + tablet framing; plain HTML/CSS/vanilla JS, no build; every figure stays labelled sample data; light only (looks the same when the computer is in dark mode).
 
 Unresolved: final survey numbers (not in the project); stall numbers 01–04 are sample identifiers.
 

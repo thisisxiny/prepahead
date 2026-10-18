@@ -281,7 +281,7 @@ function drawChart(st) {
       labels: log ? [...WEEK_LABELS, "Today"] : WEEK_LABELS,
       datasets: [
         { label: "Prepared", data: withToday(st.week.prepared, "prepared"), backgroundColor: c("--chart-prepared"), borderRadius: 3 },
-        { label: "Sold", data: withToday(st.week.sold, "sold"), backgroundColor: c("--ink"), borderRadius: 3 },
+        { label: "Sold", data: withToday(st.week.sold, "sold"), backgroundColor: c("--chart-sold"), borderRadius: 3 },
         { label: "Leftover", data: withToday(weekLeftovers(st), "leftover"), backgroundColor: c("--sign"), borderRadius: 3 },
       ],
     },

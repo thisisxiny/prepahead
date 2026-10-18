@@ -1,79 +1,116 @@
 ---
 name: PrepAhead
-description: A pre-order add-on concept for Cates, drawn as canteen stall signboards (prototype, sample data).
+description: A pre-order add-on concept for Cates, drawn as quiet canteen stall signboards so the features lead (prototype, sample data).
 colors:
-  ground: "#e4e6e9"
+  ground: "#eceef1"
   panel: "#ffffff"
-  panel-2: "#f1f2f4"
-  ink: "#141414"
-  ink-2: "#333333"
+  panel-2: "#f4f5f7"
+  ink: "#1b1d20"
+  ink-2: "#3a3e44"
   on-ink: "#ffffff"
-  muted: "#4a4f55"
-  line: "#cdd1d6"
-  line-strong: "#8a9097"
-  sign: "#c8231b"
+  muted: "#555b62"
+  line: "#e0e3e7"
+  line-strong: "#8f959c"
+  sign: "#b53930"
   sign-ink: "#ffffff"
-  sign-zh: "#ffd21f"
-  strip: "#ffd21f"
-  strip-ink: "#141414"
-  go: "#17803d"
+  sign-zh: "#fbe7b0"
+  strip: "#faf0cf"
+  strip-ink: "#1b1d20"
+  strip-line: "#d8bb5a"
+  go: "#1e7a43"
   go-ink: "#ffffff"
-  bad: "#c8231b"
+  bad: "#b53930"
   bad-ink: "#ffffff"
-  bad-text: "#b01d16"
-  off: "#6d7379"
-  topbar: "#141414"
-  topbar-ink: "#ffffff"
-  topbar-muted: "#b8bdc3"
+  bad-text: "#a8322a"
+  off: "#7a8087"
+  topbar: "#ffffff"
+  topbar-ink: "#1b1d20"
+  topbar-muted: "#555b62"
+  brand-accent: "#b53930"
+  phone: "#1b1d20"
   plate: "#ffffff"
-  plate-ink: "#141414"
-  chart-prepared: "#b9bec4"
+  plate-ink: "#1b1d20"
+  chart-prepared: "#c9ced4"
+  chart-sold: "#56606b"
 typography:
   display:
     fontFamily: "Archivo Local, Archivo, Helvetica Neue, Arial, sans-serif"
-    fontSize: "clamp(5rem, 16.5cqi, 9rem)"
-    fontWeight: 900
-    lineHeight: 0.8
-    letterSpacing: "-0.04em"
+    fontSize: "clamp(3.25rem, 9cqi, 5rem)"
+    fontWeight: 800
+    lineHeight: 0.9
+    letterSpacing: "-0.03em"
+    fontFeature: "\"tnum\""
+  numerals:
+    fontFamily: "Archivo Local, Archivo, Helvetica Neue, Arial, sans-serif"
+    fontSize: "2.2rem"
+    fontWeight: 800
+    letterSpacing: "0.18em"
     fontFeature: "\"tnum\""
   headline:
     fontFamily: "Archivo Local, Archivo, Helvetica Neue, Arial, sans-serif"
-    fontSize: "1.85rem"
+    fontSize: "1.6rem"
+    fontWeight: 700
+    lineHeight: 1.1
+    letterSpacing: "-0.015em"
+  strip-title:
+    fontFamily: "Archivo Local, Archivo, Helvetica Neue, Arial, sans-serif"
+    fontSize: "1.4rem"
+    fontWeight: 700
+    lineHeight: 1.1
+  brand:
+    fontFamily: "Archivo Local, Archivo, Helvetica Neue, Arial, sans-serif"
+    fontSize: "1.35rem"
     fontWeight: 800
-    lineHeight: 1.05
     letterSpacing: "-0.01em"
-    fontVariation: "\"wdth\" 112"
+    fontVariation: "\"wdth\" 110"
+  slot-time:
+    fontFamily: "Archivo Local, Archivo, Helvetica Neue, Arial, sans-serif"
+    fontSize: "1.2rem"
+    fontWeight: 700
+    fontFeature: "\"tnum\""
   sign-name:
     fontFamily: "Archivo Local, Archivo, Helvetica Neue, Arial, sans-serif"
-    fontSize: "1.3rem"
-    fontWeight: 900
-    lineHeight: 1.05
-    letterSpacing: "0.01em"
-    fontVariation: "\"wdth\" 118"
+    fontSize: "1.05rem"
+    fontWeight: 800
+    lineHeight: 1.1
+    letterSpacing: "0.02em"
+    fontVariation: "\"wdth\" 108"
   sign-zh:
     fontFamily: "Noto Sans SC Stalls, Noto Sans SC, PingFang SC, Microsoft YaHei, sans-serif"
-    fontSize: "1.25rem"
+    fontSize: "0.98rem"
     fontWeight: 900
     lineHeight: 1.25
   title:
     fontFamily: "Archivo Local, Archivo, Helvetica Neue, Arial, sans-serif"
-    fontSize: "1.02rem"
-    fontWeight: 800
-    letterSpacing: "0.03em"
-    fontVariation: "\"wdth\" 112"
+    fontSize: "1rem"
+    fontWeight: 700
   body:
     fontFamily: "Archivo Local, Archivo, Helvetica Neue, Arial, sans-serif"
     fontSize: "16px"
     fontWeight: 400
     lineHeight: 1.45
+  body-small:
+    fontFamily: "Archivo Local, Archivo, Helvetica Neue, Arial, sans-serif"
+    fontSize: "0.95rem"
+    fontWeight: 400
+  secondary:
+    fontFamily: "Archivo Local, Archivo, Helvetica Neue, Arial, sans-serif"
+    fontSize: "0.875rem"
+    fontWeight: 400
   label:
     fontFamily: "Archivo Local, Archivo, Helvetica Neue, Arial, sans-serif"
-    fontSize: "0.78rem"
-    fontWeight: 800
-    letterSpacing: "0.04em"
+    fontSize: "0.75rem"
+    fontWeight: 600
+    letterSpacing: "0.01em"
 rounded:
+  xs: "3px"
+  tag: "4px"
   sm: "6px"
   md: "10px"
+  switch: "14px"
+  tablet: "16px"
+  phone-screen: "31px"
+  phone: "40px"
 spacing:
   xs: "8px"
   sm: "12px"
@@ -85,14 +122,14 @@ components:
     backgroundColor: "{colors.ink}"
     textColor: "{colors.on-ink}"
     rounded: "{rounded.sm}"
-    padding: "12px 18px"
+    padding: "11px 18px"
   button-primary-hover:
     backgroundColor: "{colors.ink-2}"
   button-ghost:
     backgroundColor: "transparent"
     textColor: "{colors.ink}"
     rounded: "{rounded.sm}"
-    padding: "12px 18px"
+    padding: "11px 18px"
   button-ghost-hover:
     backgroundColor: "{colors.panel-2}"
   button-small:
@@ -101,11 +138,11 @@ components:
     backgroundColor: "{colors.sign}"
     textColor: "{colors.sign-ink}"
     typography: "{typography.sign-name}"
-    padding: "10px 14px 9px"
+    padding: "9px 12px 8px"
   signboard-plate:
     backgroundColor: "{colors.plate}"
     textColor: "{colors.plate-ink}"
-    width: "56px"
+    width: "48px"
   signboard-strip:
     backgroundColor: "{colors.strip}"
     textColor: "{colors.strip-ink}"
@@ -126,17 +163,17 @@ components:
     backgroundColor: "{colors.strip}"
     textColor: "{colors.strip-ink}"
     typography: "{typography.label}"
-    padding: "2px 8px"
+    padding: "1px 7px"
   tag-ready:
     backgroundColor: "{colors.go}"
     textColor: "{colors.go-ink}"
     typography: "{typography.label}"
-    padding: "2px 8px"
+    padding: "1px 7px"
   tag-problem:
     backgroundColor: "{colors.bad}"
     textColor: "{colors.bad-ink}"
     typography: "{typography.label}"
-    padding: "2px 8px"
+    padding: "1px 7px"
   banner:
     backgroundColor: "{colors.strip}"
     textColor: "{colors.strip-ink}"
@@ -146,162 +183,172 @@ components:
 
 # Design System: PrepAhead
 
-All values below live as CSS variables in `style.css`. Style only through those variables so light and dark mode both keep working. Every figure on screen is sample data and stays labelled that way.
+All values below live as CSS variables in `style.css`. Style only through those variables. The page is light only: it looks the same when the computer is in dark mode. Every figure on screen is sample data and stays labelled that way.
 
 ## Overview
 
-**Creative North Star: "The Canteen Lightbox"**
+**Creative North Star: "The Canteen Lightbox, dimmed"**
 
-PrepAhead looks like the row of lit stall signboards above an NTU canteen counter. Each stall is a red signboard with a white numbered plate, its English name in heavy, wide white capitals, its Chinese name in yellow, and a yellow strip underneath that carries the stall's one number. Everything that is not a signboard is a plain white panel with an ink frame, sitting on a cool grey wall.
+PrepAhead still looks like the row of stall signboards above an NTU canteen counter: each stall has a white numbered plate, a red face with its English name in wide capitals and its Chinese name in pale gold, and a strip underneath. But the signs are dimmed so the prototype's features (cut-offs, early bird, slots, the prep number, pre-orders, resale, leftovers) are what visitors look at during the showcase, not the styling.
 
-The page is a demo seen from a step behind a laptop, so it is bold and big rather than delicate: thick 2px ink frames, heavy type, one very large number per stall (trays to cook). It is built from flat colour blocks, not photos. PrepAhead is a concept add-on to Cates and is not affiliated with it, so it never borrows Cates' logo or styling.
+Quiet means: colour is an accent, not a background; type is medium-weight, not black; structure comes from thin grey lines, not thick black frames. The one big number per stall (trays to cook) is still the largest thing on the tablet, but it no longer shouts. It is built from flat colour blocks, not photos. PrepAhead is a concept add-on to Cates and is not affiliated with it, so it never borrows Cates' logo or styling.
 
 **Key Characteristics:**
-- Red signboard + white plate + yellow strip is the unit every stall is drawn with, on the phone and on the tablet.
-- Ink (near-black) does the structural work: text, frames, the top bar, primary buttons.
-- Yellow means "look here": the strip, prices, the demo clock, the pickup code, new orders.
+- Plate + red face + pale strip is the unit every stall is drawn with, on the phone and on the tablet.
+- Ink (near-black) does the text and the primary buttons. Lines are thin and grey.
+- Pale yellow means "look here": the strip, discounted prices, the early-bird banner, the pickup code, new orders.
 - Red away from a signboard means a problem.
-- Status is shown by fill versus outline, never by colour alone.
+- Status is shown by fill versus outline plus the word, never by colour alone.
 
 ## Colors
 
-Three loud signage colours (signboard red, strip yellow, ink) over a quiet cool-grey and white base, plus one green for "ready".
+Softened signage colours (a muted brick red, a pale yellow tint) used as accents over a light cool-grey and white base, plus one green for "ready".
 
 ### Primary
-- **Signboard Red** (`--sign`): the face of every stall signboard and the tablet header. Also the "Leftover" bars in the week chart, because leftover food is the problem being solved.
-- **Strip Yellow** (`--strip`): the strip under each signboard, discounted prices, the early-bird banner, the demo clock numerals, the pickup code, the "New" status tag, text selection, and the arrival flash. The Chinese stall name (`--sign-zh`) uses the same yellow.
-- **Counter Ink** (`--ink`): body text, all 2px frames, primary buttons, the selected time slot, "Sold" bars in the chart. Hover darkens/lightens to `--ink-2`.
+- **Signboard Red** (`--sign`, softened from a pure red): the face of every stall signboard and the tablet header. Also the "Leftover" bars in the week chart, because leftover food is the problem being solved. The brand's "Ahead" uses `--brand-accent` (the same red).
+- **Strip Yellow** (`--strip`, a pale tint): the strip under each signboard, the tablet's tray-number strip, discounted prices, the early-bird banner, the pickup code, the "New" tag, the arrival flash and text selection. Small yellow markers get a thin `--strip-line` edge so they hold their shape on white. The Chinese stall name uses `--sign-zh`, a pale gold that stays readable on the red.
+- **Counter Ink** (`--ink`): body text, primary buttons, the selected time slot and the pressed view button. Hover moves to `--ink-2`.
 
 ### Secondary
 - **Shelf Green** (`--go`): only for "On shelf" (ready to collect).
-- **Problem Red** (`--bad`, same red as the signboard): no-show and uncollected tags, the "stop pre-orders" switch when it is on. On a white panel, error text uses the deeper `--bad-text` so it stays readable.
+- **Problem Red** (`--bad`, same red as the signboard): no-show and uncollected tags, the "stop pre-orders" switch when it is on. On a panel, error text uses the deeper `--bad-text`.
+- **Chart** : `--chart-prepared` (light grey), `--chart-sold` (slate, also the pre-order limit meter), `--sign` for leftover.
 
 ### Neutral
 - **Canteen Wall** (`--ground`): the page background behind the phone and tablet.
-- **Lightbox White** (`--panel`): phone screen, tablet, cards, order rows. `--panel-2` is the quiet fill inside a panel (the tablet's card area, notes, hover on outline buttons).
-- **Muted Grey** (`--muted`): secondary text, chart labels. `--line` for hairlines between rows, `--line-strong` for quiet borders and dashed "off" states.
+- **Lightbox White** (`--panel`): top bar, phone screen, tablet, cards, order rows. `--panel-2` is the quiet fill inside a panel (the tablet's card area, notes, hovers).
+- **Muted Grey** (`--muted`): secondary text, chart labels. `--line` for hairlines around cards and between rows; `--line-strong` (3:1 on white) for the edges of controls: ghost buttons, slots, steppers, inputs, the switch.
 - **Switched-off Grey** (`--off`): a closed or sold-out stall's signboard face.
-- **Plate White** (`--plate`): the stall number plate. It stays white in dark mode too.
+- **Plate** (`--plate`): the stall number plate, white.
 
-### Dark mode
-Dark mode swaps the neutrals (ground, panel, ink, muted, lines, off, chart-prepared, shadow) and turns the focus ring yellow. The signboard red, strip yellow, plate white and shelf green do not change: lit signs stay lit.
+### Light only
+There is no dark mode. `color-scheme: light` on `:root` keeps the page and the browser's own controls (slider, checkbox, scrollbar) light even when the computer is set to dark mode, so the showcase looks the same on any laptop. Don't add `prefers-color-scheme` overrides.
 
 ### Named Rules
-**The Red Means Trouble Rule.** Red appears in two places only: on a signboard face, and on something that has gone wrong (no-show, uncollected, leftover, the stop switch on, error text). Don't use red for a normal action or decoration.
+**The Red Means Trouble Rule.** Red appears on a signboard face, the brand's "Ahead", and on something that has gone wrong (no-show, uncollected, leftover, the stop switch on, error text). Don't use red for a normal action or decoration.
 
-**The Yellow Points Rule.** Yellow sits under ink text (`--strip-ink`), never white text. Use it for the one thing on a screen the viewer should read first.
+**The Yellow Points Rule.** Yellow is a pale tint under ink text, never white text. Use it for the thing on a screen the viewer should read first, and keep it small.
+
+**The Accent Not Background Rule.** No large block of saturated colour other than the signboard faces. Everything else is white or pale grey.
 
 ## Typography
 
 **Display / UI Font:** Archivo (self-hosted as "Archivo Local", Google Fonts backup), variable width 62–125% and weight 400–900, falling back to Helvetica Neue / Arial.
 **Chinese Font:** Noto Sans SC Black, self-hosted as a tiny subset with only the characters in the four stall names. Adding a stall with new characters needs the subset rebuilt (or it falls back to the Google Fonts copy / system Chinese font).
 
-**Character:** One family does everything. Signboard lettering is Archivo pushed wide (118–125%) and black (900) in capitals; the rest of the UI is the same family at normal width.
+**Character:** One family does everything, at medium weights. Only signboard lettering and the brand are widened (108–110%) and in capitals; the rest of the UI is normal width and sentence case.
 
 ### Hierarchy
-- **Display** (900, clamp(5rem, 16.5cqi, 9rem), line-height 0.8): the tray number on the tablet's yellow strip. One per screen.
-- **Big numerals** (900, 2.6rem with 0.2em spacing): the 4-digit pickup code on its yellow plate. The demo clock in the top bar is 800 at 1.75rem in yellow.
-- **Headline** (800, 1.85rem, wide 112%): screen titles such as "Collection time". The brand wordmark is 900, 1.6rem, widest (125%), with "Ahead" in yellow.
-- **Sign name** (900, 1.3rem, wide 118%, uppercase): English stall name on the signboard; the tablet's stall picker uses the same style, scaling up to 2.2rem.
-- **Sign Chinese** (Noto Sans SC 900, 1.25rem, yellow): the Chinese name directly under the English one.
-- **Title** (800, 1.02rem, wide 112%, uppercase, 0.03em): card headings on the tablet.
-- **Body** (400, 16px, line-height 1.45). Item names are 700 at 1.02rem; secondary text is 0.875rem in muted grey.
-- **Label** (800, 0.78rem, uppercase, 0.04em): status tags and stall-type tags.
+- **Display** (800, clamp(3.25rem, 9cqi, 5rem), line-height 0.9): the tray number on the tablet's strip. One per screen.
+- **Numerals** (800, 2.2rem with 0.18em spacing): the 4-digit pickup code. The demo clock in the top bar is 700 at 1.4rem in ink.
+- **Headline** (700, 1.6rem): screen titles such as "Collection time". The brand wordmark is 800, 1.35rem, 110% wide, with "Ahead" in the brand accent.
+- **Strip title** (700, 1.4rem): "trays to cook" beside the display number.
+- **Slot time** (700, 1.2rem): the time on each tablet order ticket.
+- **Sign name** (800, 1.05rem, 108% wide, uppercase): English stall name on the signboard; the tablet's stall picker uses the same style, scaling up to 1.55rem.
+- **Sign Chinese** (Noto Sans SC 900, 0.98rem, pale gold): the Chinese name directly under the English one.
+- **Title** (700, 1rem, sentence case): card headings on the tablet.
+- **Body** (400, 16px, line-height 1.45); 0.95rem inside cards and order rows. Item names are 600; secondary text is 0.875rem in muted grey.
+- **Label** (600, 0.75rem, sentence case): status tags and stall-type tags.
 
 ### Named Rules
 **The Tabular Numbers Rule.** Every time, price, count and code uses tabular figures (`.num` or `font-variant-numeric: tabular-nums`) so numbers don't jump when they change.
 
-**The Wide Caps Belong to Signs Rule.** Wide, black, uppercase lettering is for signboards, the brand and card titles. Body text and buttons stay at normal width and in sentence case.
+**The Wide Caps Belong to Signs Rule.** Wide uppercase lettering is for signboards and the brand only. Titles, body text, tags and buttons stay at normal width and in sentence case.
+
+**The Weight Ceiling Rule.** 800 is the heaviest weight in the UI (signboards, brand, display number, code). Headings are 700, controls 600.
 
 ## Layout
 
-A top bar (ink, sticky) holds the brand, demo clock, the Both / Student / Stall switch and Reset demo, inside a 1280px max width. Below it the stage is a two-column grid: the student phone at 390px on the left and the stall tablet filling the rest, 32px apart. Student-only view centres the phone; Stall-only view gives the tablet the full width.
+A light top bar (sticky, 1px line underneath) holds the brand, demo clock, the Both / Student / Stall switch and Reset demo, inside a 1280px max width. It is demo chrome, so it stays quiet. Below it the stage is a two-column grid: the student phone at 390px on the left and the stall tablet filling the rest, 32px apart. Student-only view centres the phone; Stall-only view gives the tablet the full width.
 
-The tablet is a container (`container-type: inline-size`): its header signboard, then the full-width yellow strip, then a two-column card grid (forecast and controls left, pre-orders right). Under 760px of tablet width the grid becomes one column with pre-orders first; under 520px the header stacks and the strip shrinks.
+The tablet is a container (`container-type: inline-size`): its header signboard, then the full-width strip, then a two-column card grid (forecast and controls left, pre-orders right). Under 760px of tablet width the grid becomes one column with pre-orders first; under 520px the header stacks and the strip shrinks.
 
-At page widths of 760px and below, the phone loses its black device frame and becomes a framed white panel, the Both view is hidden, and Student view is the default. Between 761px and 1180px the top bar stays on one row (the "Demo time" label is visually hidden there but kept for screen readers).
+At page widths of 760px and below, the phone loses its device frame and becomes a white panel with a thin line, the Both view is hidden, and Student view is the default. Between 761px and 1180px the top bar stays on one row (the "Demo time" label is visually hidden there but kept for screen readers).
 
 Spacing steps that repeat: 8px (small gaps, slot grid), 12px (list gaps, row padding), 16px (card padding, phone padding, grid gaps), 24px and 32px (stage padding and column gap). Safe-area insets are respected on the top bar and stage edges.
 
 ## Elevation & Depth
 
-Mostly flat colour blocks separated by 2px ink frames. One soft shadow lifts the three "objects" off the wall: the phone, each stall signboard, and the tablet. Nothing else casts a shadow; cards and order rows inside a panel are flat.
+Flat. Thin lines separate things. One soft shadow lifts the two device "objects" off the wall: the phone and the tablet. Stall signboards, cards and order rows are flat.
 
 ### Shadow Vocabulary
-- **Object lift** (`--shadow`: `0 1px 2px rgb(0 0 0 / 0.08), 0 14px 30px -16px rgb(0 0 0 / 0.38)`, stronger in dark mode): phone, signboards, tablet.
+- **Object lift** (`--shadow`: `0 1px 2px rgb(16 24 40 / 0.06), 0 12px 28px -18px rgb(16 24 40 / 0.28)`): phone and tablet only.
 
 ### Named Rules
-**The Frames Not Shadows Rule.** Inside a panel, separate things with a border (2px ink for structure, 1px `--line` for rows), not with shadows.
+**The Lines Not Shadows Rule.** Inside a panel, separate things with a 1px line (`--line` for cards and rows, `--line-strong` for controls), not with shadows or thick frames.
 
 ## Shapes
 
-Gently rounded rectangles. Panels and signboards use 10px (`--r`); buttons, slots, steppers, banners and the pickup code use 6px (`--r-sm`); tags are 4px rectangles ("stickers"), never pill-round. The tablet uses 16px and the phone 40px outer / 31px screen, as device shapes. The only fully round shape is the toggle switch.
+Gently rounded rectangles. Panels and signboards use 10px (`--r`); buttons, slots, steppers, banners and the pickup code use 6px (`--r-sm`); tags are 4px rectangles ("stickers"), never pill-round; inline highlights (discounted price, the "locked" chip, a highlighted slot time) use 3px. The tablet uses 16px and the phone 40px outer / 31px screen, as device shapes. The only fully round shape is the toggle switch.
 
-Borders: 2px ink for frames, buttons, slots and the summary rule; 2px `--line` for cards and student order cards; 1px `--line` for row dividers. Disabled time slots use a dashed grey border with struck-through text.
+Borders are all 1px: `--line` for cards, signboards, the tablet and row dividers; `--line-strong` for control edges and the summary rule. Disabled time slots use a dashed `--line` border with struck-through text.
 
 ## Components
 
 ### Buttons
-- **Shape:** 6px corners, 2px border.
-- **Primary:** ink fill, white text, 800 weight, 12px 18px padding. Hover moves to `--ink-2`. One primary per row.
-- **Ghost:** same frame, transparent fill, ink text; hover fills `--panel-2`.
+- **Shape:** 6px corners, 1px border.
+- **Primary:** ink fill, white text, 600 weight, 11px 18px padding. Hover moves to `--ink-2`. One primary per row.
+- **Ghost:** `--line-strong` edge, transparent fill, ink text; hover fills `--panel-2` and darkens the edge to ink.
 - **Small:** 7px 12px, 0.9rem, used inside order rows.
-- **Text action:** underlined 700-weight text with no box, for the rarer choice beside a primary ("Can't make it", "Mark no-show", "Check code"). In the top bar, "Reset demo" uses the same style in white.
+- **Text action:** underlined 600-weight text with no box, for the rarer choice beside a primary ("Can't make it", "Mark no-show"). In the top bar, "Reset demo" uses the same style.
 - **Disabled:** 40% opacity, not-allowed cursor.
-- **Focus:** 3px solid outline 2px out, ink in light mode and yellow in dark mode and on the red/ink bars.
+- **Focus:** 3px solid outline 2px out: ink, except on the red tablet header where it is pale gold.
 
 ### Status tags (stickers)
-- **Style:** 4px rectangle, 2px border, uppercase 800 label.
-- **State by fill vs outline:** New = yellow fill with ink border; Accepted = ink outline only; On shelf = green fill; Collected = ink fill; Declined / Cancelled / Voucher = grey dashed outline; No-show / Uncollected = red fill.
+- **Style:** 4px rectangle, 1px border, 600 sentence-case label.
+- **State by fill vs outline:** New = pale yellow fill with a gold edge; Accepted = grey outline only; On shelf = green fill; Collected = pale grey fill; Declined / Cancelled / Voucher = grey dashed outline; No-show / Uncollected = red fill.
 - **Stall-type tag** on the red tablet header: white outline ("made to order") or white fill with red text ("batch cooked").
 
 ### Cards / Containers
-- **Cards:** white panel, 2px `--line` border, 10px corners, 16px padding, 12px internal gap. Titles use the Title style.
-- **Calculation list:** label left in muted grey, value right in tabular 700; the total row has a 2px ink rule above it.
-- **Banner:** yellow strip with ink text, 6px corners; an ink variant exists for neutral notices.
+- **Cards:** white panel, 1px `--line` border, 10px corners, 16px padding, 12px internal gap. Titles use the Title style.
+- **Calculation list:** label left in muted grey, value right in tabular 600; the total row has a 1px `--line-strong` rule above it and is 700.
+- **Banner:** pale yellow with ink text, 6px corners; an ink variant exists for neutral notices.
 - **Note:** `--panel-2` fill, 6px corners, small text.
 
 ### Inputs / Fields
-- **Time slots:** 3-column grid of framed buttons; selected = ink fill; unavailable = dashed grey and struck through.
-- **Steppers:** 38px square framed buttons around a large tabular number.
-- **Code input:** framed, 2px ink, wide letter spacing, tabular; caret is signboard red.
-- **Checkbox and range:** native controls tinted with `accent-color` (ink for the fee checkbox, yellow for the demo clock).
-- **Switch:** 52 by 30 round toggle, ink frame; when on (pre-orders stopped) it turns red.
+- **Time slots:** 3-column grid of 1px-edged buttons; selected = ink fill; unavailable = dashed light line and struck through.
+- **Steppers:** 36px square 1px-edged buttons around a tabular number.
+- **Code input:** 1px `--line-strong` edge (ink on focus), wide letter spacing, tabular; caret is signboard red.
+- **Checkbox and range:** native controls tinted with `accent-color: var(--ink)`.
+- **Switch:** 50 by 28 round toggle with a 1px edge; when on (pre-orders stopped) it turns red.
+- **Meter:** 6px bar on `--line`, filled with `--chart-sold`.
 
 ### Navigation
-- **Top bar:** ink band, white text, muted grey secondary text. The view switch is a segmented control with a 2px white frame; the pressed button is yellow with ink text.
-- **Back:** a bold ink text button with a chevron icon on student screens.
+- **Top bar:** white with a 1px line underneath, ink text, muted secondary text. The view switch is a segmented control with a 1px edge; the pressed button is ink with white text.
+- **Back:** a 600-weight ink text button with a chevron icon on student screens.
 
 ### Icons
-Small inline SVG line icons from the `ICON` map in `data.js` (1.25em, 2.25 stroke, round caps, `currentColor`). Add new icons there in the same style.
+Small inline SVG line icons from the `ICON` map in `data.js` (1.25em, 2px stroke, round caps, `currentColor`). Add new icons there in the same style.
 
 ### The Signboard (signature)
-The unit for every stall. Grid of a 56px white number plate (2px ink right edge) and a red face with the English name and Chinese name, then a full-width yellow strip with a 2px ink top edge. Whole thing has a 2px ink frame, 10px corners and the object shadow. On the phone it is a button that lifts 2px on hover; an optional footer line below the strip holds small muted text. When a stall is closed or sold out the face turns `--off` grey, the Chinese name turns white, and the strip becomes a white placard with red uppercase text.
+The unit for every stall. Grid of a 48px number plate and a red face with the English name and Chinese name, then a full-width pale strip. Whole thing has a 1px `--line` edge and 10px corners, no shadow. On the phone it is a button that lifts 1px and darkens its edge on hover; an optional footer line below the strip holds small muted text. When a stall is closed or sold out the face turns `--off` grey, the Chinese name turns white, and the strip turns pale grey with the reason in red.
 
-On the tablet the signboard becomes the header (84px plate at 2.4rem, stall picker as the name, type tag on the right), and its yellow strip grows into the full-width bar that carries the Display-size tray number with the portions and cut-off beside it.
+On the tablet the signboard becomes the header (64px plate at 1.75rem, stall picker as the name, type tag on the right), and its strip grows into the full-width bar that carries the Display-size tray number with the portions and cut-off beside it.
 
 ### Order ticket (tablet)
-Each pre-order row is a ticket: slot time (900, 1.35rem) and status sticker on the left in a 104px column; order ID, items and actions on the right; 1px line above. Orders placed from this device's phone get their slot time on a yellow plate.
+Each pre-order row is a ticket: slot time (700, 1.2rem) and status sticker on the left in a 104px column; order ID, items and actions on the right; 1px line above. Orders placed from this device's phone get their slot time on a pale yellow highlight.
 
 ### Motion
-One motion moment only. When an order from the phone arrives on the tablet, the row slides in 16px from the left with a yellow background that fades out (1.1s), and the strip's tray number drops in (0.5s). Both use `cubic-bezier(0.16, 1, 0.3, 1)` and are added once per change by `vendor.js`. Signboard hover lift and the switch knob use the same curve at 0.18s. Reduced-motion turns all transitions and animations off.
+One motion moment only. When an order from the phone arrives on the tablet, the row slides in 10px from the left with a pale yellow background that fades out (1.1s), and the strip's tray number drops in slightly (0.5s). Both use `cubic-bezier(0.16, 1, 0.3, 1)` and are added once per change by `vendor.js`. Signboard hover lift and the switch knob use the same curve at 0.18s. Reduced-motion turns all transitions and animations off.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** draw every stall as the signboard: number plate, red face, English caps plus Chinese name, yellow strip.
-- **Do** put the one number that matters on the yellow strip, in ink, in tabular figures.
-- **Do** use 2px ink frames for structure and 1px `--line` hairlines between list rows.
+- **Do** draw every stall as the signboard: number plate, red face, English caps plus Chinese name, pale strip.
+- **Do** put the one number that matters on the strip, in ink, in tabular figures.
+- **Do** use 1px lines: `--line` for cards and rows, `--line-strong` for control edges.
 - **Do** show state by fill versus outline (plus the word), so it reads without colour.
-- **Do** use only the CSS variables in `style.css`, and check both light and dark mode after a change.
+- **Do** use only the CSS variables in `style.css`, and check the page with the computer in dark mode too (it should look identical).
 - **Do** keep the "Sample data" labels visible wherever figures appear.
 - **Do** use the `ICON` SVGs for icons and keep motion to the arrival flash and tray tick.
 
 ### Don't:
-- **Don't** use red for normal actions or decoration; red off a signboard means a problem.
+- **Don't** use red for normal actions or decoration; red off a signboard (and the brand) means a problem.
+- **Don't** fill large areas with saturated colour; yellow is a pale tint and stays small.
 - **Don't** put white text on the yellow strip.
+- **Don't** go above weight 800, or use 2px+ black frames.
 - **Don't** add dish photos or generic white food-app cards; the signboard is the stall's picture.
 - **Don't** build the stall side as a grid of KPI tiles; the tablet leads with one number on the strip.
 - **Don't** make status tags pill-round; they are 4px rectangular stickers.
-- **Don't** add shadows to cards or rows inside a panel.
+- **Don't** add shadows to signboards, cards or rows.
 - **Don't** use Cates' logo, colours or styling.

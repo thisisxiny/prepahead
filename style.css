@@ -1,8 +1,9 @@
 /* ============================================================
    style.css
-   Look: canteen stall signboards. Every stall is a red lightbox
-   signboard with a numbered plate and a yellow strip; everything
-   else is white panels with ink frames on a grey canteen wall.
+   Look: canteen stall signboards, kept quiet so the features lead.
+   Every stall is a numbered plate + red signboard face + pale strip;
+   everything else is white panels with thin grey lines on a light
+   grey canteen wall. Colour is an accent, not the background.
    Layout: top bar with demo controls; student phone on the left,
    stall tablet on the right (stacked on phones).
    Change colours and fonts here only, so both sides match.
@@ -12,63 +13,54 @@
 @font-face { font-family: "Noto Sans SC Stalls"; src: url("fonts/noto-sans-sc-stalls.woff2") format("woff2"); font-weight: 900; font-display: swap; unicode-range: U+6742, U+677F, U+83DC, U+897F, U+9762, U+9910, U+996D, U+9E21; }
 
 :root {
-  --ground: #e4e6e9;      /* the canteen wall behind the counters */
+  --ground: #eceef1;      /* the canteen wall behind the counters */
   --panel: #ffffff;       /* lightbox white: cards, phone screen */
-  --panel-2: #f1f2f4;     /* quiet fill inside a panel */
-  --ink: #141414;         /* text, frames, primary buttons */
-  --ink-2: #333333;       /* primary button hover */
+  --panel-2: #f4f5f7;     /* quiet fill inside a panel */
+  --ink: #1b1d20;         /* text, primary buttons */
+  --ink-2: #3a3e44;       /* primary button hover */
   --on-ink: #ffffff;      /* text on ink */
-  --muted: #4a4f55;       /* secondary text */
-  --line: #cdd1d6;        /* hairlines between rows */
-  --line-strong: #8a9097; /* quiet borders */
-  --sign: #c8231b;        /* signboard red */
+  --muted: #555b62;       /* secondary text */
+  --line: #e0e3e7;        /* hairlines: cards, rows */
+  --line-strong: #8f959c; /* borders that mark a control (buttons, slots, inputs) */
+  --sign: #b53930;        /* signboard red (softened) */
   --sign-ink: #ffffff;    /* lettering on the signboard */
-  --sign-zh: #ffd21f;     /* Chinese name on the signboard */
-  --strip: #ffd21f;       /* yellow price / number strip */
-  --strip-ink: #141414;
-  --go: #17803d;          /* on shelf, ready to collect */
+  --sign-zh: #fbe7b0;     /* Chinese name on the signboard */
+  --strip: #faf0cf;       /* pale yellow: strips, highlights, "new" */
+  --strip-ink: #1b1d20;
+  --strip-line: #d8bb5a;  /* edge for small yellow markers */
+  --go: #1e7a43;          /* on shelf, ready to collect */
   --go-ink: #ffffff;
-  --bad: #c8231b;         /* problems: uncollected, no-show, stop switch */
+  --bad: #b53930;         /* problems: uncollected, no-show, stop switch */
   --bad-ink: #ffffff;
-  --bad-text: #b01d16;    /* error text on a panel */
-  --off: #6d7379;         /* a closed or sold-out signboard */
-  --topbar: #141414;
-  --topbar-ink: #ffffff;
-  --topbar-muted: #b8bdc3;
-  --phone: #141414;
-  --plate: #ffffff;       /* stall number plate: white in both modes */
-  --plate-ink: #141414;
-  --focus: #141414;
-  --chart-prepared: #b9bec4;
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.08), 0 14px 30px -16px rgb(0 0 0 / 0.38);
+  --bad-text: #a8322a;    /* error text on a panel */
+  --off: #7a8087;         /* a closed or sold-out signboard */
+  --topbar: #ffffff;
+  --topbar-ink: #1b1d20;
+  --topbar-muted: #555b62;
+  --brand-accent: #b53930;
+  --phone: #1b1d20;
+  --plate: #ffffff;       /* stall number plate */
+  --plate-ink: #1b1d20;
+  --focus: #1b1d20;
+  --chart-prepared: #c9ced4;
+  --chart-sold: #56606b;
+  --shadow: 0 1px 2px rgb(16 24 40 / 0.06), 0 12px 28px -18px rgb(16 24 40 / 0.28);
 
   --f-ui: "Archivo Local", "Archivo", "Helvetica Neue", Arial, sans-serif;
   --f-zh: "Noto Sans SC Stalls", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
   --r: 10px;              /* panels and signboards */
   --r-sm: 6px;            /* buttons, plates, tags */
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --ground: #0d0e10; --panel: #1a1c1f; --panel-2: #24272b; --ink: #f1f2f4; --ink-2: #d4d7db; --on-ink: #141414;
-    --muted: #a8afb6; --line: #33373c; --line-strong: #6a7178; --bad-text: #ff8a7f;
-    --off: #4b5056; --topbar: #000000; --topbar-muted: #a8afb6; --phone: #000000; --focus: #ffd21f;
-    --chart-prepared: #5b6168; --shadow: 0 1px 2px rgb(0 0 0 / 0.5), 0 14px 30px -16px rgb(0 0 0 / 0.85);
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --ground: #0d0e10; --panel: #1a1c1f; --panel-2: #24272b; --ink: #f1f2f4; --ink-2: #d4d7db; --on-ink: #141414;
-  --muted: #a8afb6; --line: #33373c; --line-strong: #6a7178; --bad-text: #ff8a7f;
-  --off: #4b5056; --topbar: #000000; --topbar-muted: #a8afb6; --phone: #000000; --focus: #ffd21f;
-  --chart-prepared: #5b6168; --shadow: 0 1px 2px rgb(0 0 0 / 0.5), 0 14px 30px -16px rgb(0 0 0 / 0.85);
-  color-scheme: dark;
+
+  /* Light only: the page looks the same even when the computer is in dark mode.
+     This also keeps the browser's own controls (slider, checkbox, scrollbar) light. */
+  color-scheme: light;
 }
 
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--f-ui); font-size: 16px; line-height: 1.45; }
-h1, h2, h3 { margin: 0; font-weight: 800; text-wrap: balance; letter-spacing: -0.01em; }
-h2 { font-size: 1.85rem; line-height: 1.05; font-stretch: 112%; }
-h3 { font-size: 1.02rem; font-stretch: 112%; text-transform: uppercase; letter-spacing: 0.03em; }
+h1, h2, h3 { margin: 0; font-weight: 700; text-wrap: balance; }
+h2 { font-size: 1.6rem; line-height: 1.1; letter-spacing: -0.015em; }
+h3 { font-size: 1rem; letter-spacing: 0; }
 p { margin: 0; }
 button, input, select { font: inherit; color: inherit; }
 :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
@@ -79,30 +71,30 @@ input { caret-color: var(--sign); }
 .small { font-size: 0.875rem; }
 .center { text-align: center; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.label { font-weight: 800; font-size: 0.95rem; }
-.icon { width: 1.25em; height: 1.25em; fill: none; stroke: currentColor; stroke-width: 2.25; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.label { font-weight: 700; font-size: 0.95rem; }
+.icon { width: 1.25em; height: 1.25em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 
-/* ---------- top bar ---------- */
+/* ---------- top bar (demo controls: kept light so it doesn't compete) ---------- */
 .topbar {
   position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
-  background: var(--topbar); color: var(--topbar-ink); --focus: var(--strip);
+  background: var(--topbar); color: var(--topbar-ink); border-bottom: 1px solid var(--line);
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
-  padding-block: 12px;
+  padding-block: 10px;
 }
 .topbar-in { max-width: 1280px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center; }
-.brand { display: flex; flex-direction: column; gap: 2px; margin-right: auto; }
-.brand h1 { font-size: 1.6rem; line-height: 1.05; font-weight: 900; font-stretch: 125%; letter-spacing: -0.02em; }
-.brand h1 b { color: var(--strip); font-weight: 900; }
+.brand { display: flex; flex-direction: column; gap: 1px; margin-right: auto; }
+.brand h1 { font-size: 1.35rem; line-height: 1.05; font-weight: 800; font-stretch: 110%; letter-spacing: -0.01em; }
+.brand h1 b { color: var(--brand-accent); font-weight: 800; }
 .brand .small { color: var(--topbar-muted); }
 .clock { display: flex; align-items: center; gap: 10px; }
 .clock label { color: var(--topbar-muted); }
-.clock input[type=range] { width: 160px; accent-color: var(--strip); cursor: pointer; }
-.clock output { font-weight: 800; font-size: 1.75rem; line-height: 1; color: var(--strip); font-variant-numeric: tabular-nums; min-width: 3.1em; }
-.seg { display: inline-flex; gap: 2px; border: 2px solid var(--topbar-ink); border-radius: var(--r-sm); padding: 2px; }
-.seg button { border: 0; background: none; color: var(--topbar-ink); padding: 6px 14px; border-radius: 4px; cursor: pointer; font-weight: 700; font-size: 0.9rem; }
-.seg button:hover { background: rgb(255 255 255 / 0.14); }
-.seg button[aria-pressed="true"] { background: var(--strip); color: var(--strip-ink); }
-.link-btn { border: 0; background: none; color: var(--topbar-ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; font-size: 0.9rem; font-weight: 700; padding: 6px 2px; }
+.clock input[type=range] { width: 160px; accent-color: var(--ink); cursor: pointer; }
+.clock output { font-weight: 700; font-size: 1.4rem; line-height: 1; color: var(--topbar-ink); font-variant-numeric: tabular-nums; min-width: 3.1em; }
+.seg { display: inline-flex; gap: 2px; border: 1px solid var(--line-strong); border-radius: var(--r-sm); padding: 2px; }
+.seg button { border: 0; background: none; color: var(--topbar-ink); padding: 6px 14px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.9rem; }
+.seg button:hover { background: var(--panel-2); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--on-ink); }
+.link-btn { border: 0; background: none; color: var(--topbar-ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; font-size: 0.9rem; font-weight: 600; padding: 6px 2px; }
 
 /* ---------- stage ---------- */
 .stage {
@@ -115,12 +107,12 @@ input { caret-color: var(--sign); }
 .stage[data-view="vendor"] { grid-template-columns: minmax(0, 1fr); }
 .stage[data-view="student"] .pane-vendor, .stage[data-view="vendor"] .pane-student { display: none; }
 .pane-label { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 10px; font-size: 0.9rem; color: var(--muted); }
-.pane-label b { color: var(--ink); font-weight: 800; }
+.pane-label b { color: var(--ink); font-weight: 700; }
 
 /* ---------- student phone ---------- */
-.phone { background: var(--phone); border-radius: 40px; padding: 10px; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 84px); box-shadow: var(--shadow); }
+.phone { background: var(--phone); border-radius: 40px; padding: 10px; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 78px); box-shadow: var(--shadow); }
 .phone-screen {
-  background: var(--panel); border-radius: 31px; min-height: 640px; max-height: calc(100vh - 150px); overflow-y: auto;
+  background: var(--panel); border-radius: 31px; min-height: 640px; max-height: calc(100vh - 140px); overflow-y: auto;
   padding: 22px 16px 24px; display: flex; flex-direction: column; gap: 16px;
   scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent;
 }
@@ -128,62 +120,61 @@ input { caret-color: var(--sign); }
 .phone-screen > * { flex-shrink: 0; }
 .s-head { display: grid; gap: 6px; }
 .s-head p { color: var(--muted); }
-.back { align-self: flex-start; display: inline-flex; align-items: center; gap: 2px; border: 0; background: none; color: var(--ink); cursor: pointer; padding: 4px 6px 4px 0; font-weight: 800; }
+.back { align-self: flex-start; display: inline-flex; align-items: center; gap: 2px; border: 0; background: none; color: var(--ink); cursor: pointer; padding: 4px 6px 4px 0; font-weight: 600; }
 .back:hover { text-decoration: underline; text-underline-offset: 3px; }
 .banner { background: var(--strip); color: var(--strip-ink); border-radius: var(--r-sm); padding: 10px 12px; font-size: 0.95rem; }
 .banner.is-ink { background: var(--ink); color: var(--on-ink); }
 
 .stall-list, .menu, .orders, .v-orders { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
 
-/* The signboard: numbered plate, red face with English + Chinese name, yellow strip.
+/* The signboard: numbered plate, red face with English + Chinese name, pale strip.
    Used for each stall on the phone, at the top of a stall's screens, and as the tablet header. */
 .sign {
-  display: grid; grid-template-columns: 56px minmax(0, 1fr); width: 100%; padding: 0; text-align: left;
-  border: 2px solid var(--ink); border-radius: var(--r); background: var(--panel); color: inherit; overflow: hidden;
-  box-shadow: var(--shadow);
+  display: grid; grid-template-columns: 48px minmax(0, 1fr); width: 100%; padding: 0; text-align: left;
+  border: 1px solid var(--line); border-radius: var(--r); background: var(--panel); color: inherit; overflow: hidden;
 }
-button.sign { cursor: pointer; transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1); }
-button.sign:hover:not(:disabled) { transform: translateY(-2px); }
-.sign-plate { display: grid; place-items: center; background: var(--plate); color: var(--plate-ink); font-weight: 900; font-size: 1.5rem; border-right: 2px solid var(--ink); font-variant-numeric: tabular-nums; }
-.sign-face { background: var(--sign); color: var(--sign-ink); padding: 10px 14px 9px; display: grid; gap: 1px; min-width: 0; }
-.sign-name { font-weight: 900; font-stretch: 118%; font-size: 1.3rem; line-height: 1.05; text-transform: uppercase; letter-spacing: 0.01em; }
-.sign-zh { font-family: var(--f-zh); font-weight: 900; font-size: 1.25rem; line-height: 1.25; color: var(--sign-zh); }
-.sign-strip { grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 10px; background: var(--strip); color: var(--strip-ink); padding: 6px 12px; font-weight: 700; font-size: 0.9rem; border-top: 2px solid var(--ink); }
+button.sign { cursor: pointer; transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.18s; }
+button.sign:hover:not(:disabled) { transform: translateY(-1px); border-color: var(--line-strong); }
+.sign-plate { display: grid; place-items: center; background: var(--plate); color: var(--plate-ink); font-weight: 800; font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+.sign-face { background: var(--sign); color: var(--sign-ink); padding: 9px 12px 8px; display: grid; gap: 1px; min-width: 0; }
+.sign-name { font-weight: 800; font-stretch: 108%; font-size: 1.05rem; line-height: 1.1; text-transform: uppercase; letter-spacing: 0.02em; }
+.sign-zh { font-family: var(--f-zh); font-weight: 900; font-size: 0.98rem; line-height: 1.25; color: var(--sign-zh); }
+.sign-strip { grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 10px; background: var(--strip); color: var(--strip-ink); padding: 6px 12px; font-weight: 600; font-size: 0.875rem; }
 .sign-foot { grid-column: 1 / -1; padding: 7px 12px 8px; font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--line); }
 .sign:disabled { cursor: not-allowed; }
 .sign:disabled .sign-face { background: var(--off); }
 .sign:disabled .sign-zh { color: var(--sign-ink); }
-/* A closed or sold-out stall: the strip turns into a white placard with red lettering */
-.sign:disabled .sign-strip { background: var(--panel); color: var(--bad-text); text-transform: uppercase; letter-spacing: 0.04em; font-weight: 800; }
+/* A closed or sold-out stall: the strip says why, in problem red */
+.sign:disabled .sign-strip { background: var(--panel-2); color: var(--bad-text); font-weight: 700; }
 
 .menu-item { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
-.item-name { font-weight: 700; font-size: 1.02rem; }
+.item-name { font-weight: 600; font-size: 1rem; }
 .price { color: var(--muted); font-variant-numeric: tabular-nums; }
-.price s { text-decoration-thickness: 2px; }
-.price strong { color: var(--strip-ink); background: var(--strip); padding: 0 5px; border-radius: 3px; }
+.price s { text-decoration-thickness: 1px; }
+.price strong { color: var(--strip-ink); background: var(--strip); padding: 1px 5px; border-radius: 3px; font-weight: 700; }
 .stepper { display: inline-flex; align-items: center; gap: 8px; }
 .stepper button {
-  min-width: 38px; height: 38px; padding: 0 8px; display: inline-grid; place-items: center; border-radius: var(--r-sm);
-  border: 2px solid var(--ink); background: var(--panel); color: var(--ink); cursor: pointer; font-weight: 800; font-size: 0.95rem; font-variant-numeric: tabular-nums;
+  min-width: 36px; height: 36px; padding: 0 8px; display: inline-grid; place-items: center; border-radius: var(--r-sm);
+  border: 1px solid var(--line-strong); background: var(--panel); color: var(--ink); cursor: pointer; font-weight: 600; font-size: 0.95rem; font-variant-numeric: tabular-nums;
 }
-.stepper button:hover:not(:disabled) { background: var(--panel-2); }
+.stepper button:hover:not(:disabled) { background: var(--panel-2); border-color: var(--ink); }
 .stepper button:disabled { opacity: 0.35; cursor: default; }
-.stepper span { min-width: 2ch; text-align: center; font-weight: 800; font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+.stepper span { min-width: 2ch; text-align: center; font-weight: 700; font-size: 1.1rem; font-variant-numeric: tabular-nums; }
 
 .slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-.slot { padding: 10px 0; border: 2px solid var(--ink); border-radius: var(--r-sm); background: var(--panel); font-weight: 800; font-size: 1.05rem; font-variant-numeric: tabular-nums; cursor: pointer; }
-.slot:hover:not(:disabled) { background: var(--panel-2); }
-.slot.on { background: var(--ink); color: var(--on-ink); }
-.slot:disabled { border-style: dashed; border-color: var(--line-strong); color: var(--muted); text-decoration: line-through; cursor: not-allowed; }
-.summary { border-top: 2px solid var(--ink); padding-top: 10px; display: grid; gap: 4px; font-size: 0.95rem; }
-.summary .total { font-weight: 800; font-size: 1.1rem; padding-top: 4px; }
+.slot { padding: 10px 0; border: 1px solid var(--line-strong); border-radius: var(--r-sm); background: var(--panel); font-weight: 600; font-size: 1rem; font-variant-numeric: tabular-nums; cursor: pointer; }
+.slot:hover:not(:disabled) { background: var(--panel-2); border-color: var(--ink); }
+.slot.on { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+.slot:disabled { border-style: dashed; border-color: var(--line); color: var(--muted); text-decoration: line-through; cursor: not-allowed; }
+.summary { border-top: 1px solid var(--line-strong); padding-top: 10px; display: grid; gap: 4px; font-size: 0.95rem; }
+.summary .total { font-weight: 700; font-size: 1.05rem; padding-top: 4px; }
 .agree { display: flex; gap: 10px; font-size: 0.9rem; color: var(--muted); align-items: flex-start; cursor: pointer; }
 .agree input { margin-top: 2px; width: 18px; height: 18px; accent-color: var(--ink); flex: none; cursor: pointer; }
 
 .qr-wrap { display: flex; justify-content: center; }
-#qr { background: #ffffff; padding: 12px; border-radius: var(--r); border: 2px solid var(--ink); min-height: 178px; min-width: 178px; display: grid; place-items: center; color: #141414; font-size: 0.85rem; text-align: center; }
-.code { align-self: center; background: var(--strip); color: var(--strip-ink); border: 2px solid var(--ink); border-radius: var(--r-sm); padding: 4px 14px 4px 24px; font-weight: 900; font-size: 2.6rem; letter-spacing: 0.2em; line-height: 1.15; font-variant-numeric: tabular-nums; }
-.order { border: 2px solid var(--line); border-radius: var(--r); padding: 12px; display: grid; gap: 6px; font-size: 0.95rem; background: var(--panel); }
+#qr { background: #ffffff; padding: 12px; border-radius: var(--r); border: 1px solid var(--line); min-height: 178px; min-width: 178px; display: grid; place-items: center; color: #1b1d20; font-size: 0.85rem; text-align: center; }
+.code { align-self: center; background: var(--strip); color: var(--strip-ink); border: 1px solid var(--strip-line); border-radius: var(--r-sm); padding: 4px 12px 4px 20px; font-weight: 800; font-size: 2.2rem; letter-spacing: 0.18em; line-height: 1.15; font-variant-numeric: tabular-nums; }
+.order { border: 1px solid var(--line); border-radius: var(--r); padding: 12px; display: grid; gap: 6px; font-size: 0.95rem; background: var(--panel); }
 .note { font-size: 0.9rem; background: var(--panel-2); border-radius: var(--r-sm); padding: 8px 10px; }
 
 /* ---------- shared bits ---------- */
@@ -192,67 +183,67 @@ button.sign:hover:not(:disabled) { transform: translateY(-2px); }
 .row-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-  border: 2px solid var(--ink); background: var(--ink); color: var(--on-ink); border-radius: var(--r-sm);
-  padding: 12px 18px; font-weight: 800; font-size: 1rem; cursor: pointer; transition: background-color 0.15s, border-color 0.15s;
+  border: 1px solid var(--ink); background: var(--ink); color: var(--on-ink); border-radius: var(--r-sm);
+  padding: 11px 18px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: background-color 0.15s, border-color 0.15s;
 }
 .btn:hover:not(:disabled) { background: var(--ink-2); border-color: var(--ink-2); }
 .btn:disabled { opacity: 0.4; cursor: not-allowed; }
-.btn-ghost { background: transparent; color: var(--ink); }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
 .btn-ghost:hover:not(:disabled) { background: var(--panel-2); border-color: var(--ink); }
 .btn.sm { padding: 7px 12px; font-size: 0.9rem; }
 .wide { width: 100%; }
-/* Status tags are rectangular stickers. State reads by fill vs outline, not colour alone. */
-.pill { display: inline-block; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; white-space: nowrap; border: 2px solid transparent; }
-.pill-pending { background: var(--strip); color: var(--strip-ink); border-color: var(--strip-ink); }
-.pill-accepted { color: var(--ink); border-color: var(--ink); }
+/* Status tags: small stickers. State reads by fill vs outline plus the word, not colour alone. */
+.pill { display: inline-block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.01em; padding: 1px 7px; border-radius: 4px; white-space: nowrap; border: 1px solid transparent; }
+.pill-pending { background: var(--strip); color: var(--strip-ink); border-color: var(--strip-line); }
+.pill-accepted { color: var(--ink); border-color: var(--line-strong); }
 .pill-ready { background: var(--go); color: var(--go-ink); border-color: var(--go); }
-.pill-collected { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+.pill-collected { background: var(--panel-2); color: var(--ink); border-color: var(--line); }
 .pill-declined, .pill-cancelled, .pill-voucher { color: var(--muted); border-color: var(--line-strong); border-style: dashed; }
 .pill-noshow { background: var(--bad); color: var(--bad-ink); border-color: var(--bad); }
-.err { color: var(--bad-text); width: 100%; font-weight: 700; }
+.err { color: var(--bad-text); width: 100%; font-weight: 600; }
 
 /* ---------- stall tablet ---------- */
-.dash { background: var(--panel); border: 2px solid var(--ink); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); container-type: inline-size; }
+.dash { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); container-type: inline-size; }
 /* Tablet header = this stall's signboard. The stall picker sits in it as the name. */
-.v-sign { display: grid; grid-template-columns: 84px minmax(0, 1fr) auto; background: var(--sign); color: var(--sign-ink); border-bottom: 2px solid var(--ink); --focus: var(--strip); }
-.v-sign .sign-plate { font-size: 2.4rem; }
-.v-sign-face { padding: 12px 20px 10px; display: grid; gap: 2px; min-width: 0; }
+.v-sign { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; background: var(--sign); color: var(--sign-ink); --focus: var(--sign-zh); }
+.v-sign .sign-plate { font-size: 1.75rem; }
+.v-sign-face { padding: 10px 18px 9px; display: grid; gap: 2px; min-width: 0; }
 #stall-pick {
-  appearance: none; -webkit-appearance: none; max-width: 100%; border: 0; border-radius: 4px; padding: 0 36px 0 0; cursor: pointer;
-  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 4px center / 24px;
-  color: var(--sign-ink); font-weight: 900; font-stretch: 120%; font-size: clamp(1.2rem, 4cqi, 2.2rem); line-height: 1.1; text-transform: uppercase; letter-spacing: 0.01em;
+  appearance: none; -webkit-appearance: none; max-width: 100%; border: 0; border-radius: 4px; padding: 0 32px 0 0; cursor: pointer;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 4px center / 22px;
+  color: var(--sign-ink); font-weight: 800; font-stretch: 108%; font-size: clamp(1.1rem, 2.6cqi, 1.55rem); line-height: 1.15; text-transform: uppercase; letter-spacing: 0.02em;
 }
-#stall-pick option { color: #141414; background: #ffffff; text-transform: none; font-size: 1rem; font-weight: 600; }
-.v-sign .sign-zh { font-size: clamp(1.3rem, 3.6cqi, 2.4rem); }
-.v-sign-type { align-self: center; padding: 0 20px; }
-.tag { display: inline-block; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; border: 2px solid var(--sign-ink); }
+#stall-pick option { color: #1b1d20; background: #ffffff; text-transform: none; font-size: 1rem; font-weight: 600; }
+.v-sign .sign-zh { font-size: clamp(1rem, 2.2cqi, 1.35rem); }
+.v-sign-type { align-self: center; padding: 0 18px; }
+.tag { display: inline-block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.01em; padding: 2px 8px; border-radius: 4px; white-space: nowrap; border: 1px solid var(--sign-ink); }
 .tag-batch { background: var(--sign-ink); color: var(--sign); }
 .tag-made { color: var(--sign-ink); }
-/* The yellow strip under the signboard carries the one number that matters today */
-.v-strip { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; background: var(--strip); color: var(--strip-ink); padding: 14px 20px; border-bottom: 2px solid var(--ink); }
-/* The strip's number is read from across the room, like the price on a stall's board */
-.v-strip-num { font-weight: 900; font-size: clamp(5rem, 16.5cqi, 9rem); line-height: 0.8; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+/* The pale strip under the signboard carries the one number that matters today */
+.v-strip { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; background: var(--strip); color: var(--strip-ink); padding: 12px 18px; border-bottom: 1px solid var(--line); }
+/* Still the biggest number on screen, but no longer shouting */
+.v-strip-num { font-weight: 800; font-size: clamp(3.25rem, 9cqi, 5rem); line-height: 0.9; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
 .v-strip-what { display: grid; gap: 3px; margin-right: auto; flex: 1 1 14em; min-width: 0; }
-.v-strip-what b { font-size: 2rem; font-weight: 900; font-stretch: 112%; line-height: 1.05; }
-.v-strip-what span { font-size: 1rem; font-weight: 600; }
-.v-strip .lock { background: var(--strip-ink); color: var(--strip); padding: 1px 6px; border-radius: 3px; font-weight: 800; }
+.v-strip-what b { font-size: 1.4rem; font-weight: 700; line-height: 1.1; }
+.v-strip-what span { font-size: 0.95rem; font-weight: 500; }
+.v-strip .lock { background: var(--strip-ink); color: var(--strip); padding: 1px 6px; border-radius: 3px; font-weight: 700; }
 
 .v-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 16px; align-items: start; padding: 16px; background: var(--panel-2); }
 /* minmax(0, 1fr) everywhere a chart can sit: a canvas otherwise props its column open at its old width */
 .v-col { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; min-width: 0; }
-.card { border: 2px solid var(--line); border-radius: var(--r); padding: 16px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; background: var(--panel); }
+.card { border: 1px solid var(--line); border-radius: var(--r); padding: 16px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; background: var(--panel); }
 .calc { margin: 0; display: grid; gap: 6px; font-size: 0.95rem; }
 .calc div { display: flex; justify-content: space-between; gap: 12px; }
 .calc dt { color: var(--muted); }
-.calc dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
-.calc .sum { border-top: 2px solid var(--ink); padding-top: 6px; font-weight: 800; }
+.calc dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+.calc .sum { border-top: 1px solid var(--line-strong); padding-top: 6px; font-weight: 700; }
 .calc .sum dt { color: var(--ink); }
 .controls { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 .ctrl { display: grid; gap: 8px; align-content: start; }
-.ctrl label { font-weight: 800; font-size: 0.95rem; }
-.meter { height: 8px; background: var(--panel-2); border: 1px solid var(--line-strong); border-radius: 4px; overflow: hidden; }
-.meter span { display: block; height: 100%; background: var(--ink); }
-.switch { width: 52px; height: 30px; border-radius: 15px; border: 2px solid var(--ink); background: var(--panel-2); position: relative; cursor: pointer; padding: 0; }
+.ctrl label { font-weight: 600; font-size: 0.95rem; }
+.meter { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.meter span { display: block; height: 100%; background: var(--chart-sold); }
+.switch { width: 50px; height: 28px; border-radius: 14px; border: 1px solid var(--line-strong); background: var(--panel-2); position: relative; cursor: pointer; padding: 0; }
 .switch span { position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: var(--ink); transition: left 0.18s cubic-bezier(0.16, 1, 0.3, 1); }
 .switch.on { background: var(--bad); border-color: var(--bad); }
 .switch.on span { left: 25px; background: var(--bad-ink); }
@@ -260,25 +251,26 @@ button.sign:hover:not(:disabled) { transform: translateY(-2px); }
 .v-order { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 12px; padding: 12px 8px; margin-inline: -8px; border-top: 1px solid var(--line); border-radius: 4px; font-size: 0.95rem; }
 .v-ticket { display: grid; gap: 6px; justify-items: start; align-content: start; }
 .v-ticket .pill { white-space: normal; }
-.v-slot { font-weight: 900; font-size: 1.35rem; line-height: 1.1; font-variant-numeric: tabular-nums; padding: 0 4px; margin-left: -4px; border-radius: 3px; }
+.v-slot { font-weight: 700; font-size: 1.2rem; line-height: 1.1; font-variant-numeric: tabular-nums; padding: 0 4px; margin-left: -4px; border-radius: 3px; }
 .v-order.is-mine .v-slot { background: var(--strip); color: var(--strip-ink); }
 .v-body { display: grid; gap: 8px; min-width: 0; align-content: start; }
-.v-what { font-size: 1.05rem; line-height: 1.3; }
-.v-what strong { font-weight: 800; margin-right: 4px; }
+.v-what { font-size: 1rem; line-height: 1.35; }
+.v-what strong { font-weight: 700; margin-right: 4px; }
 /* A quiet text button for the rarer choice in a row, next to the one primary button */
-.link-act { border: 0; background: none; color: var(--ink); padding: 7px 4px; font-weight: 700; font-size: 0.9rem; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.link-act { border: 0; background: none; color: var(--ink); padding: 7px 4px; font-weight: 600; font-size: 0.9rem; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .link-act:hover { color: var(--muted); }
 .verify { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-.verify label { width: 100%; font-size: 0.875rem; font-weight: 700; color: var(--muted); }
-.verify input { width: 6.5em; padding: 6px 10px; border: 2px solid var(--ink); border-radius: var(--r-sm); background: var(--panel); font-weight: 800; font-size: 1.05rem; letter-spacing: 0.2em; font-variant-numeric: tabular-nums; }
+.verify label { width: 100%; font-size: 0.875rem; font-weight: 600; color: var(--muted); }
+.verify input { width: 6.5em; padding: 6px 10px; border: 1px solid var(--line-strong); border-radius: var(--r-sm); background: var(--panel); font-weight: 700; font-size: 1rem; letter-spacing: 0.2em; font-variant-numeric: tabular-nums; }
+.verify input:focus { border-color: var(--ink); }
 .verify input::placeholder { color: var(--muted); }
-details summary { cursor: pointer; color: var(--muted); margin-top: 4px; font-weight: 700; }
+details summary { cursor: pointer; color: var(--muted); margin-top: 4px; font-weight: 600; }
 
-/* The one motion moment: an order placed on the phone lands on the tablet with a yellow
-   NEW flash and the tray number ticks over. vendor.js adds these classes once per change. */
-@keyframes arrive { 0% { transform: translateX(-16px); background-color: var(--strip); } 45% { background-color: var(--strip); } 100% { transform: none; background-color: transparent; } }
+/* The one motion moment: an order placed on the phone lands on the tablet with a pale
+   yellow flash and the tray number ticks over. vendor.js adds these classes once per change. */
+@keyframes arrive { 0% { transform: translateX(-10px); background-color: var(--strip); } 45% { background-color: var(--strip); } 100% { transform: none; background-color: transparent; } }
 .v-order.is-arriving { animation: arrive 1.1s cubic-bezier(0.16, 1, 0.3, 1) both; }
-@keyframes tick { 0% { transform: translateY(-0.3em); } 100% { transform: none; } }
+@keyframes tick { 0% { transform: translateY(-0.2em); } 100% { transform: none; } }
 .v-strip-num.is-ticking { animation: tick 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
 
 @container (max-width: 760px) {
@@ -286,14 +278,14 @@ details summary { cursor: pointer; color: var(--muted); margin-top: 4px; font-we
   .v-col:last-child { order: -1; } /* pre-orders first, so Accept all new is in view */
 }
 @container (max-width: 520px) {
-  .v-sign { grid-template-columns: 60px minmax(0, 1fr); }
-  .v-sign .sign-plate { font-size: 1.7rem; }
-  .v-sign-type { grid-column: 1 / -1; padding: 8px 12px; border-top: 2px solid var(--ink); }
+  .v-sign { grid-template-columns: 56px minmax(0, 1fr); }
+  .v-sign .sign-plate { font-size: 1.4rem; }
+  .v-sign-type { grid-column: 1 / -1; padding: 8px 12px; border-top: 1px solid rgb(255 255 255 / 0.25); }
   .v-sign-face { padding: 10px 12px 8px; }
-  #stall-pick { font-size: 1.2rem; padding-right: 28px; background-size: 20px; }
-  .v-sign .sign-zh { font-size: 1.15rem; }
-  .v-strip { padding: 12px 14px; }
-  .v-strip-what b { font-size: 1.3rem; }
+  #stall-pick { font-size: 1.1rem; padding-right: 28px; background-size: 20px; }
+  .v-sign .sign-zh { font-size: 1rem; }
+  .v-strip { padding: 10px 14px; }
+  .v-strip-what b { font-size: 1.15rem; }
   .controls { grid-template-columns: minmax(0, 1fr); }
 }
 /* Laptop widths: keep the top bar on one row */
@@ -306,10 +298,10 @@ details summary { cursor: pointer; color: var(--muted); margin-top: 4px; font-we
   .stage, .stage[data-view="both"] { grid-template-columns: minmax(0, 1fr); }
   .stage[data-view="both"] .pane-vendor { display: none; }
   .phone { position: static; padding: 0; background: none; border-radius: 0; box-shadow: none; }
-  .phone-screen { border-radius: 18px; min-height: 0; max-height: none; border: 2px solid var(--ink); }
+  .phone-screen { border-radius: 18px; min-height: 0; max-height: none; border: 1px solid var(--line); }
   .seg button[data-view="both"] { display: none; }
   .clock input[type=range] { width: 110px; }
-  .clock output { font-size: 1.4rem; }
+  .clock output { font-size: 1.2rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }

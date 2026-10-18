@@ -14,7 +14,7 @@ Clickable prototype for a university group project (NTU, course CC0006, group T0
 - Scripts are classic `<script>` files sharing globals (not ES modules) so the page works from `file://`.
 - All state goes through `Store` in `data.js` (localStorage). Don't add other storage.
 - All figures are sample data. Keep the "sample data" labels visible; never present them as real NTU numbers.
-- Style only with the CSS variables in `style.css` so light and dark mode both work.
+- Style only with the CSS variables in `style.css`. The page is light only (no dark mode), so it looks the same on any laptop.
 - The team are students new to web dev (background: Python, Java, SQL). Keep code readable, commented, and simple over clever.
 
 ## Order format (must not change without updating both sides)
