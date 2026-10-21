@@ -1,319 +1,523 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-15T08:06:27Z",
+  "generatedAt": "2026-10-20T09:11:03Z",
   "title": "Design System: PrepAhead",
   "extensions": {
     "colorMeta": {
-      "sign": {
-        "role": "primary",
-        "displayName": "Signboard Red",
-        "canonical": "#c8231b",
-        "tonalRamp": [
-          "#430c09",
-          "#771510",
-          "#aa1e17",
-          "#dd271e",
-          "#e7564e",
-          "#ee8782",
-          "#f5b8b5",
-          "#fce9e9"
-        ]
-      },
-      "strip": {
-        "role": "primary",
-        "displayName": "Strip Yellow",
-        "canonical": "#ffd21f",
-        "tonalRamp": [
-          "#4c3d00",
-          "#876c00",
-          "#c19a00",
-          "#fbc900",
-          "#ffd737",
-          "#ffe271",
-          "#ffeeab",
-          "#fffae6"
-        ]
-      },
-      "ink": {
-        "role": "primary",
-        "displayName": "Counter Ink",
-        "canonical": "#141414",
-        "tonalRamp": [
-          "#262626",
-          "#434343",
-          "#616161",
-          "#7e7e7e",
-          "#9b9b9b",
-          "#b8b8b8",
-          "#d5d5d5",
-          "#f2f2f2"
-        ]
-      },
-      "go": {
-        "role": "secondary",
-        "displayName": "Shelf Green",
-        "canonical": "#17803d",
-        "tonalRamp": [
-          "#0c411f",
-          "#157236",
-          "#1da44e",
-          "#26d566",
-          "#55e088",
-          "#87e9aa",
-          "#b8f2cd",
-          "#e9fbf0"
-        ]
-      },
-      "bad": {
-        "role": "secondary",
-        "displayName": "Problem Red",
-        "canonical": "#c8231b",
-        "tonalRamp": [
-          "#430c09",
-          "#771510",
-          "#aa1e17",
-          "#dd271e",
-          "#e7564e",
-          "#ee8782",
-          "#f5b8b5",
-          "#fce9e9"
-        ]
-      },
-      "bad-text": {
-        "role": "secondary",
-        "displayName": "Problem Text Red",
-        "canonical": "#b01d16",
-        "tonalRamp": [
-          "#440b08",
-          "#78140f",
-          "#ac1c15",
-          "#df251c",
-          "#e9544d",
-          "#ef8681",
-          "#f6b7b5",
-          "#fce9e8"
-        ]
-      },
       "ground": {
         "role": "neutral",
-        "displayName": "Canteen Wall",
-        "canonical": "#e4e6e9",
+        "displayName": "Porcelain Ground",
+        "canonical": "#eef0ee",
         "tonalRamp": [
-          "#22252a",
-          "#3d424a",
-          "#575f6a",
-          "#717b8b",
-          "#9199a5",
-          "#b1b7bf",
-          "#d1d4d9",
-          "#f1f2f4"
+          "#111211",
+          "#2a2c2a",
+          "#464847",
+          "#656765",
+          "#858785",
+          "#a6a8a6",
+          "#c9cbc9",
+          "#edefed"
         ]
       },
       "panel": {
         "role": "neutral",
-        "displayName": "Lightbox White",
+        "displayName": "Panel White",
         "canonical": "#ffffff",
         "tonalRamp": [
-          "#262626",
-          "#434343",
-          "#616161",
-          "#7e7e7e",
-          "#9b9b9b",
-          "#b8b8b8",
-          "#d5d5d5",
-          "#f2f2f2"
+          "#121212",
+          "#2b2b2b",
+          "#484848",
+          "#666666",
+          "#868686",
+          "#a8a8a8",
+          "#cacaca",
+          "#eeeeee"
         ]
       },
       "panel-2": {
         "role": "neutral",
-        "displayName": "Quiet Panel Fill",
-        "canonical": "#f1f2f4",
+        "displayName": "Quiet Fill",
+        "canonical": "#f5f6f4",
         "tonalRamp": [
-          "#22252b",
-          "#3b414b",
-          "#555d6c",
-          "#6f798d",
-          "#8f97a7",
-          "#afb5c0",
-          "#d0d3da",
-          "#f1f2f4"
+          "#111210",
+          "#2b2c2a",
+          "#474846",
+          "#656665",
+          "#858685",
+          "#a7a8a6",
+          "#cacbc9",
+          "#eeefed"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Line Ink",
+        "canonical": "#151715",
+        "tonalRamp": [
+          "#101210",
+          "#2a2c2a",
+          "#464846",
+          "#646764",
+          "#848784",
+          "#a6a8a6",
+          "#c8cbc8",
+          "#ecefec"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Ink Hover",
+        "canonical": "#303530",
+        "tonalRamp": [
+          "#0f130f",
+          "#282d28",
+          "#444944",
+          "#626862",
+          "#828882",
+          "#a3aaa3",
+          "#c6ccc6",
+          "#eaf1ea"
+        ]
+      },
+      "on-ink": {
+        "role": "neutral",
+        "displayName": "On Ink",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#121212",
+          "#2b2b2b",
+          "#484848",
+          "#666666",
+          "#868686",
+          "#a8a8a8",
+          "#cacaca",
+          "#eeeeee"
         ]
       },
       "muted": {
         "role": "neutral",
-        "displayName": "Muted Grey",
-        "canonical": "#4a4f55",
+        "displayName": "Muted Text",
+        "canonical": "#545a55",
         "tonalRamp": [
-          "#242629",
-          "#3f4348",
-          "#5a6067",
-          "#757d86",
-          "#949aa2",
-          "#b3b8bd",
-          "#d2d5d8",
-          "#f1f2f3"
+          "#0e130f",
+          "#282d28",
+          "#444945",
+          "#626863",
+          "#828883",
+          "#a3aaa4",
+          "#c6cdc7",
+          "#e9f1eb"
         ]
       },
       "line": {
         "role": "neutral",
         "displayName": "Hairline",
-        "canonical": "#cdd1d6",
+        "canonical": "#dde1dd",
         "tonalRamp": [
-          "#22262a",
-          "#3d434a",
-          "#575f6a",
-          "#717c8a",
-          "#919aa5",
-          "#b1b7bf",
-          "#d1d5d9",
-          "#f1f2f4"
+          "#101210",
+          "#292c29",
+          "#454945",
+          "#646764",
+          "#848784",
+          "#a5a9a5",
+          "#c8ccc8",
+          "#ecf0ec"
         ]
       },
       "line-strong": {
         "role": "neutral",
-        "displayName": "Quiet Border",
-        "canonical": "#8a9097",
+        "displayName": "Control Edge",
+        "canonical": "#8b928c",
         "tonalRamp": [
-          "#242628",
-          "#3f4347",
-          "#5b6066",
-          "#767d85",
-          "#959aa1",
-          "#b4b8bc",
-          "#d3d5d8",
-          "#f2f2f3"
+          "#0e130f",
+          "#272d28",
+          "#434a44",
+          "#616862",
+          "#818882",
+          "#a3aaa4",
+          "#c5cdc6",
+          "#e9f1ea"
+        ]
+      },
+      "board": {
+        "role": "neutral",
+        "displayName": "Board Black",
+        "canonical": "#151715",
+        "tonalRamp": [
+          "#101210",
+          "#2a2c2a",
+          "#464846",
+          "#646764",
+          "#848784",
+          "#a6a8a6",
+          "#c8cbc8",
+          "#ecefec"
+        ]
+      },
+      "tile-top": {
+        "role": "neutral",
+        "displayName": "Tile Top",
+        "canonical": "#2b2f2b",
+        "tonalRamp": [
+          "#0f130f",
+          "#292d29",
+          "#454945",
+          "#636763",
+          "#838883",
+          "#a4a9a4",
+          "#c7ccc7",
+          "#ebf0eb"
+        ]
+      },
+      "tile-bottom": {
+        "role": "neutral",
+        "displayName": "Tile Bottom",
+        "canonical": "#111311",
+        "tonalRamp": [
+          "#101210",
+          "#2a2c2a",
+          "#464846",
+          "#646764",
+          "#848784",
+          "#a6a8a6",
+          "#c8cbc8",
+          "#ecefec"
+        ]
+      },
+      "tile-split": {
+        "role": "neutral",
+        "displayName": "Tile Split",
+        "canonical": "#000000",
+        "tonalRamp": [
+          "#121212",
+          "#2b2b2b",
+          "#484848",
+          "#666666",
+          "#868686",
+          "#a8a8a8",
+          "#cacaca",
+          "#eeeeee"
+        ]
+      },
+      "paint": {
+        "role": "neutral",
+        "displayName": "Paint",
+        "canonical": "#f4f4ef",
+        "tonalRamp": [
+          "#12120e",
+          "#2c2c28",
+          "#484844",
+          "#666662",
+          "#868682",
+          "#a8a8a3",
+          "#cbcbc6",
+          "#efefea"
+        ]
+      },
+      "paint-dim": {
+        "role": "neutral",
+        "displayName": "Paint Dim",
+        "canonical": "#b9beb9",
+        "tonalRamp": [
+          "#0f130f",
+          "#292d29",
+          "#454945",
+          "#636763",
+          "#838883",
+          "#a4a9a4",
+          "#c7ccc7",
+          "#ebf0eb"
+        ]
+      },
+      "green": {
+        "role": "primary",
+        "displayName": "Line Green",
+        "canonical": "#1fa463",
+        "tonalRamp": [
+          "#011709",
+          "#02351c",
+          "#025630",
+          "#027a46",
+          "#159f5f",
+          "#49c27f",
+          "#70e7a1",
+          "#c7fed9"
+        ]
+      },
+      "green-text": {
+        "role": "primary",
+        "displayName": "Line Green, Text",
+        "canonical": "#0b7a3f",
+        "tonalRamp": [
+          "#001707",
+          "#043519",
+          "#07562b",
+          "#0c7a3f",
+          "#3c9c5f",
+          "#61bf7f",
+          "#85e3a1",
+          "#c8fed5"
+        ]
+      },
+      "green-ink": {
+        "role": "neutral",
+        "displayName": "Ink On Green",
+        "canonical": "#151715",
+        "tonalRamp": [
+          "#101210",
+          "#2a2c2a",
+          "#464846",
+          "#646764",
+          "#848784",
+          "#a6a8a6",
+          "#c8cbc8",
+          "#ecefec"
+        ]
+      },
+      "lamp": {
+        "role": "secondary",
+        "displayName": "Lamp Yellow",
+        "canonical": "#ffc400",
+        "tonalRamp": [
+          "#181000",
+          "#382901",
+          "#59440c",
+          "#7e6214",
+          "#a7800a",
+          "#d0a00d",
+          "#f8c230",
+          "#feedc6"
+        ]
+      },
+      "lamp-soft": {
+        "role": "secondary",
+        "displayName": "Lamp Glow",
+        "canonical": "#fff1bf",
+        "tonalRamp": [
+          "#171100",
+          "#342b04",
+          "#534719",
+          "#726638",
+          "#938658",
+          "#b5a878",
+          "#d8cb9a",
+          "#fdefbd"
+        ]
+      },
+      "lamp-edge": {
+        "role": "secondary",
+        "displayName": "Lamp Edge",
+        "canonical": "#c79800",
+        "tonalRamp": [
+          "#181001",
+          "#382902",
+          "#5b4403",
+          "#806103",
+          "#a68013",
+          "#cfa019",
+          "#f4c34c",
+          "#feedc7"
+        ]
+      },
+      "bad": {
+        "role": "tertiary",
+        "displayName": "Problem Red",
+        "canonical": "#c8321f",
+        "tonalRamp": [
+          "#290100",
+          "#540b04",
+          "#851608",
+          "#ba220e",
+          "#e14b37",
+          "#fc7c67",
+          "#fcb7aa",
+          "#fee9e5"
+        ]
+      },
+      "bad-ink": {
+        "role": "tertiary",
+        "displayName": "Problem Red, Text On",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#121212",
+          "#2b2b2b",
+          "#484848",
+          "#666666",
+          "#868686",
+          "#a8a8a8",
+          "#cacaca",
+          "#eeeeee"
         ]
       },
       "off": {
         "role": "neutral",
-        "displayName": "Switched-off Grey",
-        "canonical": "#6d7379",
+        "displayName": "Closed Stop",
+        "canonical": "#a3a9a4",
         "tonalRamp": [
-          "#242628",
-          "#404347",
-          "#5b6166",
-          "#777e84",
-          "#969ba0",
-          "#b4b8bc",
-          "#d3d5d7",
-          "#f2f2f3"
+          "#0f130f",
+          "#282d29",
+          "#444945",
+          "#626863",
+          "#828883",
+          "#a3a9a4",
+          "#c6ccc7",
+          "#eaf0eb"
         ]
       },
-      "plate": {
+      "focus": {
         "role": "neutral",
-        "displayName": "Plate White",
-        "canonical": "#ffffff",
+        "displayName": "Focus Ink",
+        "canonical": "#151715",
         "tonalRamp": [
-          "#262626",
-          "#434343",
-          "#616161",
-          "#7e7e7e",
-          "#9b9b9b",
-          "#b8b8b8",
-          "#d5d5d5",
-          "#f2f2f2"
+          "#101210",
+          "#2a2c2a",
+          "#464846",
+          "#646764",
+          "#848784",
+          "#a6a8a6",
+          "#c8cbc8",
+          "#ecefec"
         ]
       },
       "chart-prepared": {
         "role": "neutral",
-        "displayName": "Prepared Bar Grey",
-        "canonical": "#b9bec4",
+        "displayName": "Chart Prepared",
+        "canonical": "#c9cec9",
         "tonalRamp": [
-          "#23262a",
-          "#3e4349",
-          "#586069",
-          "#737d88",
-          "#929aa3",
-          "#b2b7be",
-          "#d2d5d9",
-          "#f1f2f3"
+          "#0f130f",
+          "#292d29",
+          "#454945",
+          "#636763",
+          "#838883",
+          "#a4a9a4",
+          "#c7ccc7",
+          "#ebf0eb"
+        ]
+      },
+      "chart-sold": {
+        "role": "primary",
+        "displayName": "Chart Sold",
+        "canonical": "#1fa463",
+        "tonalRamp": [
+          "#011709",
+          "#02351c",
+          "#025630",
+          "#027a46",
+          "#159f5f",
+          "#49c27f",
+          "#70e7a1",
+          "#c7fed9"
+        ]
+      },
+      "chart-leftover": {
+        "role": "tertiary",
+        "displayName": "Chart Leftover",
+        "canonical": "#c8321f",
+        "tonalRamp": [
+          "#290100",
+          "#540b04",
+          "#851608",
+          "#ba220e",
+          "#e14b37",
+          "#fc7c67",
+          "#fcb7aa",
+          "#fee9e5"
         ]
       }
     },
     "typographyMeta": {
       "display": {
-        "displayName": "Strip Number",
-        "purpose": "Trays-to-cook number on the tablet's yellow strip; one per screen. Container-sized (cqi)."
+        "displayName": "Display",
+        "purpose": "Phone screen title in signage capitals; one per phone screen."
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Screen titles on the phone."
-      },
-      "sign-name": {
-        "displayName": "Sign Name",
-        "purpose": "English stall name on a signboard, uppercase, wide 118%."
-      },
-      "sign-zh": {
-        "displayName": "Sign Chinese",
-        "purpose": "Chinese stall name under the English one, in yellow. Self-hosted subset covers the four stall names only."
+        "purpose": "Stall names on their screen, 'Trays to cook', ticket headings."
       },
       "title": {
-        "displayName": "Card Title",
-        "purpose": "Uppercase card headings on the tablet."
+        "displayName": "Title",
+        "purpose": "Ruled section titles."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Signage numerals for slot times, prices, stepper values, cooked count. Not tiles."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "All running text and buttons."
+        "purpose": "All reading text."
+      },
+      "body-small": {
+        "displayName": "Body Small",
+        "purpose": "Secondary and helper text, in Muted Text."
       },
       "label": {
-        "displayName": "Sticker Label",
-        "purpose": "Status and stall-type tags, uppercase."
+        "displayName": "Label",
+        "purpose": "Status words, code tabs, type tag, lunch-line times."
+      },
+      "clock": {
+        "displayName": "Clock",
+        "purpose": "The demo time: deliberately plain Archivo numerals."
+      },
+      "stall-zh": {
+        "displayName": "Stall Zh",
+        "purpose": "Chinese stall names beside the English name."
       }
     },
     "shadows": [
       {
-        "name": "object-lift",
-        "value": "0 1px 2px rgb(0 0 0 / 0.08), 0 14px 30px -16px rgb(0 0 0 / 0.38)",
-        "purpose": "Phone, signboards and tablet only. Dark mode: 0 1px 2px rgb(0 0 0 / 0.5), 0 14px 30px -16px rgb(0 0 0 / 0.85)."
+        "name": "device-lift",
+        "value": "0 1px 2px rgb(16 24 16 / 0.06), 0 14px 30px -18px rgb(16 24 16 / 0.3)",
+        "purpose": "The phone and the tablet only; removed on small screens."
       }
     ],
     "motion": [
       {
-        "name": "ease-sign",
+        "name": "ease-line",
         "value": "cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "The one easing curve: arrival, tick, signboard hover lift, switch knob."
+        "purpose": "Every transition and animation in the world."
+      },
+      {
+        "name": "hover",
+        "value": "0.15s to 0.18s",
+        "purpose": "Button fill, ring grow on stop hover, switch thumb."
+      },
+      {
+        "name": "flip",
+        "value": "0.5s, second tile delayed 0.08s; rotateX(-88deg) with brightness 1.8 to none",
+        "purpose": "Tray tiles flip when a pre-order changes the forecast."
       },
       {
         "name": "arrive",
-        "value": "1.1s cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "New order row slides in 16px from the left with a fading yellow background (.is-arriving, added once by vendor.js)."
+        "value": "1.1s; translateX(-10px) with lamp-soft background to none",
+        "purpose": "A new order row lands on the tablet."
       },
       {
-        "name": "tick",
-        "value": "0.5s cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "Strip tray number drops in from -0.3em when it changes (.is-ticking)."
-      },
-      {
-        "name": "hover-lift",
-        "value": "0.18s cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "Signboard button rises 2px on hover; switch knob slides."
+        "name": "grow",
+        "value": "0.6s; scale(0.6) to none",
+        "purpose": "The lunch-line stop for that slot grows."
       },
       {
         "name": "reduced-motion",
-        "value": "none",
-        "purpose": "prefers-reduced-motion disables all transitions and animations."
+        "value": "all transitions and animations none",
+        "purpose": "prefers-reduced-motion: reduce."
       }
     ],
     "breakpoints": [
       {
         "name": "phone",
-        "value": "760px",
-        "purpose": "Page max-width: phone frame drops, Both view hidden, Student view default."
+        "value": "max-width: 760px (viewport)"
       },
       {
         "name": "laptop",
-        "value": "761px-1180px",
-        "purpose": "Top bar kept on one row; Demo time label visually hidden."
+        "value": "761px to 1180px (viewport)"
       },
       {
         "name": "tablet-stack",
-        "value": "760px (container)",
-        "purpose": "Tablet card grid becomes one column, pre-orders first."
+        "value": "max-width: 760px (container)"
       },
       {
         "name": "tablet-narrow",
-        "value": "520px (container)",
-        "purpose": "Tablet header stacks, strip shrinks."
+        "value": "max-width: 560px (container)"
       }
     ]
   },
@@ -322,129 +526,135 @@
       "name": "Primary Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "The one main action in a row.",
-      "html": "<button class=\"ds-btn\">Accept</button>",
-      "css": ".ds-btn{display:inline-flex;align-items:center;gap:6px;border:2px solid var(--ink,#141414);background:var(--ink,#141414);color:var(--on-ink,#fff);border-radius:var(--r-sm,6px);padding:12px 18px;font-family:var(--f-ui,Archivo,Arial,sans-serif);font-weight:800;font-size:1rem;cursor:pointer;transition:background-color .15s,border-color .15s}.ds-btn:hover{background:var(--ink-2,#333);border-color:var(--ink-2,#333)}.ds-btn:focus-visible{outline:3px solid var(--focus,#141414);outline-offset:2px}"
+      "description": "Ink button for the one main action in a row.",
+      "html": "<button class=\"ds-btn\">Put on shelf</button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--ink); background: var(--ink); color: var(--on-ink); border-radius: var(--r-sm); padding: 11px 18px; font: 600 1rem/1.2 var(--f-ui); cursor: pointer; transition: background-color 0.15s, border-color 0.15s; } .ds-btn:hover { background: var(--ink-2); border-color: var(--ink-2); } .ds-btn:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }"
     },
     {
       "name": "Ghost Button",
       "kind": "button",
       "refersTo": "button-ghost",
-      "description": "Second choice beside a primary, same frame.",
-      "html": "<button class=\"ds-btn-ghost\">Decline</button>",
-      "css": ".ds-btn-ghost{border:2px solid var(--ink,#141414);background:transparent;color:var(--ink,#141414);border-radius:var(--r-sm,6px);padding:12px 18px;font-family:var(--f-ui,Archivo,Arial,sans-serif);font-weight:800;font-size:1rem;cursor:pointer}.ds-btn-ghost:hover{background:var(--panel-2,#f1f2f4)}.ds-btn-ghost:focus-visible{outline:3px solid var(--focus,#141414);outline-offset:2px}"
+      "description": "Outlined secondary action; the underlined link action is quieter still.",
+      "html": "<span style=\"display:flex;gap:12px;align-items:center\"><button class=\"ds-btn-ghost\">Decline</button><button class=\"ds-link-act\">Can't make it</button></span>",
+      "css": ".ds-btn-ghost { border: 1.5px solid var(--ink); background: transparent; color: var(--ink); border-radius: var(--r-sm); padding: 11px 18px; font: 600 1rem/1.2 var(--f-ui); cursor: pointer; transition: background-color 0.15s; } .ds-btn-ghost:hover { background: var(--panel-2); } .ds-btn-ghost:focus-visible, .ds-link-act:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; } .ds-link-act { border: 0; background: none; color: var(--ink); padding: 7px 4px; font: 600 0.9rem var(--f-ui); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; } .ds-link-act:hover { color: var(--muted); }"
     },
     {
-      "name": "Text Action",
-      "kind": "button",
-      "refersTo": "button-primary",
-      "description": "Underlined text button for the rarer choice in a row.",
-      "html": "<button class=\"ds-link-act\">Mark no-show</button>",
-      "css": ".ds-link-act{border:0;background:none;color:var(--ink,#141414);padding:7px 4px;font-family:var(--f-ui,Archivo,Arial,sans-serif);font-weight:700;font-size:.9rem;text-decoration:underline;text-underline-offset:3px;cursor:pointer}.ds-link-act:hover{color:var(--muted,#4a4f55)}.ds-link-act:focus-visible{outline:3px solid var(--focus,#141414);outline-offset:2px}"
+      "name": "View Switch",
+      "kind": "nav",
+      "refersTo": "view-switch-active",
+      "description": "Segmented Both / Student / Stall control in the top bar.",
+      "html": "<div class=\"ds-seg\" role=\"group\"><button aria-pressed=\"true\">Both</button><button aria-pressed=\"false\">Student</button><button aria-pressed=\"false\">Stall</button></div>",
+      "css": ".ds-seg { display: inline-flex; gap: 2px; border: 1.5px solid var(--ink); border-radius: var(--r-sm); padding: 2px; } .ds-seg button { border: 0; background: none; color: var(--ink); padding: 6px 14px; border-radius: 2px; font: 600 0.9rem var(--f-ui); cursor: pointer; } .ds-seg button:hover { background: var(--panel-2); } .ds-seg button[aria-pressed=\"true\"] { background: var(--ink); color: var(--on-ink); } .ds-seg button:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }"
     },
     {
-      "name": "Stall Signboard",
+      "name": "Flip Tiles",
       "kind": "custom",
-      "refersTo": "signboard-face",
-      "description": "The unit for every stall: plate, red face with English and Chinese name, yellow strip.",
-      "html": "<button class=\"ds-sign\"><span class=\"ds-plate\">01</span><span class=\"ds-face\"><span class=\"ds-name\">Mixed Veg Rice</span><span class=\"ds-zh\" lang=\"zh-Hans\">杂菜饭</span></span><span class=\"ds-strip\"><span>Order by 10:00</span><span>Batch cooked</span></span></button>",
-      "css": ".ds-sign{display:grid;grid-template-columns:56px minmax(0,1fr);width:320px;padding:0;text-align:left;border:2px solid var(--ink,#141414);border-radius:var(--r,10px);background:var(--panel,#fff);overflow:hidden;box-shadow:var(--shadow,0 1px 2px rgb(0 0 0/.08),0 14px 30px -16px rgb(0 0 0/.38));font-family:var(--f-ui,Archivo,Arial,sans-serif);cursor:pointer;transition:transform .18s cubic-bezier(.16,1,.3,1)}.ds-sign:hover{transform:translateY(-2px)}.ds-sign:focus-visible{outline:3px solid var(--focus,#141414);outline-offset:2px}.ds-plate{display:grid;place-items:center;background:var(--plate,#fff);color:var(--plate-ink,#141414);font-weight:900;font-size:1.5rem;border-right:2px solid var(--ink,#141414)}.ds-face{background:var(--sign,#c8231b);color:var(--sign-ink,#fff);padding:10px 14px 9px;display:grid;gap:1px}.ds-name{font-weight:900;font-stretch:118%;font-size:1.3rem;line-height:1.05;text-transform:uppercase}.ds-zh{font-family:var(--f-zh,'Noto Sans SC',sans-serif);font-weight:900;font-size:1.25rem;line-height:1.25;color:var(--sign-zh,#ffd21f)}.ds-strip{grid-column:1/-1;display:flex;justify-content:space-between;gap:10px;background:var(--strip,#ffd21f);color:var(--strip-ink,#141414);padding:6px 12px;font-weight:700;font-size:.9rem;border-top:2px solid var(--ink,#141414)}"
+      "refersTo": "flip-tile",
+      "description": "Black split-flap tiles for the one number per screen.",
+      "html": "<span class=\"ds-tiles\"><span class=\"ds-tile\">1</span><span class=\"ds-tile\">0</span><span>:</span><span class=\"ds-tile\">0</span><span class=\"ds-tile\">0</span></span>",
+      "css": ".ds-tiles { display: inline-flex; gap: 0.1em; align-items: center; font: 800 2.3rem/1 var(--f-sign); font-stretch: 72%; } .ds-tile { position: relative; display: inline-grid; place-items: center; width: 0.78em; height: 1.32em; border-radius: 0.07em; background: linear-gradient(var(--tile-top) 50%, var(--tile-bottom) 50%); color: var(--paint); font-variant-numeric: tabular-nums; } .ds-tile::after { content: \"\"; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--tile-split); }"
     },
     {
-      "name": "Tray Strip",
+      "name": "Stop Line",
       "kind": "custom",
-      "refersTo": "signboard-strip",
-      "description": "Tablet's full-width yellow strip with the Display-size trays-to-cook number.",
-      "html": "<div class=\"ds-vstrip\"><p class=\"ds-vnum\">9</p><p class=\"ds-vwhat\"><b>trays to cook</b><span>135 portions (sample data)</span></p></div>",
-      "css": ".ds-vstrip{display:flex;align-items:center;gap:8px 20px;background:var(--strip,#ffd21f);color:var(--strip-ink,#141414);padding:14px 20px;border-bottom:2px solid var(--ink,#141414);font-family:var(--f-ui,Archivo,Arial,sans-serif)}.ds-vnum{margin:0;font-weight:900;font-size:6rem;line-height:.8;letter-spacing:-.04em;font-variant-numeric:tabular-nums}.ds-vwhat{margin:0;display:grid;gap:3px}.ds-vwhat b{font-size:2rem;font-weight:900;font-stretch:112%;line-height:1.05}.ds-vwhat span{font-weight:600}"
+      "refersTo": "code-tab",
+      "description": "Stalls as stops on the vertical green line, with NS code tabs.",
+      "html": "<ul class=\"ds-stops\"><li><span class=\"ds-ring\"></span><span><span class=\"ds-tab\">NS01</span> <b>Mixed Veg Rice</b><small>Batch-cooked · order by 10:00</small></span></li><li><span class=\"ds-ring\"></span><span><span class=\"ds-tab\">NS02</span> <b>Chicken Rice</b><small>Batch-cooked · order by 10:00</small></span></li></ul>",
+      "css": ".ds-stops { list-style: none; margin: 0; padding: 0; font-family: var(--f-ui); } .ds-stops li { position: relative; display: grid; grid-template-columns: 36px 1fr; gap: 10px; padding: 12px 0; } .ds-stops li::before { content: \"\"; position: absolute; left: 14px; top: 0; bottom: 0; width: 8px; background: var(--green); } .ds-stops li:first-child::before { top: 30px; } .ds-stops li:last-child::before { bottom: calc(100% - 30px); } .ds-ring { width: 28px; height: 28px; margin: 4px 0 0 4px; border-radius: 50%; background: var(--panel); border: 4px solid var(--ink); position: relative; z-index: 1; transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1); } .ds-stops li:hover .ds-ring { transform: scale(1.15); } .ds-stops small { display: block; color: var(--muted); font-size: 0.82rem; } .ds-tab { display: inline-block; background: var(--ink); color: var(--paint); border-radius: 3px; padding: 3px 6px 2px; font: 700 0.85rem/1 var(--f-sign); font-stretch: 72%; letter-spacing: 0.06em; }"
     },
     {
-      "name": "Status Stickers",
+      "name": "Progress Line",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "An order's four stops: solid done, dashed to come, ring for now.",
+      "html": "<ol class=\"ds-progress\"><li class=\"done\"></li><li class=\"here\"></li><li></li><li></li></ol>",
+      "css": ".ds-progress { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; width: 160px; } .ds-progress li { flex: 1; display: flex; align-items: center; } .ds-progress li:first-child { flex: 0 0 auto; } .ds-progress li:not(:first-child)::before { content: \"\"; flex: 1; border-top: 2px dashed var(--line-strong); margin: 0 2px; } .ds-progress li.done:not(:first-child)::before, .ds-progress li.here:not(:first-child)::before { border-top: 0; height: 4px; background: var(--green); } .ds-progress li::after { content: \"\"; width: 14px; height: 14px; border-radius: 50%; border: 3px solid var(--line-strong); background: var(--panel); box-sizing: border-box; } .ds-progress li.done::after { border-color: var(--green); background: var(--green); } .ds-progress li.here::after { width: 18px; height: 18px; border-color: var(--ink); }"
+    },
+    {
+      "name": "Status Words",
       "kind": "chip",
-      "refersTo": "tag-pending",
-      "description": "Rectangular status tags; state reads by fill vs outline.",
-      "html": "<span class=\"ds-pill ds-new\">New</span> <span class=\"ds-pill ds-acc\">Accepted</span> <span class=\"ds-pill ds-ready\">On shelf</span> <span class=\"ds-pill ds-done\">Collected</span> <span class=\"ds-pill ds-off\">Declined</span> <span class=\"ds-pill ds-bad\">No-show</span>",
-      "css": ".ds-pill{display:inline-block;font-family:var(--f-ui,Archivo,Arial,sans-serif);font-size:.78rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:2px solid transparent}.ds-new{background:var(--strip,#ffd21f);color:var(--strip-ink,#141414);border-color:var(--strip-ink,#141414)}.ds-acc{color:var(--ink,#141414);border-color:var(--ink,#141414)}.ds-ready{background:var(--go,#17803d);color:var(--go-ink,#fff);border-color:var(--go,#17803d)}.ds-done{background:var(--ink,#141414);color:var(--on-ink,#fff);border-color:var(--ink,#141414)}.ds-off{color:var(--muted,#4a4f55);border-color:var(--line-strong,#8a9097);border-style:dashed}.ds-bad{background:var(--bad,#c8231b);color:var(--bad-ink,#fff);border-color:var(--bad,#c8231b)}"
+      "refersTo": "",
+      "description": "Signage status labels led by a mark that reads by shape.",
+      "html": "<span style=\"display:flex;gap:16px\"><span class=\"ds-pill ds-new\">New</span><span class=\"ds-pill\">Accepted</span><span class=\"ds-pill ds-ready\">On shelf</span><span class=\"ds-pill ds-noshow\">No-show</span></span>",
+      "css": ".ds-pill { display: inline-flex; align-items: center; gap: 6px; font: 700 0.85rem/1.2 var(--f-sign); font-stretch: 72%; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); } .ds-pill::before { content: \"\"; width: 9px; height: 9px; border-radius: 50%; border: 2px solid currentColor; } .ds-new::before { background: var(--lamp); border-color: var(--lamp-edge); } .ds-ready { color: var(--green-text); } .ds-ready::before { background: var(--green); border-color: var(--green); } .ds-noshow { color: var(--bad); } .ds-noshow::before { background: var(--bad); }"
     },
     {
-      "name": "Card",
+      "name": "Ruled Section",
       "kind": "card",
-      "refersTo": "card",
-      "description": "Flat white panel on the tablet, 2px hairline frame.",
-      "html": "<div class=\"ds-card\"><h3 class=\"ds-card-t\">Prep forecast</h3><p>Usual demand plus today's extra pre-orders.</p></div>",
-      "css": ".ds-card{border:2px solid var(--line,#cdd1d6);border-radius:var(--r,10px);padding:16px;display:grid;gap:12px;background:var(--panel,#fff);color:var(--ink,#141414);font-family:var(--f-ui,Archivo,Arial,sans-serif);max-width:320px}.ds-card-t{margin:0;font-size:1.02rem;font-weight:800;font-stretch:112%;text-transform:uppercase;letter-spacing:.03em}.ds-card p{margin:0}"
+      "refersTo": "",
+      "description": "A heavy ink rule and signage title instead of a boxed card, with a calc list.",
+      "html": "<section class=\"ds-card\"><h3>How the number is worked out</h3><dl class=\"ds-calc\"><div><dt>Usual demand</dt><dd>121</dd></div><div><dt>Extra today</dt><dd>+0</dd></div><div class=\"sum\"><dt>Suggested portions</dt><dd>121</dd></div></dl></section>",
+      "css": ".ds-card { border-top: 3px solid var(--ink); padding-top: 10px; display: grid; gap: 12px; font-family: var(--f-ui); max-width: 340px; } .ds-card h3 { margin: 0; font-family: var(--f-sign); font-stretch: 72%; text-transform: uppercase; font-weight: 800; font-size: 1.1rem; letter-spacing: 0.06em; } .ds-calc { margin: 0; display: grid; font-size: 0.95rem; } .ds-calc div { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--line); } .ds-calc dt { color: var(--muted); } .ds-calc dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; } .ds-calc .sum { border-bottom: 0; border-top: 2px solid var(--ink); font-weight: 700; } .ds-calc .sum dt { color: var(--ink); }"
     },
     {
-      "name": "Time Slots",
+      "name": "Collection Slots",
       "kind": "input",
       "refersTo": "slot",
-      "description": "Collection-time picker; selected is ink fill, unavailable is dashed and struck through.",
-      "html": "<div class=\"ds-slots\"><button class=\"ds-slot\">12:00</button><button class=\"ds-slot ds-on\">12:15</button><button class=\"ds-slot\" disabled>12:30</button></div>",
-      "css": ".ds-slots{display:grid;grid-template-columns:repeat(3,80px);gap:8px}.ds-slot{padding:10px 0;border:2px solid var(--ink,#141414);border-radius:var(--r-sm,6px);background:var(--panel,#fff);color:var(--ink,#141414);font-family:var(--f-ui,Archivo,Arial,sans-serif);font-weight:800;font-size:1.05rem;font-variant-numeric:tabular-nums;cursor:pointer}.ds-slot:hover:not(:disabled){background:var(--panel-2,#f1f2f4)}.ds-slot:focus-visible{outline:3px solid var(--focus,#141414);outline-offset:2px}.ds-on{background:var(--ink,#141414);color:var(--on-ink,#fff)}.ds-slot:disabled{border-style:dashed;border-color:var(--line-strong,#8a9097);color:var(--muted,#4a4f55);text-decoration:line-through;cursor:not-allowed}"
-    },
-    {
-      "name": "Top Bar",
-      "kind": "nav",
-      "refersTo": "button-primary",
-      "description": "Ink band with wordmark, yellow demo clock and segmented view switch.",
-      "html": "<div class=\"ds-top\"><span class=\"ds-brand\">Prep<b>Ahead</b></span><span class=\"ds-clock\">09:40</span><span class=\"ds-seg\"><button aria-pressed=\"true\">Both</button><button aria-pressed=\"false\">Student</button><button aria-pressed=\"false\">Stall</button></span></div>",
-      "css": ".ds-top{display:flex;align-items:center;gap:24px;background:var(--topbar,#141414);color:var(--topbar-ink,#fff);padding:12px 16px;font-family:var(--f-ui,Archivo,Arial,sans-serif)}.ds-brand{font-size:1.6rem;font-weight:900;font-stretch:125%;letter-spacing:-.02em}.ds-brand b{color:var(--strip,#ffd21f)}.ds-clock{font-weight:800;font-size:1.75rem;color:var(--strip,#ffd21f);font-variant-numeric:tabular-nums}.ds-seg{display:inline-flex;gap:2px;border:2px solid var(--topbar-ink,#fff);border-radius:var(--r-sm,6px);padding:2px}.ds-seg button{border:0;background:none;color:var(--topbar-ink,#fff);padding:6px 14px;border-radius:4px;font:inherit;font-weight:700;font-size:.9rem;cursor:pointer}.ds-seg button:hover{background:rgb(255 255 255/.14)}.ds-seg button:focus-visible{outline:3px solid var(--strip,#ffd21f);outline-offset:2px}.ds-seg button[aria-pressed=true]{background:var(--strip,#ffd21f);color:var(--strip-ink,#141414)}"
+      "description": "Outlined signage times; the chosen one turns into a flip tile, a full one is dashed.",
+      "html": "<div class=\"ds-slots\"><button class=\"ds-slot\">12:00</button><button class=\"ds-slot on\">12:15</button><button class=\"ds-slot\" disabled>12:30</button></div>",
+      "css": ".ds-slots { display: grid; grid-template-columns: repeat(3, 90px); gap: 8px; } .ds-slot { padding: 9px 0; border: 1.5px solid var(--ink); border-radius: var(--r-sm); background: var(--panel); color: var(--ink); cursor: pointer; font: 800 1.3rem/1 var(--f-sign); font-stretch: 72%; letter-spacing: 0.03em; font-variant-numeric: tabular-nums; } .ds-slot:hover:not(:disabled) { background: var(--panel-2); } .ds-slot:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; } .ds-slot.on { background: linear-gradient(var(--tile-top) 50%, var(--tile-bottom) 50%); color: var(--paint); border-color: var(--tile-bottom); } .ds-slot:disabled { border-style: dashed; border-color: var(--line-strong); color: var(--muted); text-decoration: line-through; cursor: not-allowed; }"
     }
   ],
   "narrative": {
-    "northStar": "The Canteen Lightbox",
-    "overview": "**Creative North Star: \"The Canteen Lightbox\"**\n\nPrepAhead looks like the row of lit stall signboards above an NTU canteen counter. Each stall is a red signboard with a white numbered plate, its English name in heavy, wide white capitals, its Chinese name in yellow, and a yellow strip underneath that carries the stall's one number. Everything that is not a signboard is a plain white panel with an ink frame, sitting on a cool grey wall.\n\nThe page is a demo seen from a step behind a laptop, so it is bold and big rather than delicate: thick 2px ink frames, heavy type, one very large number per stall (trays to cook). It is built from flat colour blocks, not photos. PrepAhead is a concept add-on to Cates and is not affiliated with it, so it never borrows Cates' logo or styling.",
+    "northStar": "The Lunch Line",
+    "overview": "**Creative North Star: \"The Lunch Line\"**\n\nPrepAhead is one green line. Each stall is a stop on it (NS01 to NS04), every order rides it from placed to collected, and the single number a screen exists to tell you (trays to cook on the stall tablet, the 10:00 cut-off on the phone, the collection time on the ticket) sits in black split-flap tiles like a departures board. Everything else is a light, ruled transit map: porcelain ground, white work panels, hairlines, and tall condensed signage capitals over a plain reading face.\n\nThe density is a working tool, not a showcase poster. Sections inside a panel are separated by a heavy ink rule and a signage title rather than boxed into cards; lists are rows on hairlines; status reads by line form (solid done, dashed to come, ring for now) and by a word, never by colour alone. Colour is rationed into three jobs: green draws the line, a yellow lamp marks \"now\" and \"new\", red marks a problem. The page is light only and looks the same on any laptop.\n\nThe world refuses white food-app cards with dish photos, a KPI-tile dashboard, and cute rounded stickers. It never borrows Cates' logo or styling: PrepAhead is a concept add-on, not affiliated.",
     "keyCharacteristics": [
-      "Red signboard + white plate + yellow strip is the unit every stall is drawn with, on the phone and on the tablet.",
-      "Ink (near-black) does the structural work: text, frames, the top bar, primary buttons.",
-      "Yellow means \"look here\": the strip, prices, the demo clock, the pickup code, new orders.",
-      "Red away from a signboard means a problem.",
-      "Status is shown by fill versus outline, never by colour alone."
+      "One saturated green line carries stops, progress and the lunch timeline.",
+      "Black flip tiles hold exactly one number per screen; every other number is plain signage or body numerals.",
+      "Big Shoulders Display signage capitals for headings, codes and numerals; Archivo for everything you read.",
+      "Ruled, not boxed: heavy ink rules and hairlines organise the panel.",
+      "Yellow lamp for now/new, red for problems, nothing else coloured.",
+      "One motion moment: tiles flip, the order arrives, its stop grows."
     ],
     "rules": [
       {
-        "name": "The Red Means Trouble Rule",
-        "body": "Red appears in two places only: on a signboard face, and on something that has gone wrong (no-show, uncollected, leftover, the stop switch on, error text). Don't use red for a normal action or decoration.",
+        "name": "The Three Jobs Rule",
+        "body": "Green is the line, yellow is now/new, red is a problem. A colour outside its job is a bug.",
         "section": "colors"
       },
       {
-        "name": "The Yellow Points Rule",
-        "body": "Yellow sits under ink text (`--strip-ink`), never white text. Use it for the one thing on a screen the viewer should read first.",
+        "name": "The Shapes-Not-Text Rule",
+        "body": "Line Green fills shapes only. When green must be read as words, use Line Green, Text.",
         "section": "colors"
+      },
+      {
+        "name": "The Variables-Only Rule",
+        "body": "Every colour comes from a custom property in style.css; the page is light only (color-scheme: light), no dark variant.",
+        "section": "colors"
+      },
+      {
+        "name": "The Signage Announces Rule",
+        "body": "Big Shoulders is for short uppercase announcements and numerals only; any sentence a person reads goes in Archivo.",
+        "section": "typography"
       },
       {
         "name": "The Tabular Numbers Rule",
-        "body": "Every time, price, count and code uses tabular figures (`.num` or `font-variant-numeric: tabular-nums`) so numbers don't jump when they change.",
+        "body": "Every number that can change (prices, counts, times, codes) uses tabular figures so updates never shift the layout.",
         "section": "typography"
       },
       {
-        "name": "The Wide Caps Belong to Signs Rule",
-        "body": "Wide, black, uppercase lettering is for signboards, the brand and card titles. Body text and buttons stay at normal width and in sentence case.",
-        "section": "typography"
-      },
-      {
-        "name": "The Frames Not Shadows Rule",
-        "body": "Inside a panel, separate things with a border (2px ink for structure, 1px `--line` for rows), not with shadows.",
+        "name": "The Two Devices Rule",
+        "body": "Only the phone and the tablet cast a shadow. Sections, rows, notes and buttons are flat.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "Do draw every stall as the signboard: number plate, red face, English caps plus Chinese name, yellow strip.",
-      "Do put the one number that matters on the yellow strip, in ink, in tabular figures.",
-      "Do use 2px ink frames for structure and 1px `--line` hairlines between list rows.",
-      "Do show state by fill versus outline (plus the word), so it reads without colour.",
-      "Do use only the CSS variables in `style.css`, and check both light and dark mode after a change.",
-      "Do keep the \"Sample data\" labels visible wherever figures appear.",
-      "Do use the `ICON` SVGs for icons and keep motion to the arrival flash and tray tick."
+      "**Do** draw every journey (stalls, an order's progress, the lunch timeline, trays cooked) as the green line with stops: solid done, dashed to come, ring for now.",
+      "**Do** put exactly one number per screen in flip tiles: trays to cook on the tablet, the cut-off on the phone home, the collection time on the ticket. A chosen slot may turn into a tile because it becomes that screen's number.",
+      "**Do** open sections with a 3px ink rule and a signage title instead of a box.",
+      "**Do** pair every status colour with a shape and a word so it reads in greyscale.",
+      "**Do** keep the demo clock as plain Archivo numerals.",
+      "**Do** keep \"Sample data\" labels visible on both panes and on every chart.",
+      "**Do** take every colour, font and radius from the custom properties in style.css."
     ],
     "donts": [
-      "Don't use red for normal actions or decoration; red off a signboard means a problem.",
-      "Don't put white text on the yellow strip.",
-      "Don't add dish photos or generic white food-app cards; the signboard is the stall's picture.",
-      "Don't build the stall side as a grid of KPI tiles; the tablet leads with one number on the strip.",
-      "Don't make status tags pill-round; they are 4px rectangular stickers.",
-      "Don't add shadows to cards or rows inside a panel.",
-      "Don't use Cates' logo, colours or styling."
+      "**Don't** use white food-app cards with dish photos, a KPI-tile dashboard, or cute rounded stickers.",
+      "**Don't** put a second flip-tile number on a screen; other numbers are signage numerals.",
+      "**Don't** use yellow for anything but now and new, or red for anything but a problem.",
+      "**Don't** set Line Green as text on white; use Line Green, Text.",
+      "**Don't** add shadows beyond the phone and the tablet.",
+      "**Don't** use Cates' logo, colours or styling.",
+      "**Don't** add a dark mode."
     ]
   }
 }

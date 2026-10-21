@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Concourse Board (sketch)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Noto+Sans+SC:wght@500;700&display=swap">
+<style>
+:root{--steel:#e7e9ea;--steel-2:#d3d7d9;--white:#fff;--ink:#141414;--paint:#f5f5f0;--amber:#ffb000;--red:#b3261e;--muted:#55595c;--line:#d9dcde;color-scheme:light}
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;font:15px/1.4 Archivo,sans-serif;color:var(--ink);background:var(--steel) repeating-linear-gradient(90deg,rgb(255 255 255/.35) 0 1px,transparent 1px 4px)}
+.zh{font-family:"Noto Sans SC",sans-serif;font-weight:500}.num{font-variant-numeric:tabular-nums}
+.top{height:60px;background:var(--white);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:28px;padding:0 32px}
+.brand{font-weight:800;font-size:22px;letter-spacing:-.01em}.brand small{display:block;font-weight:500;font-size:12px;color:var(--muted)}
+.clock{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--muted)}
+.clock i{width:150px;height:4px;background:var(--steel-2);position:relative}.clock i:after{content:"";position:absolute;left:28%;top:-7px;width:4px;height:18px;background:var(--ink)}
+.clock b{font:700 22px Archivo;color:var(--ink)}
+.seg{display:flex;border:1px solid var(--ink)}.seg span{padding:6px 14px;font-weight:600}.seg .on{background:var(--ink);color:#fff}
+.reset{font-weight:600;text-decoration:underline}
+.stage{display:grid;grid-template-columns:390px 1fr;gap:32px;padding:22px 32px}
+.label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}.label b{color:var(--ink)}
+/* flip cells: the one number per screen */
+.flaps{display:flex;gap:4px}
+.f{position:relative;width:var(--w,46px);height:var(--h,64px);background:linear-gradient(#232323 50%,#141414 50%);border-radius:4px;color:var(--paint);display:grid;place-content:center;font-weight:700;font-stretch:72%;font-size:var(--fs,46px);line-height:1;box-shadow:inset 0 -2px 0 #000}
+.f:after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:#000}
+.f.sep{width:18px;background:none;box-shadow:none;color:var(--ink)}.f.sep:after{display:none}
+.phone{height:770px;background:var(--ink);border-radius:46px;padding:11px}
+.screen{height:100%;border-radius:36px;background:var(--white);overflow:hidden;padding:48px 18px 0}
+h1{font-size:32px;font-weight:800;letter-spacing:-.02em;line-height:1}
+.sub{color:var(--muted);font-size:14px;margin:8px 0 18px}
+.k{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.cut{display:flex;align-items:center;justify-content:space-between;padding:14px 0 16px;border-top:2px solid var(--ink);border-bottom:1px solid var(--line)}
+.rows .r{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--line)}
+.r .no{font-weight:700;color:var(--muted)}.r h2{font-size:17px;font-weight:700}.r .zh{color:var(--muted);font-size:13px;margin-left:6px}
+.r p{font-size:13px;color:var(--muted)}.r .p{font-weight:700;text-align:right}.r .p small{display:block;font-weight:500;color:var(--muted);font-size:12px}
+.lamp{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--amber);margin-right:6px;box-shadow:0 0 0 3px rgb(255 176 0/.25)}
+.early{font-size:13px;font-weight:600;padding:12px 0;border-bottom:1px solid var(--line)}
+.tab{height:770px;background:var(--white);overflow:hidden;border:1px solid var(--line)}
+.thead{display:flex;align-items:baseline;gap:14px;padding:18px 26px;border-bottom:1px solid var(--line)}
+.thead h2{font-size:24px;font-weight:800}.thead .zh{font-size:18px;color:var(--muted)}
+.tag{margin-left:auto;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--ink);padding:3px 8px}
+.hero{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;padding:24px 26px;border-bottom:2px solid var(--ink)}
+.hero h3{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.hero p{color:var(--muted);font-size:14px}.hero p b{color:var(--ink)}
+.cook{text-align:right}.cook b{display:block;font-size:30px;font-weight:800;margin:2px 0 8px}
+.btn{display:inline-block;background:var(--ink);color:#fff;font-weight:600;padding:9px 16px;font-size:14px}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--ink)}
+.cols{display:grid;grid-template-columns:1fr 1.45fr;gap:26px;padding:20px 26px}
+.calc div{display:flex;justify-content:space-between;padding:7px 0;font-size:14px;color:var(--muted);border-bottom:1px solid var(--line)}.calc dd{font-weight:700;color:var(--ink)}
+.calc .sum{border-bottom:0;border-top:2px solid var(--ink);color:var(--ink);font-weight:800}
+.note{margin-top:12px;font-size:13px;color:var(--muted)}.note b{color:var(--ink)}
+.board .o{display:grid;grid-template-columns:70px 1fr auto;gap:16px;align-items:center;padding:12px 10px;border-bottom:1px solid var(--line)}
+.o .t{font-size:22px;font-weight:700;font-stretch:80%}.o .w{font-size:14px}.o .w b{margin-right:6px}
+.o .s{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block;margin-top:2px}
+.o.lift{background:var(--white);box-shadow:0 10px 24px -14px rgb(0 0 0/.45);border:1px solid var(--ink);position:relative;z-index:1}
+.o.dim{color:var(--muted)}
+.h4{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+</style></head><body>
+<header class="top">
+  <div class="brand">PrepAhead<small>Tells stalls how much to cook, before they cook · concept add-on for Cates</small></div>
+  <div class="clock">Demo time <i></i><b class="num">09:40</b></div>
+  <div class="seg"><span class="on">Both</span><span>Student</span><span>Stall</span></div>
+  <span class="reset">Reset demo</span>
+</header>
+<main class="stage">
+<section>
+  <p class="label"><span><b>Student</b> phone app</span><span>Sample data</span></p>
+  <div class="phone"><div class="screen">
+    <h1>Skip the lunch queue</h1>
+    <p class="sub">North Spine Canteen. Pick a stall, pick a time, walk straight to the counter.</p>
+    <div class="cut"><div><p class="k">Batch stalls close</p><p style="font-size:13px;color:var(--muted)">20 min left</p></div>
+      <div class="flaps num" style="--w:38px;--h:54px;--fs:38px"><span class="f">1</span><span class="f">0</span><span class="f sep">:</span><span class="f">0</span><span class="f">0</span></div></div>
+    <p class="early"><span class="lamp"></span>Early bird: order before 10:00, save 10%</p>
+    <div class="rows">
+      <div class="r"><span class="no num">01</span><div><h2>Mixed Veg Rice<span class="zh">杂菜饭</span></h2><p>Order by 10:00 · saved 40 portions this week (sample)</p></div><span class="p num"><small>from</small>$3.15</span></div>
+      <div class="r"><span class="no num">02</span><div><h2>Chicken Rice<span class="zh">鸡饭</span></h2><p>Order by 10:00 · saved 28 portions this week (sample)</p></div><span class="p num"><small>from</small>$3.78</span></div>
+      <div class="r"><span class="no num">03</span><div><h2>Ban Mian<span class="zh">板面</span></h2><p>Order 30 min ahead · saved 15 portions (sample)</p></div><span class="p num"><small>from</small>$4.05</span></div>
+      <div class="r"><span class="no num">04</span><div><h2>Western<span class="zh">西餐</span></h2><p>Order 30 min ahead</p></div><span class="p num"><small>from</small>$4.95</span></div>
+    </div>
+  </div></div>
+</section>
+<section>
+  <p class="label"><span><b>Stall</b> counter tablet</span><span>All figures are sample data</span></p>
+  <div class="tab">
+    <div class="thead"><h2>01 · Mixed Veg Rice</h2><span class="zh">杂菜饭</span><span class="tag">Batch-cooked</span></div>
+    <div class="hero">
+      <div class="flaps num" style="--w:84px;--h:116px;--fs:96px"><span class="f">0</span><span class="f">9</span></div>
+      <div><h3>Trays to cook</h3><p class="num"><b>135 portions</b> (9 × 15) · updates until 10:00</p><p class="num">18 fewer than the usual prep of 153</p></div>
+      <div class="cook"><p class="k">Cooked so far</p><b class="num">3 of 9</b><span class="btn">+1 tray cooked</span></div>
+    </div>
+    <div class="cols">
+      <div><p class="k" style="margin-bottom:6px">How the number is worked out</p>
+        <dl class="calc num"><div><dt>Usual demand (Wed, 4 wks)</dt><dd>121</dd></div><div><dt>Pre-ordered so far</dt><dd>16</dd></div><div><dt>Extra above usual pre-orders</dt><dd>+0</dd></div><div class="sum"><dt>Suggested portions</dt><dd>121</dd></div></dl>
+        <p class="note">Recurring orders tomorrow (Thu): <b class="num">6</b> portions. Buy ingredients for these.</p></div>
+      <div class="board"><div class="h4"><p class="k">Pre-orders · 4 open</p><span class="btn ghost" style="padding:5px 10px;font-size:13px">Accept all new (1)</span></div>
+        <div class="o lift"><span class="t num">12:45</span><div class="w"><b class="num">A1004</b>3 × 3 veg (vegetarian)<span class="s"><span class="lamp"></span>New</span></div><span><span class="btn">Accept</span> <span class="btn ghost">Decline</span></span></div>
+        <div class="o dim"><span class="t num">12:00</span><div class="w"><b class="num">A1001</b>2 × 1 meat + 2 veg<span class="s">On shelf</span></div><span class="btn ghost">Check code</span></div>
+        <div class="o dim"><span class="t num">12:15</span><div class="w"><b class="num">A1002</b>1 × 2 meat + 1 veg<span class="s">Accepted</span></div><span class="btn ghost">Put on shelf</span></div>
+        <div class="o dim"><span class="t num">12:30</span><div class="w"><b class="num">A1003</b>10 × 1 meat + 2 veg<span class="s">Accepted</span></div><span class="btn ghost">Put on shelf</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+</body></html>

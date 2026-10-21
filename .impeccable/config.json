@@ -20,6 +20,231 @@
         ],
         "createdAt": "2026-10-15T08:05:27.878Z",
         "reason": "Claude: non-shipping decision sketch of the unchosen Tingkat direction; kept only as the spent decision hand"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "atkinson hyperlegible",
+        "files": [
+          ".impeccable/mocks/decision/assigned.html"
+        ],
+        "createdAt": "2026-10-15T08:22:37.676Z",
+        "reason": "Claude: non-shipping decision sketch of an unchosen direction; kept only as the spent decision hand"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "roboto",
+        "files": [
+          ".impeccable/mocks/decision/canon.html"
+        ],
+        "createdAt": "2026-10-15T08:22:37.699Z",
+        "reason": "Claude: non-shipping decision sketch of an unchosen direction; kept only as the spent decision hand"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r2-kraft.html"
+        ],
+        "createdAt": "2026-10-20T08:37:49.996Z",
+        "reason": "Claude: non-shipping decision sketch for the redesign round; its faces are candidates for a new world, not the incumbent DESIGN.md"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r2-pandan.html"
+        ],
+        "createdAt": "2026-10-20T08:37:50.007Z",
+        "reason": "Claude: non-shipping decision sketch for the redesign round; its faces are candidates for a new world, not the incumbent DESIGN.md"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r2-sticker.html"
+        ],
+        "createdAt": "2026-10-20T08:37:50.019Z",
+        "reason": "Claude: non-shipping decision sketch for the redesign round; its faces are candidates for a new world, not the incumbent DESIGN.md"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r2-boarding.html"
+        ],
+        "createdAt": "2026-10-20T08:37:50.030Z",
+        "reason": "Claude: non-shipping decision sketch for the redesign round; its faces are candidates for a new world, not the incumbent DESIGN.md"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r2-canon.html"
+        ],
+        "createdAt": "2026-10-20T08:37:50.041Z",
+        "reason": "Claude: non-shipping decision sketch for the redesign round; its faces are candidates for a new world, not the incumbent DESIGN.md"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r3-splitflap.html"
+        ],
+        "createdAt": "2026-10-20T08:44:12.042Z",
+        "reason": "Claude: non-shipping decision sketch for the redesign re-roll; its faces are candidates for a new world, not the incumbent DESIGN.md"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r3-proof.html"
+        ],
+        "createdAt": "2026-10-20T08:44:12.060Z",
+        "reason": "Claude: non-shipping decision sketch for the redesign re-roll; its faces are candidates for a new world, not the incumbent DESIGN.md"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r3-grid.html"
+        ],
+        "createdAt": "2026-10-20T08:44:12.072Z",
+        "reason": "Claude: non-shipping decision sketch for the redesign re-roll; its faces are candidates for a new world, not the incumbent DESIGN.md"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r3-line.html"
+        ],
+        "createdAt": "2026-10-20T08:44:12.084Z",
+        "reason": "Claude: non-shipping decision sketch for the redesign re-roll; its faces are candidates for a new world, not the incumbent DESIGN.md"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r3-canon.html"
+        ],
+        "createdAt": "2026-10-20T08:44:12.105Z",
+        "reason": "Claude: non-shipping decision sketch for the redesign re-roll; its faces are candidates for a new world, not the incumbent DESIGN.md"
+      },
+      {
+        "rule": "undersized-ui-text",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r2-kraft.html"
+        ],
+        "createdAt": "2026-10-20T08:44:56.315Z",
+        "reason": "Claude: spent decision sketch the user re-rolled away from; kept only as the round's record, never shipped"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r2-kraft.html"
+        ],
+        "createdAt": "2026-10-20T08:44:56.327Z",
+        "reason": "Claude: spent decision sketch the user re-rolled away from; kept only as the round's record, never shipped"
+      },
+      {
+        "rule": "undersized-ui-text",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r2-pandan.html"
+        ],
+        "createdAt": "2026-10-20T08:44:56.339Z",
+        "reason": "Claude: spent decision sketch the user re-rolled away from; kept only as the round's record, never shipped"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r2-pandan.html"
+        ],
+        "createdAt": "2026-10-20T08:44:56.350Z",
+        "reason": "Claude: spent decision sketch the user re-rolled away from; kept only as the round's record, never shipped"
+      },
+      {
+        "rule": "undersized-ui-text",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r2-sticker.html"
+        ],
+        "createdAt": "2026-10-20T08:44:56.362Z",
+        "reason": "Claude: spent decision sketch the user re-rolled away from; kept only as the round's record, never shipped"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r2-sticker.html"
+        ],
+        "createdAt": "2026-10-20T08:44:56.375Z",
+        "reason": "Claude: spent decision sketch the user re-rolled away from; kept only as the round's record, never shipped"
+      },
+      {
+        "rule": "undersized-ui-text",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r2-boarding.html"
+        ],
+        "createdAt": "2026-10-20T08:44:56.386Z",
+        "reason": "Claude: spent decision sketch the user re-rolled away from; kept only as the round's record, never shipped"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r2-boarding.html"
+        ],
+        "createdAt": "2026-10-20T08:44:56.398Z",
+        "reason": "Claude: spent decision sketch the user re-rolled away from; kept only as the round's record, never shipped"
+      },
+      {
+        "rule": "undersized-ui-text",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r2-canon.html"
+        ],
+        "createdAt": "2026-10-20T08:44:56.411Z",
+        "reason": "Claude: spent decision sketch the user re-rolled away from; kept only as the round's record, never shipped"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r2-canon.html"
+        ],
+        "createdAt": "2026-10-20T08:44:56.422Z",
+        "reason": "Claude: spent decision sketch the user re-rolled away from; kept only as the round's record, never shipped"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r4-line.html"
+        ],
+        "createdAt": "2026-10-20T08:49:06.242Z",
+        "reason": "Claude: non-shipping decision sketch for the steered redesign round; its faces are candidates for a new world, not the incumbent DESIGN.md"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r4-board.html"
+        ],
+        "createdAt": "2026-10-20T08:49:06.254Z",
+        "reason": "Claude: non-shipping decision sketch for the steered redesign round; its faces are candidates for a new world, not the incumbent DESIGN.md"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r4-canon.html"
+        ],
+        "createdAt": "2026-10-20T08:49:06.267Z",
+        "reason": "Claude: non-shipping decision sketch for the steered redesign round; its faces are candidates for a new world, not the incumbent DESIGN.md"
       }
     ]
   }

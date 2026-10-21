@@ -1,8 +1,8 @@
 /* ============================================================
    student.js
    The student app: browse stalls → pick food → pick a collection
-   slot → pay → QR code → my orders. Each stall is drawn as its
-   canteen signboard (see signParts and .sign in style.css).
+   slot → pay → QR code → my orders. Each stall is a stop on the
+   canteen's green line (see stopRow and .stop in style.css).
    Draws into <div id="student-app"> in index.html.
    ============================================================ */
 
@@ -37,7 +37,7 @@ const earlyBirdPct = () => Math.round(RULES.earlyBirdDiscount * 100);
 // Banner shown on the stall list and menu while the early-bird discount is on.
 function earlyBirdBanner() {
   if (!isEarlyBird()) return "";
-  return `<div class="banner"><strong>Early bird:</strong> Order before ${RULES.earlyBirdUntil}, save ${earlyBirdPct()}%.</div>`;
+  return `<p class="lamp-line"><span class="lamp" aria-hidden="true"></span><span><strong>Early bird:</strong> Order before ${RULES.earlyBirdUntil}, save ${earlyBirdPct()}%.</span></p>`;
 }
 
 // Menu price: during early bird, show the usual price crossed out next to today's price.
@@ -56,14 +56,49 @@ function stallRule(stall) {
 }
 const stallType = (stall) => (stall.type === "batch" ? "Batch-cooked" : "Made to order");
 
-// The inside of a stall's signboard: numbered plate, red face (English + Chinese name) and a
-// yellow strip. Wrapped in a <button> on the stall list, or a <div class="sign"> at the top of a screen.
-// nameTag is "h2" when the signboard is the screen's heading (never inside a button).
-function signParts(stall, stripLeft, stripRight = "", nameTag = "span") {
+// The names of the four stops on an order's progress line (see progressLine in data.js).
+const STUDENT_STAGES = ["Ordered", "Confirmed", "On shelf", "Collected"];
+
+// One stall as a stop on the green line: ring, code tab, name, rule and price.
+// `why` is set when the stall can't take orders right now (the stop greys out and says why).
+function stopRow(st, why) {
+  const from = Math.min(...st.items.map(priceNow)); // cheapest item at today's price
   return `
-    <span class="sign-plate"><span class="sr">Stall </span>${stall.no}</span>
-    <span class="sign-face"><${nameTag} class="sign-name">${stall.name}</${nameTag}><span class="sign-zh" lang="zh-Hans">${stall.zh}</span></span>
-    <span class="sign-strip"><span>${stripLeft}</span>${stripRight ? `<span class="num">${stripRight}</span>` : ""}</span>`;
+    <li class="stop ${why ? "is-closed" : ""}">
+      <button class="stop-btn" data-act="open-stall" data-id="${st.id}" ${why ? "disabled" : ""}>
+        <span class="ring" aria-hidden="true"></span>
+        <span>
+          <span class="code-tab num">${stallCode(st)}</span><span class="stop-name">${st.name}</span><span class="zh" lang="zh-Hans">${st.zh}</span>
+          <span class="stop-meta ${why ? "is-why" : ""}">${why || `${stallType(st)} · ${stallRule(st).toLowerCase()}`}</span>
+          <span class="stop-saved">Saved ${st.savedThisWeek} this week (sample)</span>
+        </span>
+        <span class="stop-price num"><small>from</small>${money(from)}</span>
+      </button>
+    </li>`;
+}
+
+// The top of a stall's own screens: code tab, name (as the screen heading) and its rule.
+function stallHead(st, line) {
+  return `
+    <div class="stall-head">
+      <span><span class="code-tab num">${stallCode(st)}</span></span>
+      <h2>${st.name}<span class="zh" lang="zh-Hans">${st.zh}</span></h2>
+      <p>${line}</p>
+    </div>`;
+}
+
+// "Batch stalls close" with the cut-off time in flip tiles, and how long is left.
+function cutoffPanel() {
+  const left = toMin(RULES.batchCutoff) - toMin(Store.get().demoTime);
+  // e.g. "2 h left", "1 h 20 min left", "20 min left"
+  const hours = Math.floor(left / 60), mins = left % 60;
+  const when = hours ? `${hours} h${mins ? ` ${mins} min` : ""} left` : `${mins} min left`;
+  return `
+    <div class="cutoff ${left > 0 ? "" : "is-closed"}">
+      <div><h3>${left > 0 ? "Batch stalls close" : "Batch stalls closed"}</h3>
+        <p>${left > 0 ? `<span class="lamp" aria-hidden="true"></span>${when} to pre-order` : "Made-to-order stalls still take orders"}</p></div>
+      ${flipTiles(RULES.batchCutoff)}
+    </div>`;
 }
 
 // When free cancellation ends. It's the same cut-off that closes ordering
@@ -87,29 +122,23 @@ function screenHome() {
   const hasAnything = mine.length || s.recurring.some((r) => r.mine) || s.deals.some((d) => d.mine);
   return `
     <div class="s-head">
-      <h2>Skip the lunch queue</h2>
-      <p>Order ahead at ${APP.canteen}, pick a collection time that suits you, and walk straight to the counter.</p>
+      <h2 class="s-title">Skip the lunch queue</h2>
     </div>
+    ${cutoffPanel()}
     ${reminderBanner()}
     ${dealsStrip()}
     ${earlyBirdBanner()}
-    <ul class="stall-list">
-      ${STALLS.map((st) => {
-        const check = canOrder(st);
-        const closed = st.type === "batch" && toMin(s.demoTime) >= toMin(RULES.batchCutoff);
-        const blocked = !check.ok || closed;
-        const from = Math.min(...st.items.map(priceNow)); // cheapest item at today's price
-        return `
-        <li>
-          <button class="sign" data-act="open-stall" data-id="${st.id}" ${blocked ? "disabled" : ""}>
-            ${blocked ? signParts(st, closed ? `Closed at ${RULES.batchCutoff}` : check.reason) : signParts(st, stallRule(st), `from ${money(from)}`)}
-            <span class="sign-foot">${stallType(st)} · pre-orders saved ${st.savedThisWeek} portions here this week (sample)</span>
-          </button>
-        </li>`;
-      }).join("")}
-    </ul>
+    <div>
+      <p class="line-name sign-type">${APP.canteen}</p>
+      <ul class="stall-list">
+        ${STALLS.map((st) => {
+          const check = canOrder(st);
+          const closed = st.type === "batch" && toMin(s.demoTime) >= toMin(RULES.batchCutoff);
+          return stopRow(st, closed ? `Closed for lunch at ${RULES.batchCutoff}` : check.ok ? "" : check.reason);
+        }).join("")}
+      </ul>
+    </div>
     ${hasAnything ? `<button class="btn btn-ghost wide" data-act="go" data-to="orders">My orders${mine.length ? ` (${mine.length})` : ""}</button>` : ""}
-    <p class="muted small">Bonus: your order tells the stall how much to cook, so less food goes to waste.</p>
   `;
 }
 
@@ -117,7 +146,7 @@ function screenMenu() {
   const st = stallById(Student.stallId);
   return `
     <button class="back" data-act="go" data-to="home">${ICON.back}Stalls</button>
-    <div class="sign">${signParts(st, stallRule(st), stallType(st), "h2")}</div>
+    ${stallHead(st, `${stallType(st)} · ${stallRule(st)}`)}
     ${earlyBirdBanner()}
     <ul class="menu">
       ${st.items.map((i) => `
@@ -197,17 +226,17 @@ function screenDone() {
   const st = stallById(o.stall);
   // The weekly order set up with this one, if any (it may have been stopped since).
   const weekly = Store.get().recurring.find((r) => r.id === Student.lastRecurringId);
+  // The ticket owns the screen: when (in flip tiles), where, how far along, and the code.
   return `
-    <div class="sign">${signParts(st, `Collect at ${o.slot}`, `Order ${o.id}`)}</div>
-    <div class="s-head center">
-      <h2>Show this at the counter</h2>
-      <p>Collect at <strong>${o.slot}</strong> from stall ${st.no}. We'll remind you 10 minutes before.</p>
+    <div class="ticket">
+      <div class="ticket-when"><h2>Collect at</h2>${flipTiles(o.slot)}</div>
+      <p class="ticket-where"><span class="code-tab num">${stallCode(st)}</span> <b>${st.name}</b> · order <span class="num">${o.id}</span>. We'll remind you 10 minutes before.</p>
+      ${progressLine(o, STUDENT_STAGES, true) || statusPill(o.status)}
+      <div class="qr-wrap"><div id="qr" data-text="PREPAHEAD:${o.id}:${o.code}"></div></div>
+      <p class="code num" aria-label="Collection code">${o.code}</p>
+      <p class="muted">Show this code at the counter</p>
+      ${weekly ? `<p class="muted small">Also your weekly lunch: every ${dayList(weekly.days)} at ${weekly.slot}.</p>` : ""}
     </div>
-    <div class="qr-wrap"><div id="qr" data-text="PREPAHEAD:${o.id}:${o.code}"></div></div>
-    <p class="code num" aria-label="Collection code">${o.code}</p>
-    <p class="muted center">Collection code</p>
-    <div class="center">${statusPill(o.status)}</div>
-    ${weekly ? `<p class="muted center small">Also your weekly lunch: every ${dayList(weekly.days)} at ${weekly.slot}.</p>` : ""}
     <button class="btn btn-ghost wide" data-act="go" data-to="orders">My orders</button>
     <button class="btn wide" data-act="go" data-to="home">Done</button>
   `;
@@ -219,14 +248,13 @@ function screenDeal() {
   if (!d || !d.mine || !dealOrder(d)) { Student.screen = "home"; return screenHome(); }
   const st = stallById(d.stall);
   return `
-    <div class="sign">${signParts(st, "Ready now", `Deal ${d.id}`)}</div>
-    <div class="s-head center">
-      <h2>Show this at the counter</h2>
-      <p>It's ready now. Head to stall ${st.no} and show this code.</p>
+    <div class="ticket">
+      <div class="ticket-when"><h2>Ready now</h2></div>
+      <p class="ticket-where"><span class="code-tab num">${stallCode(st)}</span> <b>${st.name}</b> · last-minute deal <span class="num">${d.id}</span>. Head to the counter and show this code.</p>
+      <div class="qr-wrap"><div id="qr" data-text="PREPAHEAD:${d.id}:${d.code}"></div></div>
+      <p class="code num" aria-label="Collection code">${d.code}</p>
+      <p class="muted">Show this code at the counter</p>
     </div>
-    <div class="qr-wrap"><div id="qr" data-text="PREPAHEAD:${d.id}:${d.code}"></div></div>
-    <p class="code num" aria-label="Collection code">${d.code}</p>
-    <p class="muted center">Collection code</p>
     <div class="summary">
       <div class="row"><span>${itemList(dealOrder(d))}</span><span class="num">${money(d.price)}</span></div>
     </div>
@@ -260,9 +288,10 @@ function screenOrders() {
         const canCancel = (o.status === "pending" || o.status === "accepted") && !isPastCutoff(st, o.slot);
         return `
         <li class="order">
-          <div class="row"><strong>${st.no} · ${st.name}</strong>${statusPill(o.status)}</div>
+          <div class="row"><span><span class="code-tab num">${stallCode(st)}</span> <strong>${st.name}</strong></span>${statusPill(o.status)}</div>
           <div class="muted">${itemList(o)}</div>
           <div class="row"><span class="num">Collect ${o.slot} · code ${o.code}</span><span class="num">${money(orderTotal(o))}</span></div>
+          ${progressLine(o, STUDENT_STAGES)}
           ${o.status === "voucher" ? `<p class="note">The stall couldn't prepare this. A ${money(orderTotal(o))} voucher has been added for another day.</p>` : ""}
           ${o.status === "noshow" ? `<p class="note">Not collected in time. ${money(RULES.noShowFee)} fee charged, rest refunded.</p>` : ""}
           <div class="row-actions">
@@ -335,7 +364,9 @@ function drawQR() {
   const el = studentRoot().querySelector("#qr");
   if (!el) return;
   if (window.QRCode) {
-    new QRCode(el, { text: el.dataset.text, width: 150, height: 150, colorDark: "#141414", colorLight: "#ffffff" });
+    // QR colours come from the CSS variables, so the code matches the page ink.
+    const css = getComputedStyle(document.documentElement);
+    new QRCode(el, { text: el.dataset.text, width: 150, height: 150, colorDark: css.getPropertyValue("--ink").trim(), colorLight: css.getPropertyValue("--panel").trim() });
   } else {
     el.textContent = "QR unavailable offline. Use the code below.";
   }

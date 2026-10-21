@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Pandan &amp; Kaya (sketch)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;500;600;700&family=Noto+Sans+SC:wght@700&display=swap">
+<style>
+:root{--pandan:#1a7d43;--pandan-d:#0f4d2b;--kaya:#ffd65a;--kaya-2:#fff1b8;--leaf:#e6f4ea;--leaf-2:#f3faf5;--white:#fff;--ink:#13261b;--muted:#3f5546;--line:#cfe5d6;--chili:#d94a24;color-scheme:light}
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;font:15px/1.4 Figtree,sans-serif;color:var(--ink);background:var(--leaf)}
+.f{font-family:Fredoka,sans-serif}.zh{font-family:"Noto Sans SC",sans-serif;font-weight:700}.num{font-variant-numeric:tabular-nums}
+.top{height:60px;background:var(--pandan-d);color:#fff;display:flex;align-items:center;gap:28px;padding:0 32px}
+.brand{font:700 24px Fredoka}.brand b{color:var(--kaya);font-weight:700}
+.brand small{display:block;font:500 12px Figtree;color:#cfe8d7}
+.clock{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:13px;color:#cfe8d7}
+.clock i{width:150px;height:8px;border-radius:4px;background:#2b6b47;position:relative}.clock i:after{content:"";position:absolute;left:28%;top:-5px;width:18px;height:18px;border-radius:50%;background:var(--kaya)}
+.clock b{font:600 24px Fredoka;color:#fff}
+.seg{display:flex;background:#0a3a20;border-radius:999px;padding:3px}.seg span{padding:6px 14px;border-radius:999px;font-weight:600}.seg .on{background:var(--kaya);color:var(--ink)}
+.reset{font-weight:600;text-decoration:underline;color:#fff}
+.stage{display:grid;grid-template-columns:390px 1fr;gap:32px;padding:22px 32px}
+.label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}.label b{color:var(--ink)}
+.phone{height:770px;background:var(--ink);border-radius:46px;padding:11px}
+.screen{height:100%;border-radius:36px;background:var(--leaf-2);overflow:hidden}
+.hero{background:var(--pandan);color:#fff;padding:46px 18px 22px;border-radius:0 0 28px 28px}
+h1{font:600 30px/1.05 Fredoka}
+.hero p{color:#dff2e6;margin-top:8px;font-size:14px}
+.early{display:inline-flex;gap:6px;align-items:center;margin-top:14px;background:var(--kaya);color:var(--ink);border-radius:999px;padding:6px 12px;font-weight:600;font-size:13px}
+.list{padding:14px 14px 0;display:grid;gap:10px}
+.stall{background:var(--white);border:1.5px solid var(--line);border-radius:26px 26px 26px 6px;padding:10px 12px;display:grid;grid-template-columns:66px 1fr auto;gap:12px;align-items:center}
+.plate{width:66px;height:66px;border-radius:50%;background:var(--kaya-2);display:grid;place-content:center}
+.plate svg{width:54px;height:54px}
+.stall h2{font:600 18px/1.1 Fredoka}.stall .zh{display:block;font-size:13px;color:var(--pandan);margin-top:2px}
+.rule{font-size:13px;color:var(--muted);margin-top:2px}
+.saved{display:flex;gap:4px;align-items:center;font-size:12px;color:var(--pandan);font-weight:600;margin-top:3px}
+.saved svg{width:14px;height:14px;fill:var(--pandan)}
+.price{background:var(--kaya);border-radius:999px;padding:5px 10px;font-weight:700;font-size:14px;white-space:nowrap}
+.price small{font-weight:500;font-size:11px}
+.tab{height:770px;background:var(--white);border-radius:28px;overflow:hidden;box-shadow:0 18px 40px -26px rgb(15 77 43/.5)}
+.thead{display:flex;align-items:center;gap:16px;padding:16px 24px;background:var(--pandan-d);color:#fff}
+.no{width:50px;height:50px;border-radius:50%;background:var(--kaya);color:var(--ink);display:grid;place-content:center;font:700 20px Fredoka}
+.thead h2{font:600 28px Fredoka}.thead .zh{color:var(--kaya);font-size:18px;margin-left:10px}
+.type{margin-left:auto;border:1.5px solid #8cc7a3;border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600}
+.strip{background:var(--kaya);padding:16px 24px;display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center}
+.big{font:700 100px/.85 Fredoka}
+.strip h3{font:600 26px Fredoka}.strip p{font-size:14px;color:#4a3d0a}
+.trays{display:flex;gap:6px;margin-top:10px}
+.tray{width:34px;height:22px;border-radius:7px;border:2px dashed #a8892a}
+.tray.done{border:2px solid var(--pandan-d);background:var(--pandan);position:relative}
+.tray.done:after{content:"";position:absolute;left:11px;top:3px;width:6px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.btn{display:inline-block;background:var(--pandan);color:#fff;font-weight:700;border-radius:999px;padding:9px 16px;font-size:14px}
+.btn.big-btn{font:600 18px Fredoka;padding:14px 22px;background:var(--pandan-d)}
+.btn.ghost{background:none;color:var(--ink);border:1.5px solid #9bbfa7}
+.cols{display:grid;grid-template-columns:1fr 1.25fr;gap:18px;padding:18px 24px}
+.card{border:1.5px solid var(--line);border-radius:22px 22px 22px 6px;padding:16px;background:var(--leaf-2)}
+.card h4{font:600 18px Fredoka;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.calc div{display:flex;justify-content:space-between;padding:5px 0;font-size:14px;color:var(--muted)}.calc dd{font-weight:700;color:var(--ink)}
+.calc .sum{border-top:1.5px solid var(--pandan);color:var(--ink);font-weight:700}
+.note{margin-top:10px;background:var(--kaya-2);border-radius:12px;padding:8px 10px;font-size:13px}
+.ord{display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:center;padding:11px 0;border-top:1.5px solid var(--line)}
+.slot{background:var(--white);border:1.5px solid var(--line);border-radius:14px;text-align:center;padding:6px 0;font:600 18px Fredoka}
+.ord.mine .slot{background:var(--kaya);border-color:var(--kaya)}
+.chip{display:inline-block;border-radius:999px;padding:1px 9px;font-size:12px;font-weight:700;margin-left:6px}
+.chip.new{background:var(--kaya)}.chip.acc{border:1.5px solid var(--pandan);color:var(--pandan)}.chip.shelf{background:var(--pandan);color:#fff}
+.acts{margin-top:6px;display:flex;gap:8px}
+.acts .btn{padding:6px 14px;font-size:13px}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="leaf" viewBox="0 0 16 16"><path d="M2 14C2 6 7 2 14 2c0 7-4 12-12 12z"/></symbol>
+<symbol id="caipng" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#fff" stroke="#cfe5d6" stroke-width="3"/><ellipse cx="25" cy="29" rx="12" ry="9" fill="#fff" stroke="#e6dcc4" stroke-width="2"/><path d="M38 19c6 0 10 4 10 9-5 1-10-3-10-9zM40 35c5-1 9 2 9 7-5 0-9-3-9-7z" fill="#3fae5e"/><rect x="21" y="41" width="14" height="8" rx="3" fill="#c0703a"/></symbol>
+<symbol id="chicken" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#fff" stroke="#cfe5d6" stroke-width="3"/><path d="M13 36a13 10 0 0 1 26 0z" fill="#ffe9a3"/><path d="M36 20l13 6-3 6-13-5zM34 37l13 4-2 6-13-4z" fill="#f6dcb5" stroke="#c98b4a" stroke-width="2"/><circle cx="21" cy="46" r="4" fill="#7cc576"/></symbol>
+<symbol id="noodle" viewBox="0 0 64 64"><path d="M7 31h50a25 22 0 0 1-50 0z" fill="#1f8a4c"/><path d="M13 31c4-6 8 6 12 0s8 6 12 0 8 6 12 0" fill="none" stroke="#ffe9a3" stroke-width="3"/><ellipse cx="41" cy="25" rx="7" ry="5" fill="#fff"/><circle cx="41" cy="25" r="2.5" fill="#ffb627"/><path d="M27 15c-2-3 2-5 0-8M36 15c-2-3 2-5 0-8" fill="none" stroke="#9fbfaa" stroke-width="2.5" stroke-linecap="round"/></symbol>
+<symbol id="western" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#fff" stroke="#cfe5d6" stroke-width="3"/><path d="M13 27c6-8 22-6 24 4 1 8-12 12-20 9-6-2-7-8-4-13z" fill="#b5652d"/><path d="M42 21l4 18M47 20l3 17M52 24l1 13" stroke="#ffc83d" stroke-width="4" stroke-linecap="round"/><circle cx="41" cy="47" r="5" fill="#5cb85c"/></symbol>
+</defs></svg>
+<header class="top">
+  <div class="brand">Prep<b>Ahead</b><small>Tells stalls how much to cook, before they cook · concept add-on for Cates</small></div>
+  <div class="clock">Demo time <i></i><b class="num">09:40</b></div>
+  <div class="seg"><span class="on">Both</span><span>Student</span><span>Stall</span></div>
+  <span class="reset">Reset demo</span>
+</header>
+<main class="stage">
+<section>
+  <p class="label"><span><b>Student</b> phone app</span><span>Sample data</span></p>
+  <div class="phone"><div class="screen">
+    <div class="hero"><h1>Skip the lunch queue</h1><p>Order ahead at North Spine Canteen, pick when you collect, and walk straight to the counter.</p>
+      <span class="early">Early bird · order before 10:00, save 10%</span></div>
+    <div class="list">
+      <div class="stall"><span class="plate"><svg><use href="#caipng"/></svg></span><div><h2>Mixed Veg Rice<span class="zh">杂菜饭</span></h2><p class="rule">Stall 01 · Order by 10:00</p><p class="saved"><svg><use href="#leaf"/></svg>40 portions saved this week (sample)</p></div><span class="price num"><small>from </small>$3.15</span></div>
+      <div class="stall"><span class="plate"><svg><use href="#chicken"/></svg></span><div><h2>Chicken Rice<span class="zh">鸡饭</span></h2><p class="rule">Stall 02 · Order by 10:00</p><p class="saved"><svg><use href="#leaf"/></svg>28 portions saved this week (sample)</p></div><span class="price num"><small>from </small>$3.78</span></div>
+      <div class="stall"><span class="plate"><svg><use href="#noodle"/></svg></span><div><h2>Ban Mian<span class="zh">板面</span></h2><p class="rule">Stall 03 · Order 30 min ahead</p><p class="saved"><svg><use href="#leaf"/></svg>15 portions saved this week (sample)</p></div><span class="price num"><small>from </small>$4.05</span></div>
+      <div class="stall"><span class="plate"><svg><use href="#western"/></svg></span><div><h2>Western<span class="zh">西餐</span></h2><p class="rule">Stall 04 · Order 30 min ahead</p></div><span class="price num"><small>from </small>$4.95</span></div>
+    </div>
+  </div></div>
+</section>
+<section>
+  <p class="label"><span><b>Stall</b> counter tablet</span><span>All figures are sample data</span></p>
+  <div class="tab">
+    <div class="thead"><span class="no">01</span><h2>Mixed Veg Rice<span class="zh">杂菜饭</span></h2><span class="type">Batch-cooked</span></div>
+    <div class="strip">
+      <span class="big num">9</span>
+      <div><h3>trays to cook</h3><p class="num">135 portions (9 × 15) · updates until 10:00 · 18 fewer than the usual 153</p>
+        <div class="trays" aria-label="3 of 9 trays cooked"><i class="tray done"></i><i class="tray done"></i><i class="tray done"></i><i class="tray"></i><i class="tray"></i><i class="tray"></i><i class="tray"></i><i class="tray"></i><i class="tray"></i></div></div>
+      <span class="btn big-btn">+1 tray cooked</span>
+    </div>
+    <div class="cols">
+      <div class="card"><h4>How the number is worked out</h4>
+        <dl class="calc num"><div><dt>Usual demand (Wed, 4 wks)</dt><dd>121</dd></div><div><dt>Pre-ordered so far</dt><dd>16</dd></div><div><dt>Extra above usual pre-orders</dt><dd>+0</dd></div><div class="sum"><dt>Suggested portions</dt><dd>121</dd></div></dl>
+        <p class="note">Recurring orders tomorrow (Thu): <b class="num">6</b> portions. Buy ingredients for these.</p>
+      </div>
+      <div class="card"><h4>Pre-orders <span class="btn" style="padding:5px 12px;font:600 13px Figtree">Accept all new (1)</span></h4>
+        <div class="ord mine"><span class="slot num">12:45</span><div><b class="num">A1004</b> 3 × 3 veg (vegetarian)<span class="chip new">New</span><div class="acts"><span class="btn">Accept</span><span class="btn ghost">Decline</span></div></div></div>
+        <div class="ord"><span class="slot num">12:00</span><div><b class="num">A1001</b> 2 × 1 meat + 2 veg<span class="chip shelf">On shelf</span><div class="acts"><span class="btn">Check code</span></div></div></div>
+        <div class="ord"><span class="slot num">12:15</span><div><b class="num">A1002</b> 1 × 2 meat + 1 veg<span class="chip acc">Accepted</span><div class="acts"><span class="btn">Put on shelf</span></div></div></div>
+        <div class="ord"><span class="slot num">12:30</span><div><b class="num">A1003</b> 10 × 1 meat + 2 veg<span class="chip acc">Accepted</span><div class="acts"><span class="btn">Put on shelf</span></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+</body></html>

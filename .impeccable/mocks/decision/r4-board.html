@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Departures (sketch)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Archivo:wght@400;500;600;700&family=Noto+Sans+SC:wght@500&display=swap">
+<style>
+:root{--ground:#e9ebe9;--white:#fff;--board:#151715;--board-2:#272b27;--board-3:#1d201d;--paint:#f4f4ef;--dim:#a9afa9;--line:#1fa463;--lamp:#ffc400;--ink:#151715;--muted:#545a55;--rule:#d9ddd9;--brule:#333833;color-scheme:light}
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;font:15px/1.4 Archivo,sans-serif;color:var(--ink);background:var(--ground)}
+.zh{font-family:"Noto Sans SC",sans-serif;font-weight:500}.num{font-variant-numeric:tabular-nums}
+.sign{font-family:"Big Shoulders Display",sans-serif;text-transform:uppercase;letter-spacing:.04em}
+.tiles{display:flex;gap:3px;align-items:center}
+.t{position:relative;display:grid;place-content:center;width:var(--w);height:var(--h);background:linear-gradient(var(--board-2) 50%,#0d0e0d 50%);color:var(--paint);border-radius:3px;font:800 var(--fs)/1 "Big Shoulders Display"}
+.t:after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:#000}
+.t.c{background:none;width:auto}.t.c:after{display:none}
+.lamp{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--lamp);box-shadow:0 0 0 3px rgb(255 196 0/.3);margin-right:7px;vertical-align:1px}
+.code{display:inline-block;background:var(--line);color:var(--board);font:800 13px/1 "Big Shoulders Display";letter-spacing:.06em;padding:3px 6px 2px;border-radius:3px}
+.top{height:60px;background:var(--board);color:var(--paint);display:flex;align-items:center;gap:26px;padding:0 32px}
+.brand{display:flex;align-items:center;gap:10px}.brand b{font:900 27px/1 "Big Shoulders Display";letter-spacing:.03em}
+.brand small{font-size:12px;color:var(--dim);max-width:220px;line-height:1.3}
+.clock{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--dim)}
+.clock i{width:140px;height:4px;background:var(--brule);position:relative}.clock i:after{content:"";position:absolute;left:28%;top:-6px;width:16px;height:16px;border-radius:50%;background:var(--board);border:4px solid var(--line)}
+.seg{display:flex;border:1.5px solid var(--paint);border-radius:4px;overflow:hidden}.seg span{padding:6px 14px;font-weight:600}.seg .on{background:var(--paint);color:var(--board)}
+.reset{font-weight:600;text-decoration:underline}
+.stage{display:grid;grid-template-columns:390px 1fr;gap:32px;padding:22px 32px}
+.label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}.label b{color:var(--ink)}
+.phone{height:770px;background:var(--board);border-radius:46px;padding:11px}
+.screen{height:100%;border-radius:36px;background:var(--white);overflow:hidden;padding:46px 0 0}
+h1{font:900 38px/.9 "Big Shoulders Display";text-transform:uppercase;padding:0 18px}
+.sub{color:var(--muted);font-size:14px;margin:8px 0 14px;padding:0 18px}
+.board{background:var(--board);color:var(--paint)}
+.bh{display:flex;justify-content:space-between;padding:10px 16px;font:800 13px "Big Shoulders Display";letter-spacing:.12em;color:var(--dim);border-bottom:1px solid var(--brule)}
+.row{display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--brule)}
+.row h2{font:800 20px/1 "Big Shoulders Display";letter-spacing:.04em;text-transform:uppercase}.row .zh{font-size:12px;color:var(--dim)}
+.row p{font-size:12px;color:var(--dim);margin-top:3px}.row .pr{font:800 18px "Big Shoulders Display";text-align:right;margin-top:4px}
+.early{background:var(--lamp);color:var(--board);font-weight:600;font-size:13.5px;padding:9px 16px}
+.mine{margin:14px 18px 0;border:1.5px solid var(--ink);border-radius:6px;padding:10px 12px}
+.mine .sign{font-weight:800;font-size:14px;color:var(--muted)}
+.prog{display:flex;align-items:center;margin-top:8px}.prog i{width:14px;height:14px;border-radius:50%;border:3px solid #9aa19b;background:#fff}.prog i.on{border-color:var(--line);background:var(--line)}.prog i.now{border-color:var(--ink);width:17px;height:17px}
+.prog b{flex:1;border-top:2px dashed #9aa19b}.prog b.on{border-top:4px solid var(--line)}
+.steps{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:4px}
+.tab{height:770px;background:var(--white);border-radius:10px;overflow:hidden;border:1px solid var(--rule)}
+.head{background:var(--board);color:var(--paint);padding:16px 24px 14px}
+.hrow{display:flex;align-items:center;gap:12px}.hrow h2{font:800 28px/1 "Big Shoulders Display";letter-spacing:.04em;text-transform:uppercase}.hrow .zh{color:var(--dim);font-size:17px}
+.tag{margin-left:auto;border:1px solid #8d938e;border-radius:3px;padding:3px 8px;font:700 14px "Big Shoulders Display";letter-spacing:.08em}
+.flap{display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;margin-top:14px}
+.flap h3{font:900 30px/1 "Big Shoulders Display";text-transform:uppercase}.flap p{color:var(--dim);font-size:14px;margin-top:4px}.flap p b{color:var(--paint)}
+.cook{text-align:right}.cook .sign{font-weight:800;font-size:14px;color:var(--dim)}.cook .n{font:900 28px/1 "Big Shoulders Display";margin:2px 0 8px}
+.btn{display:inline-block;background:var(--ink);color:#fff;font-weight:600;border-radius:4px;padding:7px 13px;font-size:14px}
+.btn.go{background:var(--line);color:var(--board)}.btn.ghost{background:none;color:var(--ink);border:1.5px solid var(--ink)}
+.btn.lt{background:var(--paint);color:var(--board)}.btn.lg{background:none;color:var(--paint);border:1.5px solid #8d938e}
+.cols{display:grid;grid-template-columns:.8fr 1.6fr;gap:22px;padding:18px 24px}
+.kk{font:800 13px/1 "Big Shoulders Display";letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.calc div{display:flex;justify-content:space-between;padding:6px 0;font-size:14px;color:var(--muted);border-bottom:1px solid var(--rule)}.calc dd{font-weight:700;color:var(--ink)}
+.calc .sum{border-bottom:0;border-top:2px solid var(--ink);color:var(--ink);font-weight:700}
+.note{margin-top:10px;font-size:13px;color:var(--muted)}.note b{color:var(--ink)}
+.dep{background:var(--board);color:var(--paint);border-radius:6px;overflow:hidden}
+.dh,.dr{display:grid;grid-template-columns:96px 66px 1fr 112px 128px;gap:12px;align-items:center;padding:10px 14px}
+.dh{font:800 12px "Big Shoulders Display";letter-spacing:.12em;color:var(--dim);border-bottom:1px solid var(--brule)}
+.dr{border-bottom:1px solid var(--brule);font-size:14px}.dr .st{font:800 14px "Big Shoulders Display";letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.dr.hot{background:var(--board-3);box-shadow:inset 4px 0 0 var(--lamp)}.dr.hot .st{color:var(--lamp)}
+.pg{display:flex;align-items:center}.pg i{width:12px;height:12px;border-radius:50%;border:3px solid #5d645e;background:var(--board)}.pg i.on{border-color:var(--line);background:var(--line)}.pg i.now{border-color:var(--paint)}
+.pg b{flex:1;border-top:2px dashed #5d645e}.pg b.on{border-top:4px solid var(--line)}
+</style></head><body>
+<header class="top">
+  <div class="brand"><svg width="34" height="16" viewBox="0 0 34 16" aria-hidden="true"><path d="M3 8h17" stroke="#1fa463" stroke-width="6" stroke-linecap="round"/><circle cx="26" cy="8" r="5.5" fill="#151715" stroke="#f4f4ef" stroke-width="3"/></svg><b>PREPAHEAD</b><small>Tells stalls how much to cook, before they cook · concept add-on for Cates</small></div>
+  <div class="clock">Demo time <i></i><span class="tiles num" style="--w:20px;--h:28px;--fs:21px"><span class="t">0</span><span class="t">9</span><span class="t c">:</span><span class="t">4</span><span class="t">0</span></span></div>
+  <div class="seg"><span class="on">Both</span><span>Student</span><span>Stall</span></div>
+  <span class="reset">Reset demo</span>
+</header>
+<main class="stage">
+<section>
+  <p class="label"><span><b>Student</b> phone app</span><span>Sample data</span></p>
+  <div class="phone"><div class="screen">
+    <h1>Skip the lunch queue</h1>
+    <p class="sub">North Spine Canteen. Pick a stall, pick a time, walk straight to the counter.</p>
+    <div class="board">
+      <p class="bh"><span>Stall</span><span>Closes · from</span></p>
+      <div class="row"><span class="code num">NS01</span><div><h2>Mixed Veg Rice</h2><span class="zh">杂菜饭 · batch-cooked</span></div><div><span class="tiles num" style="--w:20px;--h:28px;--fs:21px"><span class="t">1</span><span class="t">0</span><span class="t c">:</span><span class="t">0</span><span class="t">0</span></span><p class="pr num">$3.15</p></div></div>
+      <div class="row"><span class="code num">NS02</span><div><h2>Chicken Rice</h2><span class="zh">鸡饭 · batch-cooked</span></div><div><span class="tiles num" style="--w:20px;--h:28px;--fs:21px"><span class="t">1</span><span class="t">0</span><span class="t c">:</span><span class="t">0</span><span class="t">0</span></span><p class="pr num">$3.78</p></div></div>
+      <div class="row"><span class="code num">NS03</span><div><h2>Ban Mian</h2><span class="zh">板面 · made to order</span><p>Order 30 min before your slot</p></div><p class="pr num">$4.05</p></div>
+      <div class="row"><span class="code num">NS04</span><div><h2>Western</h2><span class="zh">西餐 · made to order</span><p>Order 30 min before your slot</p></div><p class="pr num">$4.95</p></div>
+      <p class="early"><span class="lamp" style="background:var(--board);box-shadow:none"></span>Early bird: order before 10:00, save 10%</p>
+    </div>
+    <div class="mine"><p class="sign">Your lunch · NS01 · collect 12:30</p>
+      <div class="prog"><i class="on"></i><b class="on"></b><i class="now"></i><b></b><i></i><b></b><i></i></div>
+      <div class="steps"><span>Ordered</span><span>Confirmed</span><span>On shelf</span><span>Collected</span></div></div>
+  </div></div>
+</section>
+<section>
+  <p class="label"><span><b>Stall</b> counter tablet</span><span>All figures are sample data</span></p>
+  <div class="tab">
+    <div class="head">
+      <div class="hrow"><span class="code num" style="font-size:16px;padding:5px 9px 4px">NS01</span><h2>Mixed Veg Rice</h2><span class="zh">杂菜饭</span><span class="tag">BATCH-COOKED</span></div>
+      <div class="flap">
+        <span class="tiles num" style="--w:72px;--h:98px;--fs:88px"><span class="t">0</span><span class="t">9</span></span>
+        <div><h3>Trays to cook</h3><p class="num"><b>135 portions</b> (9 × 15) · updates until 10:00</p><p class="num">18 fewer than the usual prep of 153</p></div>
+        <div class="cook"><p class="sign">Cooked so far</p><p class="n num">3 of 9</p><span class="btn go">+1 tray cooked</span></div>
+      </div>
+    </div>
+    <div class="cols">
+      <div><p class="kk">How the number is worked out</p>
+        <dl class="calc num"><div><dt>Usual demand (Wed, 4 wks)</dt><dd>121</dd></div><div><dt>Pre-ordered so far</dt><dd>16</dd></div><div><dt>Extra above usual</dt><dd>+0</dd></div><div class="sum"><dt>Suggested portions</dt><dd>121</dd></div></dl>
+        <p class="note">Recurring orders tomorrow (Thu): <b class="num">6</b> portions. Buy ingredients for these.</p></div>
+      <div class="dep">
+        <div class="dh"><span>Collect</span><span>Order</span><span>Items</span><span>Progress</span><span>Next</span></div>
+        <div class="dr hot"><span class="tiles num" style="--w:20px;--h:28px;--fs:21px"><span class="t">1</span><span class="t">2</span><span class="t c">:</span><span class="t">4</span><span class="t">5</span></span><span class="num">A1004</span><span>3 × 3 veg (veg.)<br><span class="st"><span class="lamp"></span>New</span></span><span class="pg"><i class="now"></i><b></b><i></i><b></b><i></i><b></b><i></i></span><span><span class="btn lt">Accept</span></span></div>
+        <div class="dr"><span class="tiles num" style="--w:20px;--h:28px;--fs:21px"><span class="t">1</span><span class="t">2</span><span class="t c">:</span><span class="t">0</span><span class="t">0</span></span><span class="num">A1001</span><span>2 × 1 meat + 2 veg<br><span class="st">On shelf</span></span><span class="pg"><i class="on"></i><b class="on"></b><i class="on"></i><b class="on"></b><i class="now"></i><b></b><i></i></span><span class="btn lg">Check code</span></div>
+        <div class="dr"><span class="tiles num" style="--w:20px;--h:28px;--fs:21px"><span class="t">1</span><span class="t">2</span><span class="t c">:</span><span class="t">1</span><span class="t">5</span></span><span class="num">A1002</span><span>1 × 2 meat + 1 veg<br><span class="st">Accepted</span></span><span class="pg"><i class="on"></i><b class="on"></b><i class="now"></i><b></b><i></i><b></b><i></i></span><span class="btn lg">Put on shelf</span></div>
+        <div class="dr"><span class="tiles num" style="--w:20px;--h:28px;--fs:21px"><span class="t">1</span><span class="t">2</span><span class="t c">:</span><span class="t">3</span><span class="t">0</span></span><span class="num">A1003</span><span>10 × 1 meat + 2 veg<br><span class="st">Accepted</span></span><span class="pg"><i class="on"></i><b class="on"></b><i class="now"></i><b></b><i></i><b></b><i></i></span><span class="btn lg">Put on shelf</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+</body></html>

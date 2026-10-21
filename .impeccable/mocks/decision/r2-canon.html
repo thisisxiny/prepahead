@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Category standard (sketch)</title>
+<style>
+:root{--white:#fff;--ink:#1a1a1a;--brand:#c93b10;--soft:#f4f4f4;--line:#e6e6e6;--muted:#5f5f5f;color-scheme:light}
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;font:15px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"PingFang SC",sans-serif;color:var(--ink);background:var(--soft)}
+.num{font-variant-numeric:tabular-nums}
+.top{height:60px;background:var(--white);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:28px;padding:0 32px}
+.brand{font-weight:700;font-size:21px}.brand b{color:var(--brand)}.brand small{display:block;font-size:12px;font-weight:400;color:var(--muted)}
+.clock{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--muted)}
+.clock i{width:150px;height:4px;border-radius:2px;background:var(--line);position:relative}.clock i:after{content:"";position:absolute;left:28%;top:-7px;width:18px;height:18px;border-radius:50%;background:var(--brand)}
+.clock b{font-size:20px;color:var(--ink)}
+.seg{display:flex;background:var(--soft);border-radius:8px;padding:3px}.seg span{padding:6px 14px;border-radius:6px}.seg .on{background:var(--white);box-shadow:0 1px 2px rgb(0 0 0/.12);font-weight:600}
+.reset{color:var(--brand);font-weight:600}
+.stage{display:grid;grid-template-columns:390px 1fr;gap:32px;padding:22px 32px}
+.label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}.label b{color:var(--ink)}
+.phone{height:770px;background:#111;border-radius:46px;padding:11px}
+.screen{height:100%;border-radius:36px;background:var(--white);overflow:hidden;position:relative;padding:46px 16px 0}
+.loc{font-size:12px;color:var(--muted)}.loc b{display:block;font-size:16px;color:var(--ink)}
+.search{margin:12px 0;background:var(--soft);border-radius:10px;padding:10px 12px;color:var(--muted)}
+.banner{background:#fff1ea;color:#8a2a0c;border-radius:10px;padding:10px 12px;font-weight:600;font-size:14px}
+.cats{display:flex;gap:8px;margin:12px 0}.cats span{background:var(--soft);border-radius:999px;padding:6px 12px;font-size:13px}.cats .on{background:var(--ink);color:#fff}
+.card{border-radius:12px;overflow:hidden;margin-bottom:12px;border:1px solid var(--line)}
+.photo{height:92px;background:linear-gradient(135deg,#f6d6b8,#e9a77a);display:grid;place-content:center;color:#8a4a24;font-size:12px}
+.photo.b{background:linear-gradient(135deg,#fbe8b0,#e8c25a)}.photo.c{background:linear-gradient(135deg,#d9e7c6,#9cc27c)}
+.card .in{padding:8px 12px;display:flex;justify-content:space-between}
+.card h2{font-size:16px;font-weight:600}.card p{font-size:12.5px;color:var(--muted)}
+.tabs{position:absolute;left:0;right:0;bottom:0;height:66px;border-top:1px solid var(--line);background:var(--white);display:flex;justify-content:space-around;align-items:center;font-size:11px;color:var(--muted)}.tabs .on{color:var(--brand);font-weight:600}
+.tab{height:770px;background:var(--white);border-radius:12px;border:1px solid var(--line);overflow:hidden}
+.thead{display:flex;align-items:center;gap:12px;padding:16px 22px;border-bottom:1px solid var(--line)}
+.thead h2{font-size:20px;font-weight:600}.thead select{margin-left:auto}
+.pill{background:var(--soft);border-radius:999px;padding:3px 10px;font-size:12px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:18px 22px}
+.kpi{border:1px solid var(--line);border-radius:10px;padding:14px}.kpi p{font-size:13px;color:var(--muted)}.kpi b{font-size:30px;font-weight:700}
+.kpi .up{font-size:12px;color:#1d7a3e}
+.cols{display:grid;grid-template-columns:1fr 1.4fr;gap:14px;padding:0 22px}
+.box{border:1px solid var(--line);border-radius:10px;padding:14px}.box h4{font-size:15px;margin-bottom:10px}
+.chart{height:160px;display:flex;align-items:flex-end;gap:14px;padding:0 8px;border-bottom:1px solid var(--line)}
+.chart i{flex:1;background:#f3b39a;border-radius:4px 4px 0 0}.chart i:nth-child(even){background:var(--brand)}
+table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;color:var(--muted);font-weight:500;font-size:12px;padding:6px 4px;border-bottom:1px solid var(--line)}td{padding:9px 4px;border-bottom:1px solid var(--line)}
+.btn{background:var(--brand);color:#fff;border-radius:6px;padding:5px 10px;font-size:13px;font-weight:600}
+.st{font-size:12px;border-radius:999px;padding:2px 8px;background:var(--soft)}.st.new{background:#fff1ea;color:#8a2a0c}
+</style></head><body>
+<header class="top">
+  <div class="brand">Prep<b>Ahead</b><small>Pre-order add-on for Cates (concept)</small></div>
+  <div class="clock">Demo time <i></i><b class="num">09:40</b></div>
+  <div class="seg"><span class="on">Both</span><span>Student</span><span>Stall</span></div>
+  <span class="reset">Reset demo</span>
+</header>
+<main class="stage">
+<section>
+  <p class="label"><span><b>Student</b> phone app</span><span>Sample data</span></p>
+  <div class="phone"><div class="screen">
+    <p class="loc">Deliver to<b>North Spine Canteen ▾</b></p>
+    <p class="search">Search stalls or dishes</p>
+    <p class="banner">Early bird: order before 10:00, save 10%</p>
+    <div class="cats"><span class="on">All</span><span>Rice</span><span>Noodles</span><span>Western</span></div>
+    <div class="card"><div class="photo">dish photo</div><div class="in"><div><h2>Mixed Veg Rice 杂菜饭</h2><p>Order by 10:00 · Stall 01</p></div><p class="num">from $3.15</p></div></div>
+    <div class="card"><div class="photo b">dish photo</div><div class="in"><div><h2>Chicken Rice 鸡饭</h2><p>Order by 10:00 · Stall 02</p></div><p class="num">from $3.78</p></div></div>
+    <div class="card"><div class="photo c">dish photo</div><div class="in"><div><h2>Ban Mian 板面</h2><p>Order 30 min ahead · Stall 03</p></div><p class="num">from $4.05</p></div></div>
+    <div class="tabs"><span class="on">Home</span><span>Orders</span><span>Deals</span><span>Account</span></div>
+  </div></div>
+</section>
+<section>
+  <p class="label"><span><b>Stall</b> counter tablet</span><span>All figures are sample data</span></p>
+  <div class="tab">
+    <div class="thead"><h2>Mixed Veg Rice 杂菜饭</h2><span class="pill">Batch-cooked</span><span class="pill" style="margin-left:auto">Stall 01 ▾</span></div>
+    <div class="kpis">
+      <div class="kpi"><p>Trays to cook</p><b class="num">9</b><p class="num">135 portions</p></div>
+      <div class="kpi"><p>Pre-orders</p><b class="num">16</b><p>until 10:00</p></div>
+      <div class="kpi"><p>Suggested portions</p><b class="num">121</b><p>history + pre-orders</p></div>
+      <div class="kpi"><p>Trays cooked</p><b class="num">3 / 9</b><p><span class="btn">+1 tray</span></p></div>
+    </div>
+    <div class="cols">
+      <div class="box"><h4>Prepared vs sold (last week)</h4><div class="chart"><i style="height:90%"></i><i style="height:72%"></i><i style="height:90%"></i><i style="height:76%"></i><i style="height:99%"></i><i style="height:80%"></i><i style="height:90%"></i><i style="height:66%"></i><i style="height:90%"></i><i style="height:74%"></i></div></div>
+      <div class="box"><h4>Pre-orders</h4>
+        <table class="num"><tr><th>Slot</th><th>Order</th><th>Items</th><th>Status</th><th></th></tr>
+        <tr><td>12:45</td><td>A1004</td><td>3 × 3 veg</td><td><span class="st new">New</span></td><td><span class="btn">Accept</span></td></tr>
+        <tr><td>12:00</td><td>A1001</td><td>2 × 1 meat + 2 veg</td><td><span class="st">On shelf</span></td><td><span class="btn">Check code</span></td></tr>
+        <tr><td>12:15</td><td>A1002</td><td>1 × 2 meat + 1 veg</td><td><span class="st">Accepted</span></td><td><span class="btn">Shelf</span></td></tr>
+        <tr><td>12:30</td><td>A1003</td><td>10 × 1 meat + 2 veg</td><td><span class="st">Accepted</span></td><td><span class="btn">Shelf</span></td></tr></table>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+</body></html>

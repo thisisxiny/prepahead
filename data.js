@@ -172,6 +172,32 @@ const ICON = {
   back: '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>',
 };
 
+/* ---- Look helpers shared by both sides (see style.css) ---- */
+// Each stall is a stop on the canteen's line: North Spine stall 01 = "NS01" (sample codes).
+const stallCode = (stall) => "NS" + stall.no;
+
+// Black flip tiles for the ONE number that matters on a screen (the cut-off, trays to cook,
+// your collection time). One tile per character; ":" stays a plain colon.
+// The tiles are hidden from screen readers, which read the plain text instead.
+function flipTiles(text, cls = "") {
+  const tiles = [...String(text)].map((ch) => (ch === ":" ? '<span class="tile-sep">:</span>' : `<span class="tile">${ch}</span>`)).join("");
+  return `<span class="tiles ${cls}" aria-hidden="true">${tiles}</span><span class="sr">${text}</span>`;
+}
+
+// An order's journey as a line of four stops. Solid line = done, dashed = still to come,
+// ring = where the order is now. Orders that left the line (declined, cancelled, no-show,
+// voucher) get no line; their status word says what happened.
+const STAGE_OF = { pending: 0, accepted: 1, ready: 2, collected: 3 };
+function progressLine(o, names, showNames = false) {
+  const at = STAGE_OF[o.status];
+  if (at == null) return "";
+  const stops = names.map((n, i) => {
+    const cls = i < at ? "done" : i === at ? "here" : "";
+    return `<li class="${cls}">${showNames ? `<span class="stop-name">${n}</span>` : `<span class="sr">${n}</span>`}</li>`;
+  }).join("");
+  return `<ol class="progress ${o.status === "pending" ? "is-new" : ""} ${showNames ? "has-names" : ""}" aria-label="Progress: ${names[at]}">${stops}</ol>`;
+}
+
 function allSlots() {
   const out = [];
   for (let t = toMin(RULES.slotStart); t <= toMin(RULES.slotEnd); t += RULES.slotStepMins) out.push(fromMin(t));
@@ -194,6 +220,7 @@ const Store = (() => {
     deals: [],                         // last-minute deals (see format above)
     leftovers: {},                     // { stallId: portions left over at the end of today }, logged by the stall
     portionsLeft: {},                  // { stallId: portions still on the counter now }, for the last-tray decision
+    traysCooked: {},                   // { stallId: trays (or batches) actually cooked so far today }, tapped in by the stall
   });
   const read = () => {
     try { const raw = localStorage.getItem(KEY); return raw ? JSON.parse(raw) : null; } catch (e) { return null; }
@@ -319,12 +346,23 @@ function buyDeal(dealId) {
 /* ---- Leftover logging (end of day, one number per stall) ---- */
 // Last week's leftovers per day = prepared − sold.
 const weekLeftovers = (stall) => stall.week.prepared.map((p, i) => p - stall.week.sold[i]);
-// Today's numbers once the stall has logged leftovers. Assumes the stall cooked what the forecast suggested.
+// Trays (or batches) the stall has tapped in as cooked today.
+const traysCooked = (stallId) => Store.get().traysCooked[stallId] || 0;
+// Today's numbers once the stall has logged leftovers. Prepared comes from the trays the stall
+// tapped in as cooked; if it never used the tray counter, we assume it cooked the suggestion.
 function todayLog(stall) {
   const leftover = Store.get().leftovers[stall.id];
   if (leftover == null) return null; // not logged yet
-  const prepared = prepForecast(stall).cooked;
-  return { prepared, leftover, sold: Math.max(0, prepared - leftover) };
+  const counted = traysCooked(stall.id) > 0;
+  const prepared = counted ? traysCooked(stall.id) * stall.trayPortions : prepForecast(stall).cooked;
+  return { prepared, leftover, sold: Math.max(0, prepared - leftover), counted };
+}
+
+/* ---- The lunch line (vendor): pre-ordered portions per collection slot ---- */
+function portionsBySlot(stallId) {
+  const by = {};
+  Store.get().orders.filter((o) => o.stall === stallId && LIVE.includes(o.status)).forEach((o) => { by[o.slot] = (by[o.slot] || 0) + orderQty(o); });
+  return by;
 }
 
 /* ---- Last-tray decision (late in lunch: cook one more tray or not?) ---- */

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Line Map (sketch)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@500&display=swap">
+<style>
+:root{--night:#0f1e3d;--night-2:#1b2d55;--white:#fff;--porcelain:#eef1f6;--ink:#0f1e3d;--muted:#55607a;--line:#dde2ea;--red:#d8322a;--blue:#2a5bd7;--amber:#f2a900;--green:#13854f;color-scheme:light}
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;font:15px/1.45 "Fira Sans",sans-serif;color:var(--ink);background:var(--porcelain)}
+.zh{font-family:"Noto Sans SC",sans-serif}.num{font-variant-numeric:tabular-nums}
+.top{height:60px;background:var(--night);color:#fff;display:flex;align-items:center;gap:28px;padding:0 32px}
+.brand{font-weight:700;font-size:21px}.brand small{display:block;font-weight:400;font-size:12px;color:#b7c2db}
+.clock{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:13px;color:#b7c2db}
+.clock i{width:150px;height:4px;border-radius:2px;background:var(--night-2);position:relative}.clock i:after{content:"";position:absolute;left:28%;top:-6px;width:16px;height:16px;border-radius:50%;background:#fff;border:4px solid var(--amber)}
+.clock b{font-weight:600;font-size:21px;color:#fff}
+.seg{display:flex;background:var(--night-2);border-radius:6px;padding:3px}.seg span{padding:5px 13px;border-radius:4px}.seg .on{background:#fff;color:var(--night);font-weight:600}
+.reset{text-decoration:underline}
+.stage{display:grid;grid-template-columns:390px 1fr;gap:32px;padding:22px 32px}
+.label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}.label b{color:var(--ink)}
+.phone{height:770px;background:#0a1429;border-radius:46px;padding:11px}
+.screen{height:100%;border-radius:36px;background:var(--white);overflow:hidden}
+.hd{background:var(--night);color:#fff;padding:48px 20px 20px}
+h1{font-size:30px;font-weight:700;line-height:1.05;letter-spacing:-.01em}.hd p{color:#c4cde2;font-size:14px;margin-top:8px}
+.early{background:var(--amber);color:var(--night);font-weight:600;font-size:14px;padding:9px 20px}
+.lineplate{padding:16px 20px 0}.lineplate .k{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.stn{position:relative;display:grid;grid-template-columns:34px 1fr auto;gap:12px;padding:12px 0}
+.stn:before{content:"";position:absolute;left:13px;top:0;bottom:0;width:8px;background:var(--c)}
+.stn:first-of-type:before{top:24px}.stn:last-of-type:before{bottom:calc(100% - 24px)}
+.ring{position:relative;width:26px;height:26px;margin-left:4px;border-radius:50%;background:#fff;border:5px solid var(--c)}
+.ring.x{border-color:var(--night);width:30px;height:30px;margin-left:2px}
+.code{display:inline-block;background:var(--c);color:#fff;font-weight:600;font-size:12px;border-radius:4px;padding:1px 6px;margin-right:6px}
+.stn h2{font-size:17px;font-weight:600;display:inline}.stn .zh{font-size:13px;color:var(--muted);margin-left:4px}
+.stn p{font-size:13px;color:var(--muted)}.stn .p{font-weight:600;text-align:right}.stn .p small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.tab{height:770px;background:var(--white);border-radius:12px;overflow:hidden}
+.thead{display:flex;align-items:center;gap:12px;padding:16px 26px;background:var(--night);color:#fff}
+.thead .code{--c:var(--green);background:var(--green);font-size:15px;padding:3px 9px}
+.thead h2{font-size:22px;font-weight:700}.thead .zh{color:#c4cde2;font-size:17px}
+.tag{margin-left:auto;font-size:13px;border:1px solid #6d7fa8;border-radius:4px;padding:2px 8px}
+.hero{display:grid;grid-template-columns:auto 1fr auto;gap:26px;align-items:center;padding:22px 26px;border-bottom:1px solid var(--line)}
+.big{font-size:110px;font-weight:700;line-height:.82;letter-spacing:-.03em}
+.hero h3{font-size:28px;font-weight:700}.hero p{color:var(--muted);font-size:14px}.hero p b{color:var(--ink)}
+.cook p{font-size:13px;color:var(--muted);text-align:right}
+.trayline{display:flex;align-items:center;margin:8px 0 10px}.trayline i{width:16px;height:16px;border-radius:50%;border:3px solid var(--green);background:#fff}
+.trayline i.on{background:var(--green)}.trayline b{width:14px;height:5px;background:var(--line)}.trayline b.on{background:var(--green)}
+.btn{display:inline-block;background:var(--night);color:#fff;font-weight:600;border-radius:6px;padding:8px 14px;font-size:14px}
+.btn.ghost{background:none;color:var(--night);border:1.5px solid var(--night)}
+.cols{display:grid;grid-template-columns:1fr 1.5fr;gap:26px;padding:20px 26px}
+.k{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.calc div{display:flex;justify-content:space-between;padding:7px 0;font-size:14px;color:var(--muted);border-bottom:1px solid var(--line)}.calc dd{font-weight:600;color:var(--ink)}
+.calc .sum{border-bottom:0;border-top:2px solid var(--night);color:var(--ink);font-weight:700}
+.note{margin-top:12px;font-size:13px;color:var(--muted)}.note b{color:var(--ink)}
+.o{display:grid;grid-template-columns:62px 1fr 150px auto;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.o .t{font-size:20px;font-weight:700}.o .w{font-size:14px}
+.prog{display:flex;align-items:center}.prog i{width:14px;height:14px;border-radius:50%;border:3px solid #b9c2d3;background:#fff}
+.prog b{flex:1;height:4px;background:#b9c2d3}.prog .on{border-color:var(--green);background:var(--green)}.prog b.on{background:var(--green)}
+.prog .now{border-color:var(--green);background:#fff;width:18px;height:18px}.prog .new{border-color:var(--amber);background:var(--amber);width:18px;height:18px}
+.o small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+</style></head><body>
+<header class="top">
+  <div class="brand">PrepAhead<small>Tells stalls how much to cook, before they cook · concept add-on for Cates</small></div>
+  <div class="clock">Demo time <i></i><b class="num">09:40</b></div>
+  <div class="seg"><span class="on">Both</span><span>Student</span><span>Stall</span></div>
+  <span class="reset">Reset demo</span>
+</header>
+<main class="stage">
+<section>
+  <p class="label"><span><b>Student</b> phone app</span><span>Sample data</span></p>
+  <div class="phone"><div class="screen">
+    <div class="hd"><h1>Skip the lunch queue</h1><p>Order ahead, pick when you collect, walk straight to the counter.</p></div>
+    <p class="early">Early bird: order before 10:00, save 10%</p>
+    <div class="lineplate"><p class="k">North Spine Canteen</p>
+      <div class="stn" style="--c:var(--green)"><span class="ring"></span><div><span class="code num">NS01</span><h2>Mixed Veg Rice</h2><span class="zh">杂菜饭</span><p>Batch-cooked · order by 10:00</p><p>Saved 40 portions this week (sample)</p></div><span class="p num"><small>from</small>$3.15</span></div>
+      <div class="stn" style="--c:var(--green)"><span class="ring"></span><div><span class="code num">NS02</span><h2>Chicken Rice</h2><span class="zh">鸡饭</span><p>Batch-cooked · order by 10:00</p><p>Saved 28 portions this week (sample)</p></div><span class="p num"><small>from</small>$3.78</span></div>
+      <div class="stn" style="--c:var(--blue)"><span class="ring"></span><div><span class="code num">NS03</span><h2>Ban Mian</h2><span class="zh">板面</span><p>Made to order · 30 min ahead</p><p>Saved 15 portions this week (sample)</p></div><span class="p num"><small>from</small>$4.05</span></div>
+      <div class="stn" style="--c:var(--blue)"><span class="ring"></span><div><span class="code num">NS04</span><h2>Western</h2><span class="zh">西餐</span><p>Made to order · 30 min ahead</p></div><span class="p num"><small>from</small>$4.95</span></div>
+    </div>
+  </div></div>
+</section>
+<section>
+  <p class="label"><span><b>Stall</b> counter tablet</span><span>All figures are sample data</span></p>
+  <div class="tab">
+    <div class="thead"><span class="code num">NS01</span><h2>Mixed Veg Rice</h2><span class="zh">杂菜饭</span><span class="tag">Batch-cooked</span></div>
+    <div class="hero">
+      <span class="big num">9</span>
+      <div><h3>trays to cook</h3><p class="num"><b>135 portions</b> (9 × 15) · updates until 10:00</p><p class="num">18 fewer than the usual prep of 153</p></div>
+      <div class="cook"><p>Cooked so far: <b class="num">3 of 9</b></p>
+        <div class="trayline"><i class="on"></i><b class="on"></b><i class="on"></i><b class="on"></b><i class="on"></i><b></b><i></i><b></b><i></i><b></b><i></i><b></b><i></i><b></b><i></i><b></b><i></i></div>
+        <span class="btn" style="float:right">+1 tray cooked</span></div>
+    </div>
+    <div class="cols">
+      <div><p class="k">How the number is worked out</p>
+        <dl class="calc num"><div><dt>Usual demand (Wed, 4 wks)</dt><dd>121</dd></div><div><dt>Pre-ordered so far</dt><dd>16</dd></div><div><dt>Extra above usual pre-orders</dt><dd>+0</dd></div><div class="sum"><dt>Suggested portions</dt><dd>121</dd></div></dl>
+        <p class="note">Recurring orders tomorrow (Thu): <b class="num">6</b> portions. Buy ingredients for these.</p></div>
+      <div><p class="k"><span>Pre-orders · placed → accepted → on shelf → collected</span></p>
+        <div class="o"><span class="t num">12:45</span><div class="w"><b class="num">A1004</b> 3 × 3 veg (vegetarian)<small>New</small></div><span class="prog"><i class="new"></i><b></b><i></i><b></b><i></i><b></b><i></i></span><span><span class="btn">Accept</span> <span class="btn ghost">Decline</span></span></div>
+        <div class="o"><span class="t num">12:00</span><div class="w"><b class="num">A1001</b> 2 × 1 meat + 2 veg<small>On shelf</small></div><span class="prog"><i class="on"></i><b class="on"></b><i class="on"></i><b class="on"></b><i class="now"></i><b></b><i></i></span><span class="btn ghost">Check code</span></div>
+        <div class="o"><span class="t num">12:15</span><div class="w"><b class="num">A1002</b> 1 × 2 meat + 1 veg<small>Accepted</small></div><span class="prog"><i class="on"></i><b class="on"></b><i class="now"></i><b></b><i></i><b></b><i></i></span><span class="btn ghost">Put on shelf</span></div>
+        <div class="o"><span class="t num">12:30</span><div class="w"><b class="num">A1003</b> 10 × 1 meat + 2 veg<small>Accepted</small></div><span class="prog"><i class="on"></i><b class="on"></b><i class="now"></i><b></b><i></i><b></b><i></i></span><span class="btn ghost">Put on shelf</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+</body></html>

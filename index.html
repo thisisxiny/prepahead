@@ -7,8 +7,9 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- Archivo: signboard lettering + all UI text. Noto Sans SC: the Chinese stall names. -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Noto+Sans+SC:wght@700;900&display=swap">
+<!-- Big Shoulders Display: the tall signage capitals and flip-tile numerals. Archivo: all reading text.
+     Noto Sans SC: the Chinese stall names. (All three also have offline copies in fonts/, see style.css.) -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Archivo:wdth,wght@62..125,400..900&family=Noto+Sans+SC:wght@500;700&display=swap">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,8 +19,12 @@
   <div class="topbar-in">
     <!-- Concept framing: PrepAhead as an add-on to Cates. Our own colours only, no Cates logo or styling. -->
     <div class="brand">
-      <h1>Prep<b>Ahead</b></h1>
-      <span class="small">A pre-order add-on for Cates (concept) · Not affiliated with Cates</span>
+      <!-- The mark: a stretch of the green line arriving at a stop ("ahead") -->
+      <svg class="mark" viewBox="0 0 34 16" aria-hidden="true"><path d="M3 8h17"/><circle cx="26" cy="8" r="5.5"/></svg>
+      <div>
+        <h1>PrepAhead</h1>
+        <span class="small">Tells stalls how much to cook, before they cook. A pre-order add-on for Cates (concept) · Not affiliated with Cates</span>
+      </div>
     </div>
     <div class="clock">
       <label for="demo-time" class="small">Demo time</label>

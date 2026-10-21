@@ -1,55 +1,61 @@
 /* ============================================================
    style.css
-   Look: canteen stall signboards, kept quiet so the features lead.
-   Every stall is a numbered plate + red signboard face + pale strip;
-   everything else is white panels with thin grey lines on a light
-   grey canteen wall. Colour is an accent, not the background.
+   Look: "The Lunch Line". PrepAhead is one green line: each stall
+   is a stop on it, every order rides it from ordered to collected,
+   and the ONE number per screen that matters (trays to cook, the
+   cut-off, your collection time) sits in black flip tiles, like a
+   departures board.
+   - Green  = the line, stops and progress.
+   - Yellow = a small lamp for "now" and "new" only.
+   - Red    = something has gone wrong (no-show, uncollected, leftover).
    Layout: top bar with demo controls; student phone on the left,
    stall tablet on the right (stacked on phones).
    Change colours and fonts here only, so both sides match.
    ============================================================ */
 /* Self-hosted copies so the lettering works offline (fonts/ folder). The Google Fonts link in index.html is the backup. */
 @font-face { font-family: "Archivo Local"; src: url("fonts/archivo.woff2") format("woff2"); font-weight: 400 900; font-stretch: 62% 125%; font-display: swap; }
+/* Big Shoulders Display (SIL Open Font License, from Google Fonts): one variable file covering weights 700–900, Latin only */
+@font-face { font-family: "Big Shoulders Local"; src: url("fonts/big-shoulders-display.woff2") format("woff2"); font-weight: 700 900; font-display: swap; }
 @font-face { font-family: "Noto Sans SC Stalls"; src: url("fonts/noto-sans-sc-stalls.woff2") format("woff2"); font-weight: 900; font-display: swap; unicode-range: U+6742, U+677F, U+83DC, U+897F, U+9762, U+9910, U+996D, U+9E21; }
 
 :root {
-  --ground: #eceef1;      /* the canteen wall behind the counters */
-  --panel: #ffffff;       /* lightbox white: cards, phone screen */
-  --panel-2: #f4f5f7;     /* quiet fill inside a panel */
-  --ink: #1b1d20;         /* text, primary buttons */
-  --ink-2: #3a3e44;       /* primary button hover */
-  --on-ink: #ffffff;      /* text on ink */
-  --muted: #555b62;       /* secondary text */
-  --line: #e0e3e7;        /* hairlines: cards, rows */
-  --line-strong: #8f959c; /* borders that mark a control (buttons, slots, inputs) */
-  --sign: #b53930;        /* signboard red (softened) */
-  --sign-ink: #ffffff;    /* lettering on the signboard */
-  --sign-zh: #fbe7b0;     /* Chinese name on the signboard */
-  --strip: #faf0cf;       /* pale yellow: strips, highlights, "new" */
-  --strip-ink: #1b1d20;
-  --strip-line: #d8bb5a;  /* edge for small yellow markers */
-  --go: #1e7a43;          /* on shelf, ready to collect */
-  --go-ink: #ffffff;
-  --bad: #b53930;         /* problems: uncollected, no-show, stop switch */
+  --ground: #eef0ee;      /* porcelain wall behind the phone and tablet */
+  --panel: #ffffff;       /* work panels, phone screen */
+  --panel-2: #f5f6f4;     /* quiet fill inside a panel */
+  --ink: #151715;         /* text, primary buttons */
+  --ink-2: #303530;       /* primary button hover */
+  --on-ink: #ffffff;
+  --muted: #545a55;       /* secondary text */
+  --line: #dde1dd;        /* hairlines between rows and sections */
+  --line-strong: #8b928c; /* edges that mark a control (buttons, slots, inputs) */
+  --board: #151715;       /* the black tablet header */
+  --tile-top: #2b2f2b;    /* flip tile, upper half */
+  --tile-bottom: #111311; /* flip tile, lower half */
+  --paint: #f4f4ef;       /* numerals on tiles, text on the board */
+  --paint-dim: #b9beb9;   /* secondary text on the board */
+  --green: #1fa463;       /* THE line: lines, stops, progress (shapes only, not text) */
+  --green-text: #0b7a3f;  /* green when it is text on white */
+  --green-ink: #151715;   /* text on a green tab */
+  --lamp: #ffc400;        /* the yellow lamp: "now" and "new" (small marks only) */
+  --lamp-soft: #fff1bf;   /* new-order flash, text selection */
+  --lamp-edge: #c79800;   /* thin edge so a small lamp holds its shape on white */
+  --tile-split: #000000;  /* the split across the middle of a flip tile */
+  --bad: #c8321f;         /* problems: no-show, uncollected, leftover, stop switch */
   --bad-ink: #ffffff;
-  --bad-text: #a8322a;    /* error text on a panel */
-  --off: #7a8087;         /* a closed or sold-out signboard */
-  --topbar: #ffffff;
-  --topbar-ink: #1b1d20;
-  --topbar-muted: #555b62;
-  --brand-accent: #b53930;
-  --phone: #1b1d20;
-  --plate: #ffffff;       /* stall number plate */
-  --plate-ink: #1b1d20;
-  --focus: #1b1d20;
-  --chart-prepared: #c9ced4;
-  --chart-sold: #56606b;
-  --shadow: 0 1px 2px rgb(16 24 40 / 0.06), 0 12px 28px -18px rgb(16 24 40 / 0.28);
+  --off: #a3a9a4;         /* a closed stop on the line */
+  --focus: #151715;
+  --chart-prepared: #c9cec9;
+  --chart-sold: #1fa463;
+  --chart-leftover: #c8321f;
+  --shadow: 0 1px 2px rgb(16 24 16 / 0.06), 0 14px 30px -18px rgb(16 24 16 / 0.3);
 
   --f-ui: "Archivo Local", "Archivo", "Helvetica Neue", Arial, sans-serif;
-  --f-zh: "Noto Sans SC Stalls", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
-  --r: 10px;              /* panels and signboards */
-  --r-sm: 6px;            /* buttons, plates, tags */
+  /* Signage capitals: the offline copy first, then Google Fonts. If both fail, Archivo squeezed narrow stands in (font-stretch below). */
+  --f-sign: "Big Shoulders Local", "Big Shoulders Display", "Archivo Local", "Archivo", "Arial Narrow", sans-serif;
+  --f-zh: "Noto Sans SC", "Noto Sans SC Stalls", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --r: 8px;               /* panels */
+  --r-sm: 4px;            /* buttons, slots */
+  --r-tab: 3px;           /* small tabs and chips: stall code tabs, type tag, Final lock */
 
   /* Light only: the page looks the same even when the computer is in dark mode.
      This also keeps the browser's own controls (slider, checkbox, scrollbar) light. */
@@ -58,14 +64,16 @@
 
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--f-ui); font-size: 16px; line-height: 1.45; }
-h1, h2, h3 { margin: 0; font-weight: 700; text-wrap: balance; }
-h2 { font-size: 1.6rem; line-height: 1.1; letter-spacing: -0.015em; }
-h3 { font-size: 1rem; letter-spacing: 0; }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+/* Headings are signage: tall condensed capitals */
+h1, h2, h3, .sign-type { font-family: var(--f-sign); font-stretch: 72%; text-transform: uppercase; letter-spacing: 0.02em; }
+h2 { font-weight: 900; font-size: 2rem; line-height: 0.95; }
+h3 { font-weight: 800; font-size: 1.1rem; line-height: 1.1; letter-spacing: 0.06em; }
 p { margin: 0; }
 button, input, select { font: inherit; color: inherit; }
 :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
-::selection { background: var(--strip); color: var(--strip-ink); }
-input { caret-color: var(--sign); }
+::selection { background: var(--lamp-soft); color: var(--ink); }
+input { caret-color: var(--green-text); }
 .num { font-variant-numeric: tabular-nums; }
 .muted { color: var(--muted); }
 .small { font-size: 0.875rem; }
@@ -73,28 +81,48 @@ input { caret-color: var(--sign); }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .label { font-weight: 700; font-size: 0.95rem; }
 .icon { width: 1.25em; height: 1.25em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.zh { font-family: var(--f-zh); font-weight: 500; }
 
-/* ---------- top bar (demo controls: kept light so it doesn't compete) ---------- */
+/* ---------- flip tiles: the one number per screen ---------- */
+.tiles { display: inline-flex; gap: 0.1em; align-items: center; font-family: var(--f-sign); font-stretch: 72%; font-weight: 800; font-size: var(--tile-fs, 2.2rem); line-height: 1; perspective: 400px; }
+.tile {
+  position: relative; display: inline-grid; place-items: center; width: 0.78em; height: 1.32em; border-radius: 0.07em;
+  background: linear-gradient(var(--tile-top) 50%, var(--tile-bottom) 50%); color: var(--paint); font-variant-numeric: tabular-nums;
+}
+/* the split across the middle of each flap */
+.tile::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--tile-split); }
+.tile-sep { padding: 0 0.04em; color: currentColor; }
+
+/* ---------- the yellow lamp (now / new) and stall code tabs ---------- */
+.lamp { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--lamp); border: 1px solid var(--lamp-edge); flex: none; }
+.code-tab {
+  display: inline-block; background: var(--ink); color: var(--paint); border-radius: var(--r-tab); padding: 3px 6px 2px;
+  font: 700 0.85rem/1 var(--f-sign); font-stretch: 72%; letter-spacing: 0.06em; font-variant-numeric: tabular-nums; vertical-align: 0.1em;
+}
+
+/* ---------- top bar (demo controls) ---------- */
 .topbar {
   position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
-  background: var(--topbar); color: var(--topbar-ink); border-bottom: 1px solid var(--line);
+  background: var(--panel); color: var(--ink); border-bottom: 1px solid var(--line);
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
   padding-block: 10px;
 }
 .topbar-in { max-width: 1280px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center; }
-.brand { display: flex; flex-direction: column; gap: 1px; margin-right: auto; }
-.brand h1 { font-size: 1.35rem; line-height: 1.05; font-weight: 800; font-stretch: 110%; letter-spacing: -0.01em; }
-.brand h1 b { color: var(--brand-accent); font-weight: 800; }
-.brand .small { color: var(--topbar-muted); }
+.brand { display: flex; align-items: center; gap: 10px; margin-right: auto; min-width: 0; }
+.brand .mark { width: 36px; height: 17px; flex: none; }
+.brand .mark path { stroke: var(--green); stroke-width: 6; stroke-linecap: round; fill: none; }
+.brand .mark circle { fill: var(--panel); stroke: var(--ink); stroke-width: 3; }
+.brand h1 { font-weight: 900; font-size: 1.75rem; line-height: 0.95; letter-spacing: 0.03em; }
+.brand .small { display: block; color: var(--muted); font-size: 0.78rem; line-height: 1.3; max-width: 34em; }
 .clock { display: flex; align-items: center; gap: 10px; }
-.clock label { color: var(--topbar-muted); }
-.clock input[type=range] { width: 160px; accent-color: var(--ink); cursor: pointer; }
-.clock output { font-weight: 700; font-size: 1.4rem; line-height: 1; color: var(--topbar-ink); font-variant-numeric: tabular-nums; min-width: 3.1em; }
-.seg { display: inline-flex; gap: 2px; border: 1px solid var(--line-strong); border-radius: var(--r-sm); padding: 2px; }
-.seg button { border: 0; background: none; color: var(--topbar-ink); padding: 6px 14px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.9rem; }
+.clock label { color: var(--muted); }
+.clock input[type=range] { width: 160px; accent-color: var(--green); cursor: pointer; }
+.clock output { font-weight: 700; font-size: 1.35rem; line-height: 1; color: var(--ink); font-variant-numeric: tabular-nums; min-width: 3.1em; }
+.seg { display: inline-flex; gap: 2px; border: 1.5px solid var(--ink); border-radius: var(--r-sm); padding: 2px; }
+.seg button { border: 0; background: none; color: var(--ink); padding: 6px 14px; border-radius: var(--r-tab); cursor: pointer; font-weight: 600; font-size: 0.9rem; }
 .seg button:hover { background: var(--panel-2); }
 .seg button[aria-pressed="true"] { background: var(--ink); color: var(--on-ink); }
-.link-btn { border: 0; background: none; color: var(--topbar-ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; font-size: 0.9rem; font-weight: 600; padding: 6px 2px; }
+.link-btn { border: 0; background: none; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; font-size: 0.9rem; font-weight: 600; padding: 6px 2px; }
 
 /* ---------- stage ---------- */
 .stage {
@@ -110,187 +138,284 @@ input { caret-color: var(--sign); }
 .pane-label b { color: var(--ink); font-weight: 700; }
 
 /* ---------- student phone ---------- */
-.phone { background: var(--phone); border-radius: 40px; padding: 10px; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 78px); box-shadow: var(--shadow); }
+.phone { background: var(--ink); border-radius: 44px; padding: 10px; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 82px); box-shadow: var(--shadow); }
 .phone-screen {
-  background: var(--panel); border-radius: 31px; min-height: 640px; max-height: calc(100vh - 140px); overflow-y: auto;
-  padding: 22px 16px 24px; display: flex; flex-direction: column; gap: 16px;
+  background: var(--panel); border-radius: 35px; min-height: 640px; max-height: calc(100vh - 140px); overflow-y: auto;
+  padding: 26px 18px 24px; display: flex; flex-direction: column; gap: 16px;
   scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent;
 }
 /* Children keep their height; the screen scrolls instead of squashing them */
 .phone-screen > * { flex-shrink: 0; }
-.s-head { display: grid; gap: 6px; }
+.s-head { display: grid; gap: 8px; }
 .s-head p { color: var(--muted); }
+.s-title { font-size: 2.9rem; line-height: 0.88; }
 .back { align-self: flex-start; display: inline-flex; align-items: center; gap: 2px; border: 0; background: none; color: var(--ink); cursor: pointer; padding: 4px 6px 4px 0; font-weight: 600; }
 .back:hover { text-decoration: underline; text-underline-offset: 3px; }
-.banner { background: var(--strip); color: var(--strip-ink); border-radius: var(--r-sm); padding: 10px 12px; font-size: 0.95rem; }
+/* A one-line notice. Starts with a lamp; the ink version is for reminders. */
+.banner { position: relative; background: var(--panel-2); color: var(--ink); border-radius: var(--r-sm); padding: 10px 12px 10px 31px; font-size: 0.95rem; }
+.banner::before { content: ""; position: absolute; left: 12px; top: calc(10px + 0.36em); width: 9px; height: 9px; border-radius: 50%; background: var(--lamp); border: 1px solid var(--lamp-edge); }
 .banner.is-ink { background: var(--ink); color: var(--on-ink); }
 
+/* A ruled line led by a lamp (early bird): no box, no fill */
+.lamp-line { display: flex; align-items: flex-start; gap: 9px; padding: 0 0 12px; border-bottom: 1px solid var(--line); font-size: 0.95rem; }
+.lamp-line .lamp { margin-top: 0.42em; }
+
+/* The cut-off: when batch stalls stop taking lunch pre-orders, in flip tiles */
+.cutoff { display: flex; justify-content: space-between; align-items: center; gap: 12px; border-top: 3px solid var(--ink); border-bottom: 1px solid var(--line); padding: 12px 0; }
+.cutoff h3 { font-size: 1.15rem; }
+.cutoff p { display: flex; align-items: flex-start; gap: 7px; font-size: 0.85rem; color: var(--muted); margin-top: 4px; }
+.cutoff p .lamp { margin-top: 0.38em; }
+.cutoff .tiles { --tile-fs: 2.3rem; }
+
 .stall-list, .menu, .orders, .v-orders { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.line-name { font-size: 0.95rem; color: var(--muted); }
 
-/* The signboard: numbered plate, red face with English + Chinese name, pale strip.
-   Used for each stall on the phone, at the top of a stall's screens, and as the tablet header. */
-.sign {
-  display: grid; grid-template-columns: 48px minmax(0, 1fr); width: 100%; padding: 0; text-align: left;
-  border: 1px solid var(--line); border-radius: var(--r); background: var(--panel); color: inherit; overflow: hidden;
+/* Stalls are stops on one green line. The line runs down through the rings. */
+.stall-list { gap: 0; }
+.stop { position: relative; }
+.stop::before { content: ""; position: absolute; left: 14px; top: 0; bottom: 0; width: 8px; background: var(--green); }
+.stop:first-child::before { top: 30px; }
+.stop:last-child::before { bottom: calc(100% - 30px); }
+.stop.is-closed::before { background: var(--off); }
+.stop-btn {
+  position: relative; display: grid; grid-template-columns: 36px minmax(0, 1fr) auto; gap: 10px; width: 100%;
+  padding: 12px 4px 12px 0; text-align: left; background: none; border: 0; border-radius: var(--r-sm); cursor: pointer;
 }
-button.sign { cursor: pointer; transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.18s; }
-button.sign:hover:not(:disabled) { transform: translateY(-1px); border-color: var(--line-strong); }
-.sign-plate { display: grid; place-items: center; background: var(--plate); color: var(--plate-ink); font-weight: 800; font-size: 1.15rem; font-variant-numeric: tabular-nums; }
-.sign-face { background: var(--sign); color: var(--sign-ink); padding: 9px 12px 8px; display: grid; gap: 1px; min-width: 0; }
-.sign-name { font-weight: 800; font-stretch: 108%; font-size: 1.05rem; line-height: 1.1; text-transform: uppercase; letter-spacing: 0.02em; }
-.sign-zh { font-family: var(--f-zh); font-weight: 900; font-size: 0.98rem; line-height: 1.25; color: var(--sign-zh); }
-.sign-strip { grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 10px; background: var(--strip); color: var(--strip-ink); padding: 6px 12px; font-weight: 600; font-size: 0.875rem; }
-.sign-foot { grid-column: 1 / -1; padding: 7px 12px 8px; font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--line); }
-.sign:disabled { cursor: not-allowed; }
-.sign:disabled .sign-face { background: var(--off); }
-.sign:disabled .sign-zh { color: var(--sign-ink); }
-/* A closed or sold-out stall: the strip says why, in problem red */
-.sign:disabled .sign-strip { background: var(--panel-2); color: var(--bad-text); font-weight: 700; }
+.ring { width: 28px; height: 28px; margin: 4px 0 0 4px; border-radius: 50%; background: var(--panel); border: 4px solid var(--ink); position: relative; z-index: 1; transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1); }
+.stop-btn:hover:not(:disabled) .ring { transform: scale(1.15); }
+.stop-btn:hover:not(:disabled) .stop-name { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 2px; }
+.stop-btn:disabled { cursor: not-allowed; }
+.stop-btn:disabled .ring { border-color: var(--off); }
+.stop-name { font-weight: 700; font-size: 1.02rem; margin-left: 6px; }
+.stop .zh { font-size: 0.85rem; color: var(--muted); margin-left: 4px; }
+.stop-meta { display: block; font-size: 0.82rem; color: var(--muted); margin-top: 3px; }
+.stop-meta.is-why { color: var(--bad); font-weight: 600; }
+.stop-saved { display: block; font-size: 0.8rem; color: var(--green-text); font-weight: 600; margin-top: 2px; }
+.stop-price { font: 800 1.45rem/1 var(--f-sign); font-stretch: 72%; text-align: right; font-variant-numeric: tabular-nums; }
+.stop-price small { display: block; font: 500 0.72rem/1.4 var(--f-ui); color: var(--muted); }
 
+/* A stall's own screen: its code tab, name and rule */
+.stall-head { display: grid; gap: 6px; padding-bottom: 12px; border-bottom: 3px solid var(--ink); }
+.stall-head h2 { font-size: 2.2rem; }
+.stall-head .zh { font-size: 1rem; color: var(--muted); margin-left: 6px; font-family: var(--f-zh); text-transform: none; }
+.stall-head p { font-size: 0.9rem; color: var(--muted); }
+
+.menu { gap: 0; }
 .menu-item { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
 .item-name { font-weight: 600; font-size: 1rem; }
 .price { color: var(--muted); font-variant-numeric: tabular-nums; }
 .price s { text-decoration-thickness: 1px; }
-.price strong { color: var(--strip-ink); background: var(--strip); padding: 1px 5px; border-radius: 3px; font-weight: 700; }
+.price strong { color: var(--ink); font-weight: 700; }
 .stepper { display: inline-flex; align-items: center; gap: 8px; }
 .stepper button {
   min-width: 36px; height: 36px; padding: 0 8px; display: inline-grid; place-items: center; border-radius: var(--r-sm);
-  border: 1px solid var(--line-strong); background: var(--panel); color: var(--ink); cursor: pointer; font-weight: 600; font-size: 0.95rem; font-variant-numeric: tabular-nums;
+  border: 1.5px solid var(--line-strong); background: var(--panel); color: var(--ink); cursor: pointer; font-weight: 600; font-size: 0.95rem; font-variant-numeric: tabular-nums;
 }
 .stepper button:hover:not(:disabled) { background: var(--panel-2); border-color: var(--ink); }
 .stepper button:disabled { opacity: 0.35; cursor: default; }
-.stepper span { min-width: 2ch; text-align: center; font-weight: 700; font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+.stepper .is-empty { min-width: 0; font: 600 0.85rem/1.2 var(--f-ui); color: var(--muted); }
+.stepper span { min-width: 2ch; text-align: center; font: 800 1.35rem/1 var(--f-sign); font-stretch: 72%; font-variant-numeric: tabular-nums; }
 
+/* Collection slots. The chosen one turns into a flip tile. */
 .slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-.slot { padding: 10px 0; border: 1px solid var(--line-strong); border-radius: var(--r-sm); background: var(--panel); font-weight: 600; font-size: 1rem; font-variant-numeric: tabular-nums; cursor: pointer; }
-.slot:hover:not(:disabled) { background: var(--panel-2); border-color: var(--ink); }
-.slot.on { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
-.slot:disabled { border-style: dashed; border-color: var(--line); color: var(--muted); text-decoration: line-through; cursor: not-allowed; }
-.summary { border-top: 1px solid var(--line-strong); padding-top: 10px; display: grid; gap: 4px; font-size: 0.95rem; }
+.slot {
+  position: relative; padding: 9px 0; border: 1.5px solid var(--ink); border-radius: var(--r-sm); background: var(--panel); cursor: pointer;
+  font: 800 1.3rem/1 var(--f-sign); font-stretch: 72%; letter-spacing: 0.03em; font-variant-numeric: tabular-nums;
+}
+.slot:hover:not(:disabled) { background: var(--panel-2); }
+.slot.on { background: linear-gradient(var(--tile-top) 50%, var(--tile-bottom) 50%); color: var(--paint); border-color: var(--tile-bottom); }
+.slot:disabled { border-style: dashed; border-color: var(--line-strong); color: var(--muted); text-decoration: line-through; cursor: not-allowed; }
+.summary { border-top: 1.5px solid var(--ink); padding-top: 10px; display: grid; gap: 4px; font-size: 0.95rem; }
 .summary .total { font-weight: 700; font-size: 1.05rem; padding-top: 4px; }
 .agree { display: flex; gap: 10px; font-size: 0.9rem; color: var(--muted); align-items: flex-start; cursor: pointer; }
 .agree input { margin-top: 2px; width: 18px; height: 18px; accent-color: var(--ink); flex: none; cursor: pointer; }
 
+/* The collection ticket owns the screen: when, where, and the code */
+.ticket { display: grid; gap: 14px; justify-items: center; text-align: center; }
+.ticket-when { display: grid; gap: 8px; justify-items: center; }
+.ticket-when h2 { font-size: 1.5rem; }
+.ticket-when .tiles { --tile-fs: 3.6rem; }
+.ticket-where { font-size: 0.95rem; color: var(--muted); }
+.ticket-where b { color: var(--ink); }
+.ticket .progress { width: 100%; }
 .qr-wrap { display: flex; justify-content: center; }
-#qr { background: #ffffff; padding: 12px; border-radius: var(--r); border: 1px solid var(--line); min-height: 178px; min-width: 178px; display: grid; place-items: center; color: #1b1d20; font-size: 0.85rem; text-align: center; }
-.code { align-self: center; background: var(--strip); color: var(--strip-ink); border: 1px solid var(--strip-line); border-radius: var(--r-sm); padding: 4px 12px 4px 20px; font-weight: 800; font-size: 2.2rem; letter-spacing: 0.18em; line-height: 1.15; font-variant-numeric: tabular-nums; }
-.order { border: 1px solid var(--line); border-radius: var(--r); padding: 12px; display: grid; gap: 6px; font-size: 0.95rem; background: var(--panel); }
+#qr { background: var(--panel); padding: 12px; border-radius: var(--r); border: 1px solid var(--line); min-height: 178px; min-width: 178px; display: grid; place-items: center; color: var(--ink); font-size: 0.85rem; text-align: center; }
+.code { align-self: center; border: 2px solid var(--ink); border-radius: var(--r-sm); padding: 6px 10px 4px 18px; font: 900 2.6rem/1 var(--f-sign); font-stretch: 72%; letter-spacing: 0.22em; font-variant-numeric: tabular-nums; }
+.order { border-top: 1px solid var(--line); padding: 12px 0 2px; display: grid; gap: 8px; font-size: 0.95rem; }
+.order:first-child { border-top: 0; }
+.orders { gap: 6px; }
 .note { font-size: 0.9rem; background: var(--panel-2); border-radius: var(--r-sm); padding: 8px 10px; }
+
+/* An order's journey: four stops. Solid = done, dashed = still to come, ring = now. */
+.progress { list-style: none; margin: 0; padding: 0; display: flex; align-items: flex-start; min-width: 120px; }
+.progress li { flex: 1; display: grid; grid-template-columns: 1fr auto; grid-template-rows: 18px auto; align-items: center; }
+.progress li:first-child { flex: 0 0 auto; grid-template-columns: auto; }
+.progress li:not(:first-child)::before { content: ""; border-top: 2px dashed var(--line-strong); margin: 0 2px; }
+.progress li.done:not(:first-child)::before, .progress li.here:not(:first-child)::before { border-top: 0; height: 4px; background: var(--green); }
+.progress li::after { content: ""; grid-column: -2; grid-row: 1; width: 14px; height: 14px; border-radius: 50%; border: 3px solid var(--line-strong); background: var(--panel); justify-self: center; }
+.progress li.done::after { border-color: var(--green); background: var(--green); }
+.progress li.here::after { width: 18px; height: 18px; border-color: var(--ink); }
+.progress.is-new li.here::after { border-color: var(--lamp-edge); background: var(--lamp); }
+.progress .stop-name { grid-column: -2; grid-row: 2; font-size: 0.72rem; color: var(--muted); white-space: nowrap; margin-top: 4px; }
+.progress li.here .stop-name { color: var(--ink); font-weight: 700; }
+/* labelled version (ticket): give the names room */
+.progress.has-names li { grid-template-columns: 1fr 60px; }
+.progress.has-names li:first-child { grid-template-columns: 60px; }
 
 /* ---------- shared bits ---------- */
 .row { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
 .row > span:first-child { min-width: 0; }
-.row-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.row-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-  border: 1px solid var(--ink); background: var(--ink); color: var(--on-ink); border-radius: var(--r-sm);
+  border: 1.5px solid var(--ink); background: var(--ink); color: var(--on-ink); border-radius: var(--r-sm);
   padding: 11px 18px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: background-color 0.15s, border-color 0.15s;
 }
 .btn:hover:not(:disabled) { background: var(--ink-2); border-color: var(--ink-2); }
 .btn:disabled { opacity: 0.4; cursor: not-allowed; }
-.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
-.btn-ghost:hover:not(:disabled) { background: var(--panel-2); border-color: var(--ink); }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn-ghost:hover:not(:disabled) { background: var(--panel-2); }
 .btn.sm { padding: 7px 12px; font-size: 0.9rem; }
 .wide { width: 100%; }
-/* Status tags: small stickers. State reads by fill vs outline plus the word, not colour alone. */
-.pill { display: inline-block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.01em; padding: 1px 7px; border-radius: 4px; white-space: nowrap; border: 1px solid transparent; }
-.pill-pending { background: var(--strip); color: var(--strip-ink); border-color: var(--strip-line); }
-.pill-accepted { color: var(--ink); border-color: var(--line-strong); }
-.pill-ready { background: var(--go); color: var(--go-ink); border-color: var(--go); }
-.pill-collected { background: var(--panel-2); color: var(--ink); border-color: var(--line); }
-.pill-declined, .pill-cancelled, .pill-voucher { color: var(--muted); border-color: var(--line-strong); border-style: dashed; }
-.pill-noshow { background: var(--bad); color: var(--bad-ink); border-color: var(--bad); }
-.err { color: var(--bad-text); width: 100%; font-weight: 600; }
+/* Status words. A small mark before the word: lamp = new, hollow = accepted, green = on shelf,
+   dashed = left the line, red = problem. Reads by shape and word, not colour alone. */
+.pill { display: inline-flex; align-items: center; gap: 6px; font: 700 0.85rem/1.2 var(--f-sign); font-stretch: 72%; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; color: var(--ink); }
+.pill::before { content: ""; width: 9px; height: 9px; border-radius: 50%; border: 2px solid currentColor; flex: none; }
+.pill-pending::before { background: var(--lamp); border-color: var(--lamp-edge); }
+.pill-ready { color: var(--green-text); }
+.pill-ready::before { background: var(--green); border-color: var(--green); }
+.pill-collected { color: var(--muted); }
+.pill-collected::before { background: var(--muted); }
+.pill-declined, .pill-cancelled, .pill-voucher { color: var(--muted); }
+.pill-declined::before, .pill-cancelled::before, .pill-voucher::before { border-style: dashed; }
+.pill-noshow { color: var(--bad); }
+.pill-noshow::before { background: var(--bad); }
+.err { color: var(--bad); width: 100%; font-weight: 600; }
 
 /* ---------- stall tablet ---------- */
-.dash { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); container-type: inline-size; }
-/* Tablet header = this stall's signboard. The stall picker sits in it as the name. */
-.v-sign { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; background: var(--sign); color: var(--sign-ink); --focus: var(--sign-zh); }
-.v-sign .sign-plate { font-size: 1.75rem; }
-.v-sign-face { padding: 10px 18px 9px; display: grid; gap: 2px; min-width: 0; }
+.dash { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; box-shadow: var(--shadow); container-type: inline-size; }
+/* The black header: this stall's code tab, name (the stall picker) and type */
+.v-head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 14px; padding: 14px 20px; background: var(--board); color: var(--paint); --focus: var(--lamp); }
+.v-head .code-tab { background: var(--green); color: var(--green-ink); font-size: 1.05rem; padding: 5px 9px 4px; }
+.v-head-name { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; min-width: 0; }
 #stall-pick {
-  appearance: none; -webkit-appearance: none; max-width: 100%; border: 0; border-radius: 4px; padding: 0 32px 0 0; cursor: pointer;
-  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 4px center / 22px;
-  color: var(--sign-ink); font-weight: 800; font-stretch: 108%; font-size: clamp(1.1rem, 2.6cqi, 1.55rem); line-height: 1.15; text-transform: uppercase; letter-spacing: 0.02em;
+  appearance: none; -webkit-appearance: none; max-width: 100%; border: 0; border-radius: var(--r-tab); padding: 0 30px 0 0; cursor: pointer;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f4f4ef' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 4px center / 20px;
+  color: var(--paint); font: 800 clamp(1.5rem, 3.6cqi, 2.1rem)/1.05 var(--f-sign); font-stretch: 72%; text-transform: uppercase; letter-spacing: 0.03em;
 }
-#stall-pick option { color: #1b1d20; background: #ffffff; text-transform: none; font-size: 1rem; font-weight: 600; }
-.v-sign .sign-zh { font-size: clamp(1rem, 2.2cqi, 1.35rem); }
-.v-sign-type { align-self: center; padding: 0 18px; }
-.tag { display: inline-block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.01em; padding: 2px 8px; border-radius: 4px; white-space: nowrap; border: 1px solid var(--sign-ink); }
-.tag-batch { background: var(--sign-ink); color: var(--sign); }
-.tag-made { color: var(--sign-ink); }
-/* The pale strip under the signboard carries the one number that matters today */
-.v-strip { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; background: var(--strip); color: var(--strip-ink); padding: 12px 18px; border-bottom: 1px solid var(--line); }
-/* Still the biggest number on screen, but no longer shouting */
-.v-strip-num { font-weight: 800; font-size: clamp(3.25rem, 9cqi, 5rem); line-height: 0.9; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
-.v-strip-what { display: grid; gap: 3px; margin-right: auto; flex: 1 1 14em; min-width: 0; }
-.v-strip-what b { font-size: 1.4rem; font-weight: 700; line-height: 1.1; }
-.v-strip-what span { font-size: 0.95rem; font-weight: 500; }
-.v-strip .lock { background: var(--strip-ink); color: var(--strip); padding: 1px 6px; border-radius: 3px; font-weight: 700; }
+#stall-pick option { color: var(--ink); background: var(--panel); text-transform: none; font: 600 1rem var(--f-ui); }
+.v-head .zh { color: var(--paint-dim); font-size: clamp(1rem, 2.2cqi, 1.25rem); }
+.type-tag { border: 1px solid var(--paint-dim); border-radius: var(--r-tab); padding: 4px 8px 3px; font: 700 0.9rem/1 var(--f-sign); font-stretch: 72%; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
 
-.v-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 16px; align-items: start; padding: 16px; background: var(--panel-2); }
+/* Today's number: trays to cook, in flip tiles, with the trays cooked so far beside it */
+.v-hero { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 14px 24px; align-items: center; padding: 18px 20px; border-bottom: 1px solid var(--line); }
+.v-hero .tiles { --tile-fs: clamp(3.4rem, 9cqi, 5.4rem); }
+.v-hero-what { display: grid; gap: 4px; min-width: 0; }
+.v-hero-what h3 { font-size: 2rem; font-weight: 900; letter-spacing: 0.02em; }
+.v-hero-what p { color: var(--muted); font-size: 0.95rem; }
+.v-hero-what p b { color: var(--ink); }
+.lock { display: inline-block; background: var(--ink); color: var(--paint); padding: 1px 6px; border-radius: var(--r-tab); font-weight: 700; }
+.cooked { display: grid; justify-items: end; gap: 6px; text-align: right; }
+.cooked-label { font: 800 0.9rem/1 var(--f-sign); font-stretch: 72%; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.cooked-count { font: 900 1.9rem/1 var(--f-sign); font-stretch: 72%; font-variant-numeric: tabular-nums; }
+/* one stop per tray: filled once cooked */
+.tray-stops { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; }
+.tray-stops li { display: flex; align-items: center; }
+.tray-stops li + li::before { content: ""; width: 14px; border-top: 2px dashed var(--line-strong); }
+.tray-stops li.done + li::before { border-top: 0; height: 4px; background: var(--green); }
+.tray-stops li::after { content: ""; width: 14px; height: 14px; border-radius: 50%; border: 3px solid var(--ink); background: var(--panel); }
+.tray-stops li.done::after { border-color: var(--green); background: var(--green); }
+.tray-stops li.extra::after { border-color: var(--bad); background: var(--bad); }
+
+/* The lunch line: one stop per collection slot, sized by the portions pre-ordered for it */
+.lunch { padding: 12px 20px 10px; border-bottom: 1px solid var(--line); display: grid; gap: 6px; }
+.lunch-line { --n: 9; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); position: relative; }
+.lunch-line::before { content: ""; position: absolute; left: calc(50% / var(--n)); right: calc(50% / var(--n)); top: 21px; height: 6px; background: var(--green); border-radius: var(--r-tab); }
+.lunch-line li { display: grid; grid-template-rows: 48px auto; justify-items: center; align-items: center; position: relative; }
+.lunch-line .ring { margin: 0; width: var(--s, 12px); height: var(--s, 12px); border-width: 3px; display: grid; place-items: center; font: 800 calc(var(--s, 12px) * 0.42)/1 var(--f-sign); font-stretch: 72%; font-variant-numeric: tabular-nums; }
+.lunch-line .t { display: inline-flex; align-items: center; gap: 4px; font: 700 0.85rem/1 var(--f-sign); font-stretch: 72%; letter-spacing: 0.04em; color: var(--muted); font-variant-numeric: tabular-nums; }
+.lunch-line li.now .t { color: var(--ink); }
+.lunch-line li.is-cutoff .ring { width: 16px; height: 16px; border-radius: 2px; border: 0; background: linear-gradient(var(--tile-top) 50%, var(--tile-bottom) 50%); }
+.lunch-line li.is-cutoff .t { color: var(--ink); }
+.lunch-line li.is-cutoff.is-past .t { color: var(--muted); }
+
+.v-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 24px; align-items: start; padding: 18px 20px 22px; }
 /* minmax(0, 1fr) everywhere a chart can sit: a canvas otherwise props its column open at its old width */
-.v-col { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; min-width: 0; }
-.card { border: 1px solid var(--line); border-radius: var(--r); padding: 16px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; background: var(--panel); }
-.calc { margin: 0; display: grid; gap: 6px; font-size: 0.95rem; }
-.calc div { display: flex; justify-content: space-between; gap: 12px; }
+.v-col { display: grid; grid-template-columns: minmax(0, 1fr); gap: 26px; min-width: 0; }
+/* Sections are ruled, not boxed: a heavy rule, a signage title, then the content */
+.card { border-top: 3px solid var(--ink); padding-top: 10px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+.card h3 { font-size: 1.1rem; }
+.card .row h3 { margin-right: auto; }
+.calc { margin: 0; display: grid; font-size: 0.95rem; }
+.calc div { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--line); }
 .calc dt { color: var(--muted); }
 .calc dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
-.calc .sum { border-top: 1px solid var(--line-strong); padding-top: 6px; font-weight: 700; }
+.calc .sum { border-bottom: 0; border-top: 2px solid var(--ink); font-weight: 700; }
 .calc .sum dt { color: var(--ink); }
+.calc .final { border-bottom: 0; border-top: 2px solid var(--ink); font-weight: 800; }
+.calc .final dt { color: var(--ink); }
 .controls { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.controls h3 { grid-column: 1 / -1; }
 .ctrl { display: grid; gap: 8px; align-content: start; }
 .ctrl label { font-weight: 600; font-size: 0.95rem; }
-.meter { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
-.meter span { display: block; height: 100%; background: var(--chart-sold); }
-.switch { width: 50px; height: 28px; border-radius: 14px; border: 1px solid var(--line-strong); background: var(--panel-2); position: relative; cursor: pointer; padding: 0; }
-.switch span { position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: var(--ink); transition: left 0.18s cubic-bezier(0.16, 1, 0.3, 1); }
+.meter { height: 6px; background: var(--line); border-radius: var(--r-tab); overflow: hidden; }
+.meter span { display: block; height: 100%; background: var(--green); }
+.switch { width: 50px; height: 28px; border-radius: 14px; border: 1.5px solid var(--line-strong); background: var(--panel-2); position: relative; cursor: pointer; padding: 0; }
+.switch span { position: absolute; top: 3px; left: 3px; width: 19px; height: 19px; border-radius: 50%; background: var(--ink); transition: left 0.18s cubic-bezier(0.16, 1, 0.3, 1); }
 .switch.on { background: var(--bad); border-color: var(--bad); }
 .switch.on span { left: 25px; background: var(--bad-ink); }
 .chart-box { position: relative; height: 210px; min-width: 0; }
-.v-order { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 12px; padding: 12px 8px; margin-inline: -8px; border-top: 1px solid var(--line); border-radius: 4px; font-size: 0.95rem; }
-.v-ticket { display: grid; gap: 6px; justify-items: start; align-content: start; }
-.v-ticket .pill { white-space: normal; }
-.v-slot { font-weight: 700; font-size: 1.2rem; line-height: 1.1; font-variant-numeric: tabular-nums; padding: 0 4px; margin-left: -4px; border-radius: 3px; }
-.v-order.is-mine .v-slot { background: var(--strip); color: var(--strip-ink); }
+/* Pre-orders: slot time on the left; what to make, its progress line and what to do on the right */
+.v-orders { gap: 0; }
+.v-order { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; padding: 12px 8px; margin-inline: -8px; border-top: 1px solid var(--line); border-radius: var(--r-sm); font-size: 0.95rem; }
+.v-orders li:first-child { border-top: 0; }
+.v-slot { font: 800 1.65rem/1 var(--f-sign); font-stretch: 72%; font-variant-numeric: tabular-nums; }
 .v-body { display: grid; gap: 8px; min-width: 0; align-content: start; }
 .v-what { font-size: 1rem; line-height: 1.35; }
-.v-what strong { font-weight: 700; margin-right: 4px; }
+.v-what strong { font-weight: 700; margin-right: 4px; font-variant-numeric: tabular-nums; }
+.v-state { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.v-state .progress { flex: 0 1 150px; }
+.v-order.is-mine .v-slot { box-shadow: inset 0 -4px 0 var(--lamp); }
+.v-head-sub { color: var(--muted); font-size: 0.85rem; font-variant-numeric: tabular-nums; }
 /* A quiet text button for the rarer choice in a row, next to the one primary button */
 .link-act { border: 0; background: none; color: var(--ink); padding: 7px 4px; font-weight: 600; font-size: 0.9rem; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .link-act:hover { color: var(--muted); }
 .verify { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .verify label { width: 100%; font-size: 0.875rem; font-weight: 600; color: var(--muted); }
-.verify input { width: 6.5em; padding: 6px 10px; border: 1px solid var(--line-strong); border-radius: var(--r-sm); background: var(--panel); font-weight: 700; font-size: 1rem; letter-spacing: 0.2em; font-variant-numeric: tabular-nums; }
+.verify input { width: 6.5em; padding: 6px 10px; border: 1.5px solid var(--line-strong); border-radius: var(--r-sm); background: var(--panel); font-weight: 700; font-size: 1rem; letter-spacing: 0.2em; font-variant-numeric: tabular-nums; }
 .verify input:focus { border-color: var(--ink); }
 .verify input::placeholder { color: var(--muted); }
 details summary { cursor: pointer; color: var(--muted); margin-top: 4px; font-weight: 600; }
 
-/* The one motion moment: an order placed on the phone lands on the tablet with a pale
-   yellow flash and the tray number ticks over. vendor.js adds these classes once per change. */
-@keyframes arrive { 0% { transform: translateX(-10px); background-color: var(--strip); } 45% { background-color: var(--strip); } 100% { transform: none; background-color: transparent; } }
+/* The one motion moment: when a pre-order changes the forecast, the tray tiles flip over to the
+   new number, the order lands with a pale lamp flash, and its slot's stop on the lunch line grows.
+   vendor.js adds these classes once per change. */
+@keyframes flip { 0% { transform: rotateX(-88deg); filter: brightness(1.8); } 100% { transform: none; filter: none; } }
+.tiles.is-flipping .tile { animation: flip 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; transform-origin: 50% 50%; }
+.tiles.is-flipping .tile:nth-child(2) { animation-delay: 0.08s; }
+@keyframes arrive { 0% { transform: translateX(-10px); background-color: var(--lamp-soft); } 45% { background-color: var(--lamp-soft); } 100% { transform: none; background-color: transparent; } }
 .v-order.is-arriving { animation: arrive 1.1s cubic-bezier(0.16, 1, 0.3, 1) both; }
-@keyframes tick { 0% { transform: translateY(-0.2em); } 100% { transform: none; } }
-.v-strip-num.is-ticking { animation: tick 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+@keyframes grow { 0% { transform: scale(0.6); } 100% { transform: none; } }
+.lunch-line li.is-growing .ring { animation: grow 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
 
 @container (max-width: 760px) {
   .v-grid { grid-template-columns: minmax(0, 1fr); }
   .v-col:last-child { order: -1; } /* pre-orders first, so Accept all new is in view */
 }
-@container (max-width: 520px) {
-  .v-sign { grid-template-columns: 56px minmax(0, 1fr); }
-  .v-sign .sign-plate { font-size: 1.4rem; }
-  .v-sign-type { grid-column: 1 / -1; padding: 8px 12px; border-top: 1px solid rgb(255 255 255 / 0.25); }
-  .v-sign-face { padding: 10px 12px 8px; }
-  #stall-pick { font-size: 1.1rem; padding-right: 28px; background-size: 20px; }
-  .v-sign .sign-zh { font-size: 1rem; }
-  .v-strip { padding: 10px 14px; }
-  .v-strip-what b { font-size: 1.15rem; }
+@container (max-width: 560px) {
+  .v-head { grid-template-columns: auto minmax(0, 1fr); padding: 12px 14px; }
+  .v-head .type-tag { grid-column: 1 / -1; justify-self: start; }
+  .v-hero { grid-template-columns: auto minmax(0, 1fr); padding: 14px; }
+  .v-hero .cooked { grid-column: 1 / -1; justify-items: start; text-align: left; }
+  .v-hero-what h3 { font-size: 1.5rem; }
+  .lunch, .v-grid { padding-inline: 14px; }
+  .lunch-line .t { font-size: 0.72rem; }
   .controls { grid-template-columns: minmax(0, 1fr); }
 }
 /* Laptop widths: keep the top bar on one row */
 @media (min-width: 761px) and (max-width: 1180px) {
   .topbar-in { gap: 10px 16px; }
+  .brand .small { display: none; }
   .clock label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .clock input[type=range] { width: 110px; }
 }
@@ -298,8 +423,9 @@ details summary { cursor: pointer; color: var(--muted); margin-top: 4px; font-we
   .stage, .stage[data-view="both"] { grid-template-columns: minmax(0, 1fr); }
   .stage[data-view="both"] .pane-vendor { display: none; }
   .phone { position: static; padding: 0; background: none; border-radius: 0; box-shadow: none; }
-  .phone-screen { border-radius: 18px; min-height: 0; max-height: none; border: 1px solid var(--line); }
+  .phone-screen { border-radius: var(--r); min-height: 0; max-height: none; border: 1px solid var(--line); }
   .seg button[data-view="both"] { display: none; }
+  .brand .small { display: none; }
   .clock input[type=range] { width: 110px; }
   .clock output { font-size: 1.2rem; }
 }
