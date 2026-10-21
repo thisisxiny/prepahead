@@ -243,7 +243,9 @@ A near-monochrome porcelain-and-ink map with one line green, a small yellow lamp
 
 A sticky white top bar (max 1280px inner width) holds the mark and wordmark, the demo clock, the Both / Student / Stall switch and Reset demo. Below it, the stage is a two-column grid: the student phone at a fixed 390px on the left, the stall tablet filling the rest (32px gap, 24px top and 48px bottom padding). Each pane carries a small label row above it naming the device and "Sample data".
 
-The phone is a black bezel (10px) around a white screen that scrolls internally; content stacks in a single column at 16px gap. The tablet is a container-query panel: black header, hero row, lunch line, then a two-column grid (1fr / 1.25fr, 24px gap, 20px inset) of ruled sections. Under a 760px container the columns stack with pre-orders first; under 560px the header and hero reflow and insets drop to 14px.
+The phone is a black bezel (10px) around a white screen that scrolls internally; content stacks in a single column at 16px gap. The tablet is a container-query panel: black header and hero row always on screen, then a tab bar (Orders, Plan, Last tray, End of day) and one tab panel. Orders holds the lunch line above the pre-orders list and any last-minute deals; Plan and End of day are two-column grids (1fr / 1.25fr, 24px gap, 20px inset) of ruled sections; Last tray is a single narrow column. Under a 760px container the columns stack; under 560px the header and hero reflow, order actions drop under the order, and insets drop to 14px.
+
+**Fit to the window.** On laptop screens (at least 761px wide and 600px tall) the page never scrolls: the body is a full-height column, the phone screen and the tablet's tab panel take the remaining height, and only they scroll internally when their content is long. Below 820px tall the top bar, hero and lunch line tighten (tagline hidden, smaller tiles) so the Orders tab still shows four orders at 1366 x 768.
 
 Below 760px viewport the phone loses its bezel and becomes a plain bordered panel, the "Both" view is hidden, and the page opens on Student. Between 761 and 1180px the tagline and clock label hide so the top bar stays one row.
 
@@ -296,6 +298,11 @@ Small, firm corners: 3px on tabs and tags, 4px on buttons, slots, steppers, note
 - **View switch:** a segmented control in a 1.5px ink frame; the pressed segment fills ink with white text, others hover Quiet Fill.
 - **Back:** a plain text button that underlines on hover.
 
+### Tablet Tabs
+- **Tab bar:** under the hero, a hairline-footed row of signage-caps tabs (800, 1.1rem, 0.06em tracking) in muted ink; the open tab turns ink with a 3px ink underline, matching the ruled sections. Proper ARIA tabs; left / right arrow keys move between them.
+- **Badge:** the Orders tab carries a small Lamp Yellow count chip ("2 new") while new orders wait. If one arrives while another tab is open, the chip bumps twice (part of the arrival moment).
+- **Shortcut:** "How is 9 worked out?" under the trays number opens the Plan tab.
+
 ### Flip Tiles (Signature)
 One tile per character on a two-tone gradient (Tile Top over Tile Bottom) with a 1px black split across the middle, paint numerals in 800 signage, 0.07em corners, 0.1em gap; a colon stays plain. Size is set by one variable (tile font-size). The tiles are hidden from screen readers, which read the plain text. On a forecast change the tiles flip (rotateX from -88deg with a brightness flash, 0.5s, second tile 0.08s later).
 
@@ -319,7 +326,7 @@ The black board holds the green code tab, the stall picker as a borderless signa
 - **Collection ticket:** owns the phone screen, centred: "Collect at" with the time in 3.6rem tiles, where to collect, the named progress line, the QR on white, and the 4-digit code in a 2px ink frame at 2.6rem 900 signage with wide tracking.
 
 ### Motion
-One moment only: when a pre-order changes the forecast, the tray tiles flip, the order row arrives with a lamp-glow flash, and its lunch-line stop grows. All on cubic-bezier(0.16, 1, 0.3, 1). Hover transitions run 0.15 to 0.18s. Under prefers-reduced-motion every transition and animation is off.
+One moment only: when a pre-order changes the forecast, the tray tiles flip, the order row arrives with a lamp-glow flash, and its lunch-line stop grows (or, if another tab is open, the Orders badge bumps). All on cubic-bezier(0.16, 1, 0.3, 1). Hover transitions run 0.15 to 0.18s. Under prefers-reduced-motion every transition and animation is off.
 
 ## Do's and Don'ts
 

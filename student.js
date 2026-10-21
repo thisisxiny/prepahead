@@ -230,11 +230,11 @@ function screenDone() {
   return `
     <div class="ticket">
       <div class="ticket-when"><h2>Collect at</h2>${flipTiles(o.slot)}</div>
-      <p class="ticket-where"><span class="code-tab num">${stallCode(st)}</span> <b>${st.name}</b> · order <span class="num">${o.id}</span>. We'll remind you 10 minutes before.</p>
+      <p class="ticket-where"><span class="code-tab num">${stallCode(st)}</span> <b>${st.name}</b> · order <span class="num">${o.id}</span>. ${o.status === "collected" ? "Collected. Enjoy your lunch!" : "We'll remind you 10 minutes before."}</p>
       ${progressLine(o, STUDENT_STAGES, true) || statusPill(o.status)}
       <div class="qr-wrap"><div id="qr" data-text="PREPAHEAD:${o.id}:${o.code}"></div></div>
       <p class="code num" aria-label="Collection code">${o.code}</p>
-      <p class="muted">Show this code at the counter</p>
+      <p class="muted">${o.status === "collected" ? "Already collected" : "Show this code at the counter"}</p>
       ${weekly ? `<p class="muted small">Also your weekly lunch: every ${dayList(weekly.days)} at ${weekly.slot}.</p>` : ""}
     </div>
     <button class="btn btn-ghost wide" data-act="go" data-to="orders">My orders</button>

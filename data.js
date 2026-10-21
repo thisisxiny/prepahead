@@ -273,8 +273,19 @@ const newCode = () => String(Math.floor(1000 + Math.random() * 9000));
 /* ---- The prep forecast (vendor dashboard) ----
    Usual demand comes from history; pre-orders above the usual
    pre-order level are treated as an on-the-day spike. */
+// Pre-orders the forecast counts. For a batch stall the number is final once pre-orders close,
+// so after the cut-off it counts every order placed before it, even ones that later became a
+// no-show or a voucher (that food was still cooked). Before the cut-off it follows live orders.
+function forecastPortions(stall) {
+  const s = Store.get();
+  const closed = stall.type === "batch" && toMin(s.demoTime) >= toMin(RULES.batchCutoff);
+  if (!closed) return preorderedPortions(stall.id);
+  return s.orders
+    .filter((o) => o.stall === stall.id && toMin(o.placedAt) < toMin(RULES.batchCutoff) && o.status !== "cancelled" && o.status !== "declined")
+    .reduce((n, o) => n + orderQty(o), 0);
+}
 function prepForecast(stall) {
-  const pre = preorderedPortions(stall.id);
+  const pre = forecastPortions(stall);
   const spike = Math.max(0, pre - stall.history.preorders);
   const suggested = stall.history.demand + spike;
   const trays = Math.ceil(suggested / stall.trayPortions);

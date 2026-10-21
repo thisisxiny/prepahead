@@ -15,7 +15,17 @@ const Vendor = {
   seen: null,       // orders already drawn once, so only brand-new ones get the arrival flash
   lastTrays: {},    // { stallId: trays } from the last draw, so the tiles flip when the number changes
   lastBySlot: {},   // { stallId: { slot: portions } } from the last draw, so a stop grows when an order lands
+  tab: "orders",    // which tab is open under the trays number: orders | plan | lasttray | close
+  lastNew: null,    // new-order count at the last draw, so the Orders tab can flash when one arrives
 };
+
+// The tabs under the trays number: one job each, so everything fits on one screen.
+const TABS = [
+  { id: "orders", label: "Orders" },
+  { id: "plan", label: "Plan" },
+  { id: "lasttray", label: "Last tray" },
+  { id: "close", label: "End of day" },
+];
 
 // The names of the four stops on an order's progress line (see progressLine in data.js).
 const VENDOR_STAGES = ["Placed", "Accepted", "On shelf", "Collected"];
@@ -74,6 +84,7 @@ function prepHero(st) {
       <h3>${st.type === "batch" ? "Trays to cook" : "Batches to prep"}</h3>
       <p class="num"><b>${f.cooked} portions</b> (${f.trays} × ${st.trayPortions}) · ${when}</p>
       <p class="num">${f.saved ? `${f.saved} fewer portions than the usual prep of ${f.usualPrep}` : `No fewer than the usual prep of ${f.usualPrep}`}</p>
+      <p><button class="link-act" data-vact="tab" data-tab="plan">How is ${f.trays} worked out?</button></p>
     </div>
     <div class="cooked">
       <p class="cooked-label">Cooked so far</p>
@@ -115,8 +126,6 @@ function lunchLine(st) {
 // How the strip's number is worked out, plus tomorrow's recurring orders.
 function prepCard(st) {
   const f = prepForecast(st);
-  // Recurring orders are known a day ahead, early enough to change what the stall buys
-  const tomorrow = nextWeekday(DEMO_DAY);
   return `
   <section class="card">
     <h3>How the number is worked out</h3>
@@ -129,7 +138,25 @@ function prepCard(st) {
       <div class="final"><dt>Rounded up to whole ${unitWord(st)}s</dt><dd>${f.trays} × ${st.trayPortions} = ${f.cooked}</dd></div>
     </dl>
     <p class="muted small">History sets the baseline. Pre-orders catch today's spikes.</p>
-    <p class="note">Recurring orders tomorrow (${tomorrow}): <strong class="num">${standingPortions(st.id, tomorrow)}</strong> portions, so buy ingredients for these.</p>
+  </section>`;
+}
+
+// Tomorrow's ingredient buying. Stalls shop before they open, so today's pre-orders come too late
+// to change what's bought. Weekly orders are known a day ahead: they're the certain part of
+// tomorrow's demand, already counted inside a normal day, not extra on top of it.
+function tomorrowCard(st) {
+  const tomorrow = nextWeekday(DEMO_DAY);
+  const usual = st.week.sold[WEEK_LABELS.indexOf(tomorrow)]; // portions sold that weekday last week (sample)
+  const booked = standingPortions(st.id, tomorrow);
+  return `
+  <section class="card">
+    <h3>Tomorrow (${tomorrow}): what to buy</h3>
+    <dl class="calc num">
+      <div><dt>Sold last ${tomorrow} (sample)</dt><dd>${usual}</dd></div>
+      <div><dt>Already booked by weekly orders</dt><dd>${booked}</dd></div>
+      <div class="final"><dt>Buy ingredients for about</dt><dd>${Math.max(usual, booked)} portions</dd></div>
+    </dl>
+    <p class="muted small">The ${booked} booked are part of the ${usual}, not extra. They're the only pre-orders you know before you shop.</p>
   </section>`;
 }
 
@@ -185,9 +212,11 @@ function ordersCard(st) {
     <li class="v-order ${o.mine ? "is-mine" : ""} ${arriving(o) ? "is-arriving" : ""}">
       <span class="v-slot num">${o.slot}</span>
       <div class="v-body">
-        <p class="v-what"><strong class="num">${o.id}</strong> ${itemsText(o)}</p>
-        <div class="v-state">${isOverdue(o) ? `<span class="pill pill-noshow">Uncollected</span>` : vendorStatusPill(o.status)}${progressLine(o, VENDOR_STAGES)}</div>
-        ${isOverdue(o) ? `<p class="muted small">Not collected by <span class="num">${fromMin(toMin(o.slot) + RULES.graceMins)}</span>. Resells for <span class="num">${money(resalePrice(o))}</span> as a last-minute deal.</p>` : ""}
+        <div class="v-main">
+          <p class="v-what"><strong class="num">${o.id}</strong> ${itemsText(o)}</p>
+          <div class="v-state">${isOverdue(o) ? `<span class="pill pill-noshow">Uncollected</span>` : vendorStatusPill(o.status)}${progressLine(o, VENDOR_STAGES)}</div>
+          ${isOverdue(o) ? `<p class="muted small">Not collected by <span class="num">${fromMin(toMin(o.slot) + RULES.graceMins)}</span>. Resells for <span class="num">${money(resalePrice(o))}</span> as a last-minute deal.</p>` : ""}
+        </div>
         ${Vendor.verifyFor === o.id ? `
           <form class="verify" data-id="${o.id}">
             <label for="code-${o.id}">Student's 4-digit code</label>
@@ -204,8 +233,7 @@ function ordersCard(st) {
   const span = slotsOpen.length ? (slotsOpen[0] === slotsOpen[slotsOpen.length - 1] ? slotsOpen[0] : `${slotsOpen[0]} – ${slotsOpen[slotsOpen.length - 1]}`) + " · " : "";
   return `
   <section class="card">
-    <div class="row"><h3>Pre-orders</h3><span class="v-head-sub">${span}${open.length} open${lateCount ? ` · ${lateCount} uncollected` : ""}</span></div>
-    ${newCount ? `<div class="row-actions"><button class="btn sm" data-vact="accept-all">Accept all new (${newCount})</button></div>` : ""}
+    <div class="row"><h3>Pre-orders</h3><span class="v-head-sub">${span}${open.length} open${lateCount ? ` · ${lateCount} uncollected` : ""}</span>${newCount ? `<button class="btn sm" data-vact="accept-all">Accept all new (${newCount})</button>` : ""}</div>
     ${open.length ? `<ul class="v-orders">${open.map(row).join("")}</ul>` : `<p class="muted">No open pre-orders. New ones appear here as students order.</p>`}
     ${closed.length ? `<details><summary class="small">Finished (${closed.length})</summary><ul class="v-orders">${closed.map(row).join("")}</ul></details>` : ""}
     <p class="muted small">No-show rate: <span class="num">${pct(st.history.noShowRate)}%</span> (sample, last 4 weeks). Students who don't collect pay a <span class="num">${money(RULES.noShowFee)}</span> fee.</p>
@@ -223,9 +251,11 @@ function dealsCard(st) {
     <li class="v-order">
       <span class="v-slot num">${d.id}</span>
       <div class="v-body">
-        <p class="v-what"><strong class="num">${o.id}</strong> ${itemsText(o)}</p>
-        <div class="v-state">${d.sold ? `<span class="pill pill-collected">Sold</span>` : `<span class="pill pill-pending">On offer</span>`}</div>
-        <p class="muted small"><span class="num">${money(d.price)}</span> (was <span class="num">${money(orderTotal(o))}</span>) · ${d.sold ? `buyer shows code <strong class="num">${d.code}</strong>` : "students can buy it in the app"}</p>
+        <div class="v-main">
+          <p class="v-what"><strong class="num">${o.id}</strong> ${itemsText(o)}</p>
+          <div class="v-state">${d.sold ? `<span class="pill pill-collected">Sold</span>` : `<span class="pill pill-pending">On offer</span>`}</div>
+          <p class="muted small"><span class="num">${money(d.price)}</span> (was <span class="num">${money(orderTotal(o))}</span>) · ${d.sold ? `buyer shows code <strong class="num">${d.code}</strong>` : "students can buy it in the app"}</p>
+        </div>
       </div>
     </li>`;
   };
@@ -243,7 +273,7 @@ function chartCard(st) {
   <section class="card">
     <div class="row"><h3>${log ? "Last week + today" : "Last week"}: prepared vs sold</h3><span class="muted small">Sample data</span></div>
     <div class="chart-box"><canvas id="week-chart" aria-label="Portions prepared, sold and left over, last five weekdays${log ? " and today" : ""}"></canvas></div>
-    <p class="muted small">Leftover = prepared − sold: food cooked but not sold, the waste pre-orders aim to shrink. ${!log ? "Log today's leftovers below to add today's bars." : log.counted ? "Today's prepared comes from the trays you tapped in as cooked." : "Today's prepared assumes you cooked the suggested amount (tap +1 when a tray is cooked to use the real count)."}</p>
+    <p class="muted small">Leftover = prepared − sold: food cooked but not sold, the waste pre-orders aim to shrink. ${!log ? "Log today's leftovers to add today's bars." : log.counted ? "Today's prepared comes from the trays you tapped in as cooked." : "Today's prepared assumes you cooked the suggested amount (tap +1 when a tray is cooked to use the real count)."}</p>
   </section>`;
 }
 
@@ -282,7 +312,7 @@ function leftoverCard(st) {
   const avg = Math.round(lastWeek.reduce((a, b) => a + b, 0) / lastWeek.length);
   return `
   <section class="card">
-    <div class="row"><h3>End of day: leftovers</h3><span class="muted small">${log ? "Logged for today" : "Not logged yet"}</span></div>
+    <div class="row"><h3>Leftovers</h3><span class="muted small">${log ? "Logged for today" : "Not logged yet"}</span></div>
     <div class="ctrl">
       <label id="leftover-label">Portions left over after lunch</label>
       ${countStepper("leftover", Store.get().leftovers[st.id], "leftover-label")}
@@ -293,8 +323,24 @@ function leftoverCard(st) {
       <div><dt>Sold</dt><dd>${log.sold}</dd></div>
       <div class="sum"><dt>Left over</dt><dd>${log.leftover}</dd></div>
     </dl>
-    <p class="muted small">Last week averaged <span class="num">${avg}</span> portions left over a day (sample).</p>` : `<p class="muted small">Count what's left when you close and tap it in. Takes a few seconds; it shows on the chart above.</p>`}
+    <p class="muted small">Last week averaged <span class="num">${avg}</span> portions left over a day (sample).</p>` : `<p class="muted small">Count what's left when you close and tap it in. Takes a few seconds; today's bars then appear on the chart.</p>`}
   </section>`;
+}
+
+// The tab bar. Orders shows how many new orders are waiting, and flashes when one arrives
+// while another tab is open, so a new pre-order is never missed.
+function tabBar(st) {
+  const newCount = Store.get().orders.filter((o) => o.stall === st.id && o.status === "pending").length;
+  const pinged = Vendor.lastNew != null && newCount > Vendor.lastNew && Vendor.tab !== "orders";
+  Vendor.lastNew = newCount;
+  return `
+  <div class="v-tabs" role="tablist" aria-label="Stall tools">
+    ${TABS.map((t) => {
+      const on = t.id === Vendor.tab;
+      const badge = t.id === "orders" && newCount ? `<span class="tab-badge num">${newCount} new</span>` : "";
+      return `<button type="button" role="tab" id="tab-${t.id}" class="v-tab ${t.id === "orders" && pinged ? "is-pinged" : ""}" aria-selected="${on}" aria-controls="v-panel" tabindex="${on ? 0 : -1}" data-vact="tab" data-tab="${t.id}">${t.label}${badge}</button>`;
+    }).join("")}
+  </div>`;
 }
 
 function renderVendor() {
@@ -303,14 +349,18 @@ function renderVendor() {
   const st = stallById(Vendor.stallId);
   const openEl = root.querySelector("details");
   const wasOpen = openEl && openEl.open;
+  // What each tab shows. Only the open tab is drawn.
+  const panels = {
+    orders: () => `${lunchLine(st)}<div class="v-stack">${ordersCard(st)}${dealsCard(st)}</div>`,
+    plan: () => `<div class="v-grid"><div class="v-col">${prepCard(st)}</div><div class="v-col">${tomorrowCard(st)}${controlsCard(st)}</div></div>`,
+    lasttray: () => `<div class="v-stack is-narrow">${lastTrayCard(st)}</div>`,
+    close: () => `<div class="v-grid"><div class="v-col">${leftoverCard(st)}</div><div class="v-col">${chartCard(st)}</div></div>`,
+  };
   root.innerHTML = `
     ${stallHeader(st)}
     ${prepHero(st)}
-    ${lunchLine(st)}
-    <div class="v-grid">
-      <div class="v-col">${prepCard(st)}${controlsCard(st)}${chartCard(st)}${leftoverCard(st)}</div>
-      <div class="v-col">${ordersCard(st)}${dealsCard(st)}${lastTrayCard(st)}</div>
-    </div>`;
+    ${tabBar(st)}
+    <div class="v-panel" role="tabpanel" id="v-panel" aria-labelledby="tab-${Vendor.tab}">${panels[Vendor.tab]()}</div>`;
   if (wasOpen) { const d = root.querySelector("details"); if (d) d.open = true; }
   Vendor.seen = new Set(Store.get().orders.map(orderKey)); // everything on screen now counts as seen
   drawChart(st);
@@ -353,6 +403,8 @@ document.addEventListener("click", (e) => {
   if (!b || b.tagName === "SELECT") return;
   const act = b.dataset.vact;
   const st = stallById(Vendor.stallId);
+  // Switching tabs only changes what's on screen, not the stall's data.
+  if (act === "tab") { Vendor.tab = b.dataset.tab; Vendor.verifyFor = null; renderVendor(); document.getElementById(`tab-${Vendor.tab}`)?.focus(); return; }
   if (act === "set") Store.update((s) => { s.orders.find((o) => o.id === b.dataset.id).status = b.dataset.s; });
   // One tap accepts every new order for this stall (less tapping at lunch rush)
   if (act === "accept-all") Store.update((s) => { s.orders.forEach((o) => { if (o.stall === st.id && o.status === "pending") o.status = "accepted"; }); });
@@ -390,3 +442,14 @@ document.addEventListener("submit", (e) => {
 });
 
 Store.subscribe(renderVendor);
+
+// Left / right arrow keys move between the tabs.
+document.addEventListener("keydown", (e) => {
+  if (!e.target.closest || !e.target.closest("#vendor-app .v-tab") || !["ArrowLeft", "ArrowRight"].includes(e.key)) return;
+  const i = TABS.findIndex((t) => t.id === Vendor.tab);
+  const next = TABS[(i + (e.key === "ArrowRight" ? 1 : TABS.length - 1)) % TABS.length];
+  Vendor.tab = next.id;
+  renderVendor();
+  document.getElementById(`tab-${next.id}`)?.focus();
+  e.preventDefault();
+});

@@ -308,8 +308,8 @@ input { caret-color: var(--green-text); }
 .type-tag { border: 1px solid var(--paint-dim); border-radius: var(--r-tab); padding: 4px 8px 3px; font: 700 0.9rem/1 var(--f-sign); font-stretch: 72%; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
 
 /* Today's number: trays to cook, in flip tiles, with the trays cooked so far beside it */
-.v-hero { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 14px 24px; align-items: center; padding: 18px 20px; border-bottom: 1px solid var(--line); }
-.v-hero .tiles { --tile-fs: clamp(3.4rem, 9cqi, 5.4rem); }
+.v-hero { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 14px 24px; align-items: center; padding: 14px 20px; border-bottom: 1px solid var(--line); }
+.v-hero .tiles { --tile-fs: clamp(3rem, 7.5cqi, 4.6rem); }
 .v-hero-what { display: grid; gap: 4px; min-width: 0; }
 .v-hero-what h3 { font-size: 2rem; font-weight: 900; letter-spacing: 0.02em; }
 .v-hero-what p { color: var(--muted); font-size: 0.95rem; }
@@ -339,6 +339,24 @@ input { caret-color: var(--green-text); }
 .lunch-line li.is-cutoff .t { color: var(--ink); }
 .lunch-line li.is-cutoff.is-past .t { color: var(--muted); }
 
+.v-hero-what .link-act { padding: 2px 0; font-size: 0.85rem; }
+
+/* Tabs under the trays number: one job each (Orders, Plan, Last tray, End of day).
+   The open tab is underlined with a heavy ink rule, like the ruled sections. */
+.v-tabs { display: flex; gap: 4px 26px; padding: 0 20px; border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+.v-tab {
+  display: inline-flex; align-items: center; gap: 8px; border: 0; border-bottom: 3px solid transparent; background: none; padding: 12px 0 9px; cursor: pointer; white-space: nowrap;
+  color: var(--muted); font: 800 1.1rem/1 var(--f-sign); font-stretch: 72%; text-transform: uppercase; letter-spacing: 0.06em;
+}
+.v-tab:hover { color: var(--ink); }
+.v-tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.tab-badge { background: var(--lamp); border: 1px solid var(--lamp-edge); color: var(--ink); border-radius: var(--r-tab); padding: 2px 6px 1px; font: 700 0.75rem/1.2 var(--f-ui); letter-spacing: 0; text-transform: none; }
+/* A new order arrived while another tab was open: the badge bumps twice (part of the arrival moment) */
+@keyframes ping { 0%, 100% { transform: none; } 35% { transform: scale(1.25); } }
+.v-tab.is-pinged .tab-badge { animation: ping 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2; }
+.v-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: 26px; padding: 18px 20px 14px; }
+.v-stack.is-narrow { max-width: 640px; }
+
 .v-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 24px; align-items: start; padding: 18px 20px 22px; }
 /* minmax(0, 1fr) everywhere a chart can sit: a canvas otherwise props its column open at its old width */
 .v-col { display: grid; grid-template-columns: minmax(0, 1fr); gap: 26px; min-width: 0; }
@@ -367,10 +385,13 @@ input { caret-color: var(--green-text); }
 .chart-box { position: relative; height: 210px; min-width: 0; }
 /* Pre-orders: slot time on the left; what to make, its progress line and what to do on the right */
 .v-orders { gap: 0; }
-.v-order { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; padding: 12px 8px; margin-inline: -8px; border-top: 1px solid var(--line); border-radius: var(--r-sm); font-size: 0.95rem; }
+.v-order { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: center; padding: 10px 8px; margin-inline: -8px; border-top: 1px solid var(--line); border-radius: var(--r-sm); font-size: 0.95rem; }
 .v-orders li:first-child { border-top: 0; }
 .v-slot { font: 800 1.65rem/1 var(--f-sign); font-stretch: 72%; font-variant-numeric: tabular-nums; }
-.v-body { display: grid; gap: 8px; min-width: 0; align-content: start; }
+.v-body { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 16px; align-items: center; min-width: 0; }
+.v-main { display: grid; gap: 6px; min-width: 0; }
+.v-body > .verify { grid-column: 1 / -1; }
+.v-body > .row-actions { justify-content: flex-end; }
 .v-what { font-size: 1rem; line-height: 1.35; }
 .v-what strong { font-weight: 700; margin-right: 4px; font-variant-numeric: tabular-nums; }
 .v-state { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
@@ -410,6 +431,11 @@ details summary { cursor: pointer; color: var(--muted); margin-top: 4px; font-we
   .v-hero-what h3 { font-size: 1.5rem; }
   .lunch, .v-grid { padding-inline: 14px; }
   .lunch-line .t { font-size: 0.72rem; }
+  .lunch-line .ring { width: min(var(--s, 12px), 28px); height: min(var(--s, 12px), 28px); font-size: 0.7rem; }
+  .v-body { grid-template-columns: minmax(0, 1fr); }
+  .v-body > .row-actions { justify-content: flex-start; }
+  .v-tabs { padding-inline: 14px; gap: 4px 18px; }
+  .v-stack { padding-inline: 14px; }
   .controls { grid-template-columns: minmax(0, 1fr); }
 }
 /* Laptop widths: keep the top bar on one row */
@@ -428,6 +454,41 @@ details summary { cursor: pointer; color: var(--muted); margin-top: 4px; font-we
   .brand .small { display: none; }
   .clock input[type=range] { width: 110px; }
   .clock output { font-size: 1.2rem; }
+}
+/* Laptop screens: everything fits the window at once, no page scroll.
+   The phone screen and the tablet's tab panel scroll inside themselves if their content is long. */
+@media (min-width: 761px) and (min-height: 600px) {
+  body { height: 100vh; height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
+  .topbar { flex: none; }
+  .stage { flex: 1; min-height: 0; width: 100%; padding-block: 14px 16px; grid-template-rows: minmax(0, 1fr); align-items: stretch; }
+  .pane-student, .pane-vendor { display: flex; flex-direction: column; min-height: 0; }
+  .stage[data-view="student"] .pane-vendor, .stage[data-view="vendor"] .pane-student { display: none; }
+  .pane-label { flex: none; }
+  .phone { flex: 1; min-height: 0; position: static; display: flex; }
+  .phone-screen { flex: 1; min-height: 0; max-height: none; }
+  .dash { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+  .v-head, .v-hero, .v-tabs { flex: none; }
+  .v-panel { flex: 1; min-height: 0; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; }
+}
+/* Shorter laptop screens (e.g. 1366 x 768): tighten the fixed parts so more orders show */
+@media (min-width: 761px) and (min-height: 600px) and (max-height: 820px) {
+  .topbar { padding-block: 6px; }
+  .brand .small { display: none; }
+  .stage { padding-block: 10px 12px; }
+  .v-head { padding-block: 10px; }
+  .v-hero { padding-block: 10px; }
+  .v-hero .tiles { --tile-fs: clamp(2.6rem, 6cqi, 3.6rem); }
+  .v-hero-what h3 { font-size: 1.7rem; }
+  .v-tab { padding-block: 9px 7px; }
+  .lunch { padding-block: 8px 6px; }
+  .lunch-line li { grid-template-rows: 44px auto; }
+  .lunch-line::before { top: 19px; }
+  .v-stack { padding-block: 12px 16px; gap: 18px; }
+  .v-grid { padding-block: 12px 14px; }
+  .v-col { gap: 18px; }
+  .calc div { padding-block: 5px; }
+  .card { gap: 9px; }
+  .v-order { padding-block: 8px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
