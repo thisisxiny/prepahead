@@ -169,7 +169,7 @@ components:
 
 PrepAhead is one green line. Each stall is a stop on it (NS01 to NS04), every order rides it from placed to collected, and the single number a screen exists to tell you (trays to cook on the stall tablet, the 10:00 cut-off on the phone, the collection time on the ticket) sits in black split-flap tiles like a departures board. Everything else is a light, ruled transit map: porcelain ground, white work panels, hairlines, and tall condensed signage capitals over a plain reading face.
 
-The density is a working tool, not a showcase poster. Sections inside a panel are separated by a heavy ink rule and a signage title rather than boxed into cards; lists are rows on hairlines; status reads by line form (solid done, dashed to come, ring for now) and by a word, never by colour alone. Colour is rationed into three jobs: green draws the line, a yellow lamp marks "now" and "new", red marks a problem. The page is light only and looks the same on any laptop.
+The density is a working tool, not a showcase poster. Sections inside a panel are separated by a heavy ink rule and a signage title rather than boxed into cards; lists are rows on hairlines; status reads by line form (filled green stops on a solid line for steps reached, the current one larger; grey rings on a dashed line for steps to come) and by a word, never by colour alone. Colour is rationed into three jobs: green draws the line, a yellow lamp marks "now" and "new", red marks a problem. The page is light only and looks the same on any laptop.
 
 The world refuses white food-app cards with dish photos, a KPI-tile dashboard, and cute rounded stickers. It never borrows Cates' logo or styling: PrepAhead is a concept add-on, not affiliated.
 
@@ -277,7 +277,7 @@ Small, firm corners: 3px on tabs and tags, 4px on buttons, slots, steppers, note
 ### Code Tabs and Tags
 - **Stall code tab:** NS01 to NS04 in small ink chips with paint signage numerals (3px corners); on the black board the tab turns Line Green with ink text.
 - **Type tag:** an outlined paint-dim tag on the board ("Batch-cooked").
-- **Status words:** uppercase signage labels led by a 9px mark that reads by shape: lamp-filled for new, hollow ring for accepted, green-filled for on shelf, muted-filled for collected, dashed ring for declined / cancelled / voucher, red-filled for no-show.
+- **Status words:** uppercase signage labels led by a 9px mark that reads by shape: lamp-filled for new, green ring for accepted, green-filled for on shelf, muted-filled for collected, dashed ring for declined / cancelled / voucher, red-filled for no-show.
 
 ### Ruled Sections (Cards / Containers)
 - **Corner Style:** none; sections are not boxed.
@@ -310,7 +310,7 @@ One tile per character on a two-tone gradient (Tile Top over Tile Bottom) with a
 On the phone, stalls hang off a vertical 8px green line through 28px white rings with 4px ink borders. Each stop shows its code tab, name, Chinese name, a muted meta line, a green "Saved" line, and a signage price. A closed stop greys its line segment and ring and gives the reason in red. Hover grows the ring 1.15x and underlines the name.
 
 ### Progress Line (Signature)
-Four stops per order (new, accepted, on shelf, collected): solid green bar and filled stops for done, a dashed Control Edge hairline for still to come, a larger ink ring for "here" (lamp-filled while the order is new). The ticket version names every stop.
+Four stops per order (new, accepted, on shelf, collected): every step the order has reached is a filled green stop on a solid green bar, the current step included; the current step is a little larger (18px) with an ink edge, and lamp-filled while the order is still new. Steps still to come are hollow Control Edge rings on a dashed hairline. The phone and the stall draw the same line for the same order. The ticket version names every stop.
 
 ### Lunch Line (Signature)
 A horizontal green rail across the tablet with one stop per collection slot, each ring sized by the portions pre-ordered for it and showing the count; batch stalls get a leading cut-off stop drawn as a tiny flip tile. The current slot carries a lamp; a slot that just grew scales up from 0.6.
@@ -331,7 +331,7 @@ One moment only: when a pre-order changes the forecast, the tray tiles flip, the
 ## Do's and Don'ts
 
 ### Do:
-- **Do** draw every journey (stalls, an order's progress, the lunch timeline, trays cooked) as the green line with stops: solid done, dashed to come, ring for now.
+- **Do** draw every journey (stalls, an order's progress, the lunch timeline, trays cooked) as the green line with stops: steps reached filled green on a solid line (the current one larger), steps to come as grey rings on a dashed line.
 - **Do** put exactly one number per screen in flip tiles: trays to cook on the tablet, the cut-off on the phone home, the collection time on the ticket. A chosen slot may turn into a tile because it becomes that screen's number.
 - **Do** open sections with a 3px ink rule and a signage title instead of a box.
 - **Do** pair every status colour with a shape and a word so it reads in greyscale.

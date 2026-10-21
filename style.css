@@ -246,7 +246,8 @@ input { caret-color: var(--green-text); }
 .orders { gap: 6px; }
 .note { font-size: 0.9rem; background: var(--panel-2); border-radius: var(--r-sm); padding: 8px 10px; }
 
-/* An order's journey: four stops. Solid = done, dashed = still to come, ring = now. */
+/* An order's journey: four stops. Every step reached is filled green (solid line);
+   the current step is a little bigger with an ink edge; steps to come are grey rings on a dashed line. */
 .progress { list-style: none; margin: 0; padding: 0; display: flex; align-items: flex-start; min-width: 120px; }
 .progress li { flex: 1; display: grid; grid-template-columns: 1fr auto; grid-template-rows: 18px auto; align-items: center; }
 .progress li:first-child { flex: 0 0 auto; grid-template-columns: auto; }
@@ -254,7 +255,7 @@ input { caret-color: var(--green-text); }
 .progress li.done:not(:first-child)::before, .progress li.here:not(:first-child)::before { border-top: 0; height: 4px; background: var(--green); }
 .progress li::after { content: ""; grid-column: -2; grid-row: 1; width: 14px; height: 14px; border-radius: 50%; border: 3px solid var(--line-strong); background: var(--panel); justify-self: center; }
 .progress li.done::after { border-color: var(--green); background: var(--green); }
-.progress li.here::after { width: 18px; height: 18px; border-color: var(--ink); }
+.progress li.here::after { width: 18px; height: 18px; border-color: var(--ink); background: var(--green); }
 .progress.is-new li.here::after { border-color: var(--lamp-edge); background: var(--lamp); }
 .progress .stop-name { grid-column: -2; grid-row: 2; font-size: 0.72rem; color: var(--muted); white-space: nowrap; margin-top: 4px; }
 .progress li.here .stop-name { color: var(--ink); font-weight: 700; }
@@ -277,10 +278,11 @@ input { caret-color: var(--green-text); }
 .btn-ghost:hover:not(:disabled) { background: var(--panel-2); }
 .btn.sm { padding: 7px 12px; font-size: 0.9rem; }
 .wide { width: 100%; }
-/* Status words. A small mark before the word: lamp = new, hollow = accepted, green = on shelf,
+/* Status words. A small mark before the word: lamp = new, green ring = accepted, green dot = on shelf,
    dashed = left the line, red = problem. Reads by shape and word, not colour alone. */
 .pill { display: inline-flex; align-items: center; gap: 6px; font: 700 0.85rem/1.2 var(--f-sign); font-stretch: 72%; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; color: var(--ink); }
 .pill::before { content: ""; width: 9px; height: 9px; border-radius: 50%; border: 2px solid currentColor; flex: none; }
+.pill-accepted::before { border-color: var(--green); }
 .pill-pending::before { background: var(--lamp); border-color: var(--lamp-edge); }
 .pill-ready { color: var(--green-text); }
 .pill-ready::before { background: var(--green); border-color: var(--green); }

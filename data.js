@@ -184,8 +184,8 @@ function flipTiles(text, cls = "") {
   return `<span class="tiles ${cls}" aria-hidden="true">${tiles}</span><span class="sr">${text}</span>`;
 }
 
-// An order's journey as a line of four stops. Solid line = done, dashed = still to come,
-// ring = where the order is now. Orders that left the line (declined, cancelled, no-show,
+// An order's journey as a line of four stops. Every step reached is filled green (solid line);
+// the current step is drawn a little bigger; steps still to come are grey rings on a dashed line. Orders that left the line (declined, cancelled, no-show,
 // voucher) get no line; their status word says what happened.
 const STAGE_OF = { pending: 0, accepted: 1, ready: 2, collected: 3 };
 function progressLine(o, names, showNames = false) {
