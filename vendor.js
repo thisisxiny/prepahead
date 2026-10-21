@@ -15,15 +15,16 @@ const Vendor = {
   seen: null,       // orders already drawn once, so only brand-new ones get the arrival flash
   lastTrays: {},    // { stallId: trays } from the last draw, so the tiles flip when the number changes
   lastBySlot: {},   // { stallId: { slot: portions } } from the last draw, so a stop grows when an order lands
-  tab: "orders",    // which tab is open under the trays number: orders | plan | lasttray | close
+  tab: "orders",    // which tab is open under the trays number: orders | plan | stock | close
   lastNew: null,    // new-order count at the last draw, so the Orders tab can flash when one arrives
 };
 
 // The tabs under the trays number: one job each, so everything fits on one screen.
+// Stock = decisions about food on hand: the pre-order limit, the sold-out switch, the last tray.
 const TABS = [
   { id: "orders", label: "Orders" },
   { id: "plan", label: "Plan" },
-  { id: "lasttray", label: "Last tray" },
+  { id: "stock", label: "Stock" },
   { id: "close", label: "End of day" },
 ];
 
@@ -123,40 +124,65 @@ function lunchLine(st) {
   </section>`;
 }
 
-// How the strip's number is worked out, plus tomorrow's recurring orders.
+// How the number is worked out, laid out like a forecast model's output: the expected demand with
+// a likely range, then a waterfall of what moved the number (weekday history, today's pre-orders,
+// rounding up to whole trays), ending at what to cook. The shaded band is the likely range.
 function prepCard(st) {
   const f = prepForecast(st);
+  const unit = unitWord(st);
+  const spread = demandSpread(st);
+  const low = f.suggested - spread, high = f.suggested + spread;
+  const end = Math.ceil((Math.max(f.cooked, high) + 10) / 20) * 20; // right end of the scale
+  const at = (n) => `${((n / end) * 100).toFixed(1)}%`;
+  // One waterfall row: a bar from `from` to `to` on the shared 0..end scale
+  const row = (cls, label, sub, from, to, value) => `
+    <div class="wf-row ${cls}">
+      <span class="wf-label">${label}<small>${sub}</small></span>
+      <span class="wf-track"><i style="left:${at(from)};width:${at(to - from)}"></i></span>
+      <span class="wf-val num">${value}</span>
+    </div>`;
+  // The last 4 same-weekday demands as tiny bars, scaled between their own min and max
+  const w = st.history.weeks, lo = Math.min(...w), hi = Math.max(...w);
+  const spark = `<span class="spark" aria-label="Last 4 ${DEMO_DAY}s: ${w.join(", ")}">${w.map((x) => `<i style="height:${30 + Math.round(((x - lo) / Math.max(1, hi - lo)) * 70)}%"></i>`).join("")}</span>`;
   return `
   <section class="card">
-    <h3>How the number is worked out</h3>
-    <dl class="calc num">
-      <div><dt>Usual demand (same weekday, 4 wks)</dt><dd>${st.history.demand}</dd></div>
-      <div><dt>Pre-ordered so far</dt><dd>${f.pre}</dd></div>
-      <div><dt>Usual pre-orders (same weekday)</dt><dd>${st.history.preorders}</dd></div>
-      <div><dt>Extra today (pre-ordered above usual)</dt><dd>+${f.spike}</dd></div>
-      <div class="sum"><dt>Suggested portions</dt><dd>${f.suggested}</dd></div>
-      <div class="final"><dt>Rounded up to whole ${unitWord(st)}s</dt><dd>${f.trays} × ${st.trayPortions} = ${f.cooked}</dd></div>
-    </dl>
-    <p class="muted small">History sets the baseline. Pre-orders catch today's spikes.</p>
+    <div class="row"><h3>How the number is worked out</h3><span class="model-chip">Forecast model · sample</span></div>
+    <p class="fc-head"><b class="num">${f.suggested}</b> portions expected <span class="num">likely ${low}–${high}</span></p>
+    <div class="waterfall" style="--lo:${at(low)};--hi:${at(high)}">
+      ${row("is-base", `Weekday history ${spark}`, `average of the last 4 ${DEMO_DAY}s`, 0, st.history.demand, st.history.demand)}
+      ${row("is-signal", "Pre-orders vs usual", `${f.pre} so far · ${st.history.preorders} usual`, st.history.demand, f.suggested, `+${f.spike}`)}
+      ${row("is-round", `Round up to ${unit}s`, `${unit}s of ${st.trayPortions}`, f.suggested, f.cooked, `+${f.cooked - f.suggested}`)}
+      ${row("is-total", "Cook", `${f.trays} × ${st.trayPortions}`, 0, f.cooked, f.cooked)}
+      <p class="wf-legend"><span class="wf-swatch" aria-hidden="true"></span>Likely range: expected ± ${spread}, how much the last 4 ${DEMO_DAY}s varied</p>
+    </div>
+    <p class="muted small">History sets the baseline; pre-orders catch today's spikes. In a real system an AI model trained on sales history would set the baseline. Here it's a 4-week average of sample data.</p>
   </section>`;
 }
 
-// Tomorrow's ingredient buying. Stalls shop before they open, so today's pre-orders come too late
-// to change what's bought. Weekly orders are known a day ahead: they're the certain part of
-// tomorrow's demand, already counted inside a normal day, not extra on top of it.
+// Tomorrow's ingredient buying, as a timeline of when each piece of information arrives.
+// Stalls buy fresh ingredients every morning, before that day's pre-orders come in, so
+// tomorrow's shopping can only use history and the weekly orders already booked.
+// Same rule as today's forecast: regular weekly orders were already buying last week, so they're
+// inside last week's sales; only weekly orders set up since then (on this phone) add to it.
 function tomorrowCard(st) {
   const tomorrow = nextWeekday(DEMO_DAY);
   const usual = st.week.sold[WEEK_LABELS.indexOf(tomorrow)]; // portions sold that weekday last week (sample)
-  const booked = standingPortions(st.id, tomorrow);
+  const onDay = Store.get().recurring.filter((r) => r.stall === st.id && r.days.includes(tomorrow));
+  const regular = onDay.filter((r) => !r.mine).reduce((n, r) => n + orderQty(r), 0); // already in `usual`
+  const added = onDay.filter((r) => r.mine).reduce((n, r) => n + orderQty(r), 0);    // new: on top
+  const forecast = usual + added;
+  const preorders = st.type === "batch" ? `Until ${RULES.batchCutoff}` : "Through lunch";
+  const cook = st.type === "batch" ? `Cut-off: cook the ${unitWord(st)}s` : "Cook to order through lunch";
   return `
   <section class="card">
-    <h3>Tomorrow (${tomorrow}): what to buy</h3>
-    <dl class="calc num">
-      <div><dt>Sold last ${tomorrow} (sample)</dt><dd>${usual}</dd></div>
-      <div><dt>Already booked by weekly orders</dt><dd>${booked}</dd></div>
-      <div class="final"><dt>Buy ingredients for about</dt><dd>${Math.max(usual, booked)} portions</dd></div>
-    </dl>
-    <p class="muted small">The ${booked} booked are part of the ${usual}, not extra. They're the only pre-orders you know before you shop.</p>
+    <h3>Tomorrow (${tomorrow}): morning shopping</h3>
+    <p class="small">Ingredients are bought fresh each morning, before that day's pre-orders arrive. So tomorrow's shopping can only use history and weekly orders.</p>
+    <ol class="day-line">
+      <li class="done"><b>Tonight</b><span>Last ${tomorrow} sold <strong class="num">${usual}</strong>, including <strong class="num">${regular}</strong> from regular weekly orders, so those are already counted.${added ? ` New weekly orders since then: <strong class="num">+${added}</strong>.` : ""} Forecast: about <strong class="num">${forecast}</strong>.</span></li>
+      <li class="here"><b>Early morning</b><span>Buy ingredients for about <strong class="num">${forecast}</strong> portions</span></li>
+      <li><b>${preorders}</b><span>Tomorrow's pre-orders come in</span></li>
+      <li><b>${st.type === "batch" ? RULES.batchCutoff : "Lunch"}</b><span>${cook}</span></li>
+    </ol>
   </section>`;
 }
 
@@ -352,8 +378,8 @@ function renderVendor() {
   // What each tab shows. Only the open tab is drawn.
   const panels = {
     orders: () => `${lunchLine(st)}<div class="v-stack">${ordersCard(st)}${dealsCard(st)}</div>`,
-    plan: () => `<div class="v-grid"><div class="v-col">${prepCard(st)}</div><div class="v-col">${tomorrowCard(st)}${controlsCard(st)}</div></div>`,
-    lasttray: () => `<div class="v-stack is-narrow">${lastTrayCard(st)}</div>`,
+    plan: () => `<div class="v-grid is-plan"><div class="v-col">${prepCard(st)}</div><div class="v-col">${tomorrowCard(st)}</div></div>`,
+    stock: () => `<div class="v-grid"><div class="v-col">${controlsCard(st)}</div><div class="v-col">${lastTrayCard(st)}</div></div>`,
     close: () => `<div class="v-grid"><div class="v-col">${leftoverCard(st)}</div><div class="v-col">${chartCard(st)}</div></div>`,
   };
   root.innerHTML = `

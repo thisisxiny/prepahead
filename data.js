@@ -32,13 +32,14 @@ const RULES = {
    cap:  max pre-order portions the stall accepts for lunch
    trayPortions: portions per cooking batch / tray
    history: average over the same weekday, last 4 weeks (sample)
+            weeks = that weekday's demand in each of the last 4 weeks (averages to `demand`)
             noShowRate = share of pre-orders not collected (0.04 = 4%)
    week: last 5 weekdays, portions prepared vs sold (sample)
    savedThisWeek: portions not cooked this week thanks to pre-orders (sample, shown to students) */
 const STALLS = [
   {
     id: "caipng", no: "01", name: "Mixed Veg Rice", zh: "杂菜饭", type: "batch", cap: 40, trayPortions: 15,
-    history: { demand: 121, preorders: 20, noShowRate: 0.04 },
+    history: { demand: 121, weeks: [118, 126, 131, 109], preorders: 20, noShowRate: 0.04 },
     week: { prepared: [150, 150, 165, 150, 150], sold: [118, 124, 131, 109, 122] },
     savedThisWeek: 40,
     items: [
@@ -49,7 +50,7 @@ const STALLS = [
   },
   {
     id: "chickenrice", no: "02", name: "Chicken Rice", zh: "鸡饭", type: "batch", cap: 35, trayPortions: 12,
-    history: { demand: 96, preorders: 15, noShowRate: 0.06 },
+    history: { demand: 96, weeks: [92, 101, 99, 92], preorders: 15, noShowRate: 0.06 },
     week: { prepared: [120, 120, 132, 120, 120], sold: [92, 101, 99, 88, 97] },
     savedThisWeek: 28,
     items: [
@@ -60,7 +61,7 @@ const STALLS = [
   },
   {
     id: "banmian", no: "03", name: "Ban Mian", zh: "板面", type: "made", cap: 30, trayPortions: 10,
-    history: { demand: 84, preorders: 10, noShowRate: 0.03 },
+    history: { demand: 84, weeks: [80, 88, 86, 82], preorders: 10, noShowRate: 0.03 },
     week: { prepared: [95, 95, 100, 95, 95], sold: [80, 86, 90, 79, 85] },
     savedThisWeek: 15,
     items: [
@@ -71,7 +72,7 @@ const STALLS = [
   },
   {
     id: "western", no: "04", name: "Western", zh: "西餐", type: "made", cap: 25, trayPortions: 10,
-    history: { demand: 70, preorders: 8, noShowRate: 0.05 },
+    history: { demand: 70, weeks: [66, 74, 72, 68], preorders: 8, noShowRate: 0.05 },
     week: { prepared: [80, 80, 85, 80, 80], sold: [66, 72, 74, 63, 71] },
     savedThisWeek: 12,
     items: [
@@ -283,6 +284,13 @@ function forecastPortions(stall) {
   return s.orders
     .filter((o) => o.stall === stall.id && toMin(o.placedAt) < toMin(RULES.batchCutoff) && o.status !== "cancelled" && o.status !== "declined")
     .reduce((n, o) => n + orderQty(o), 0);
+}
+// How much demand usually varies: the spread (standard deviation) of the last 4 same-weekday
+// demands. The forecast shows "likely" as the forecast ± this spread, rounded to whole portions.
+function demandSpread(stall) {
+  const w = stall.history.weeks;
+  const mean = w.reduce((a, b) => a + b, 0) / w.length;
+  return Math.round(Math.sqrt(w.reduce((n, x) => n + (x - mean) ** 2, 0) / w.length));
 }
 function prepForecast(stall) {
   const pre = forecastPortions(stall);
