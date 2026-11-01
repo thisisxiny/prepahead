@@ -33,7 +33,7 @@
     </div>
     <div class="seg" role="group" aria-label="View">
       <button type="button" data-view="both" aria-pressed="true">Both</button>
-      <button type="button" data-view="student" aria-pressed="false">Student</button>
+      <button type="button" data-view="student" aria-pressed="false">Customer</button>
       <button type="button" data-view="vendor" aria-pressed="false">Stall</button>
     </div>
     <button type="button" class="link-btn" id="reset-demo">Reset demo</button>
@@ -42,8 +42,8 @@
 
 <main class="stage" id="stage" data-view="both">
   <!-- ===== Student app ===== -->
-  <section class="pane-student" aria-label="Student app">
-    <p class="pane-label"><span><b>Student</b> phone app</span><span>Sample data</span></p>
+  <section class="pane-student" aria-label="Customer app">
+    <p class="pane-label"><span><b>Customer</b> phone app</span><span>Sample data</span></p>
     <div class="phone"><div class="phone-screen" id="student-app"></div></div>
   </section>
 
@@ -73,7 +73,7 @@
   }
   document.querySelectorAll(".seg button").forEach((b) => b.addEventListener("click", () => setView(b.dataset.view)));
   document.getElementById("reset-demo").addEventListener("click", () => {
-    Object.assign(Student, { screen: "home", stallId: null, cart: {}, slot: null, lastOrderId: null, agreeFee: false, repeat: false, repeatDays: [], lastRecurringId: null, lastDealId: null });
+    Object.assign(Student, { screen: "home", stallId: null, cart: {}, slot: null, lastOrderId: null, agreeFee: false, repeat: false, repeatDays: [], lastRecurringId: null, lastDealId: null, changeOrderId: null });
     Store.reset();
   });
   Store.subscribe(syncClock);

@@ -45,7 +45,7 @@ function countStepper(act, value, labelId) {
 }
 
 function vendorStatusPill(status) {
-  const label = { pending: "New", accepted: "Accepted", ready: "On shelf", collected: "Collected", declined: "Declined", cancelled: "Cancelled by student", noshow: "No-show", voucher: "Voucher issued" }[status];
+  const label = { pending: "New", accepted: "Accepted", ready: "On shelf", collected: "Collected", declined: "Declined", cancelled: "Cancelled by customer", noshow: "No-show", voucher: "Voucher issued" }[status];
   return `<span class="pill pill-${status}">${label}</span>`;
 }
 
@@ -155,7 +155,7 @@ function prepCard(st) {
       ${row("is-total", "Cook", `${f.trays} × ${st.trayPortions}`, 0, f.cooked, f.cooked)}
       <p class="wf-legend"><span class="wf-swatch" aria-hidden="true"></span>Likely range: expected ± ${spread}, how much the last 4 ${DEMO_DAY}s varied</p>
     </div>
-    <p class="muted small">History sets the baseline; pre-orders catch today's spikes. In a real system an AI model trained on sales history would set the baseline. Here it's a 4-week average of sample data.</p>
+    <p class="muted small">History sets the baseline; pre-orders catch today's spikes. Here the baseline is the average of the same weekday over the last 4 weeks (sample data). With a full semester of data, it would also reflect exam and recess weeks.</p>
   </section>`;
 }
 
@@ -206,7 +206,7 @@ function controlsCard(st) {
     <div class="ctrl">
       <label for="soldout-toggle">Stop pre-orders</label>
       <button id="soldout-toggle" class="switch ${s.soldOut[st.id] ? "on" : ""}" role="switch" aria-checked="${!!s.soldOut[st.id]}" data-vact="soldout"><span></span></button>
-      <p class="muted small">Ran out of an ingredient? Students see "Sold out" straight away.</p>
+      <p class="muted small">Ran out of an ingredient? Customers see "Sold out" straight away.</p>
     </div>
   </section>`;
 }
@@ -226,7 +226,7 @@ function ordersCard(st) {
   const actions = (o) => {
     if (isOverdue(o)) return `<button class="btn sm" data-vact="resell" data-id="${o.id}">Resell at ${pct(RULES.resaleDiscount)}% off</button><button class="link-act" data-vact="verify" data-id="${o.id}">Check code</button>`;
     if (o.status === "pending") return `<button class="btn sm" data-vact="set" data-id="${o.id}" data-s="accepted">Accept</button><button class="btn btn-ghost sm" data-vact="set" data-id="${o.id}" data-s="declined">Decline</button>`;
-    if (o.status === "accepted") return `<button class="btn sm" data-vact="set" data-id="${o.id}" data-s="ready">Put on shelf</button><button class="link-act" data-vact="set" data-id="${o.id}" data-s="voucher" aria-label="Can't make it: give the student a voucher">Can't make it</button>`;
+    if (o.status === "accepted") return `<button class="btn sm" data-vact="set" data-id="${o.id}" data-s="ready">Put on shelf</button><button class="link-act" data-vact="set" data-id="${o.id}" data-s="voucher" aria-label="Can't make it: give the customer a voucher">Can't make it</button>`;
     if (o.status === "ready") return `<button class="btn sm" data-vact="verify" data-id="${o.id}">Check code</button><button class="link-act" data-vact="set" data-id="${o.id}" data-s="noshow">Mark no-show</button>`;
     return "";
   };
@@ -245,7 +245,7 @@ function ordersCard(st) {
         </div>
         ${Vendor.verifyFor === o.id ? `
           <form class="verify" data-id="${o.id}">
-            <label for="code-${o.id}">Student's 4-digit code</label>
+            <label for="code-${o.id}">Customer's 4-digit code</label>
             <input id="code-${o.id}" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="0000">
             <button class="btn sm" type="submit">Confirm</button>
             <button class="btn btn-ghost sm" type="button" data-vact="verify-cancel">Back</button>
@@ -260,9 +260,9 @@ function ordersCard(st) {
   return `
   <section class="card">
     <div class="row"><h3>Pre-orders</h3><span class="v-head-sub">${span}${open.length} open${lateCount ? ` · ${lateCount} uncollected` : ""}</span>${newCount ? `<button class="btn sm" data-vact="accept-all">Accept all new (${newCount})</button>` : ""}</div>
-    ${open.length ? `<ul class="v-orders">${open.map(row).join("")}</ul>` : `<p class="muted">No open pre-orders. New ones appear here as students order.</p>`}
+    ${open.length ? `<ul class="v-orders">${open.map(row).join("")}</ul>` : `<p class="muted">No open pre-orders. New ones appear here as customers order.</p>`}
     ${closed.length ? `<details><summary class="small">Finished (${closed.length})</summary><ul class="v-orders">${closed.map(row).join("")}</ul></details>` : ""}
-    <p class="muted small">No-show rate: <span class="num">${pct(st.history.noShowRate)}%</span> (sample, last 4 weeks). Students who don't collect pay a <span class="num">${money(RULES.noShowFee)}</span> fee.</p>
+    <p class="muted small">No-show rate: <span class="num">${pct(st.history.noShowRate)}%</span> (sample, last 4 weeks). Customers who don't collect pay a <span class="num">${money(RULES.noShowFee)}</span> fee.</p>
   </section>`;
 }
 
@@ -280,7 +280,7 @@ function dealsCard(st) {
         <div class="v-main">
           <p class="v-what"><strong class="num">${o.id}</strong> ${itemsText(o)}</p>
           <div class="v-state">${d.sold ? `<span class="pill pill-collected">Sold</span>` : `<span class="pill pill-pending">On offer</span>`}</div>
-          <p class="muted small"><span class="num">${money(d.price)}</span> (was <span class="num">${money(orderTotal(o))}</span>) · ${d.sold ? `buyer shows code <strong class="num">${d.code}</strong>` : "students can buy it in the app"}</p>
+          <p class="muted small"><span class="num">${money(d.price)}</span> (was <span class="num">${money(orderTotal(o))}</span>) · ${d.sold ? `buyer shows code <strong class="num">${d.code}</strong>` : "customers can buy it in the app"}</p>
         </div>
       </div>
     </li>`;
@@ -462,7 +462,7 @@ document.addEventListener("submit", (e) => {
     Vendor.verifyFor = null;
     Store.update((s) => { s.orders.find((x) => x.id === id).status = "collected"; });
   } else {
-    Vendor.verifyMsg = "That code doesn't match. Ask the student to show their QR again.";
+    Vendor.verifyMsg = "That code doesn't match. Ask the customer to show their QR again.";
     renderVendor();
   }
 });

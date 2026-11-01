@@ -7,7 +7,7 @@
    ============================================================ */
 
 const Student = {
-  screen: "home",        // home | menu | checkout | done | orders | deal
+  screen: "home",        // home | menu | checkout | done | orders | deal | changetime
   stallId: null,
   cart: {},              // { itemId: qty }
   slot: null,
@@ -17,6 +17,7 @@ const Student = {
   repeatDays: [],        // checkout: weekdays the weekly order repeats on, e.g. ["Mon", "Wed"]
   lastRecurringId: null, // the weekly order set up with the last order, if any
   lastDealId: null,      // the last-minute deal shown on the "deal" screen
+  changeOrderId: null,   // the order whose collection time is being changed on the "changetime" screen
 };
 
 const studentRoot = () => document.getElementById("student-app");
@@ -102,11 +103,16 @@ function cutoffPanel() {
 }
 
 // When free cancellation ends. It's the same cut-off that closes ordering
-// (see isPastCutoff in data.js), so the wording always matches the Cancel button.
+// (see isPastCutoff in data.js), so the wording always matches the Cancel and Change time buttons.
 function cancelUntil(stall, slot) {
   if (stall.type === "batch") return RULES.batchCutoff;
   if (slot) return fromMin(toMin(slot) - RULES.madeToOrderLeadMins);
   return `${RULES.madeToOrderLeadMins} min before my slot`;
+}
+
+// Can this order still be cancelled or moved to another time? Both buttons follow this one rule.
+function canChangeOrder(o) {
+  return (o.status === "pending" || o.status === "accepted") && !isPastCutoff(stallById(o.stall), o.slot);
 }
 
 function statusPill(status) {
@@ -186,7 +192,7 @@ function screenCheckout() {
     </div>
     <label class="agree">
       <input type="checkbox" id="agree-fee" data-act="agree" ${Student.agreeFee ? "checked" : ""}>
-      <span>I understand a ${money(RULES.noShowFee)} fee applies if I don't collect within ${RULES.graceMins} min of my slot. I can cancel free until ${cancelUntil(st, Student.slot)}.</span>
+      <span>I understand a ${money(RULES.noShowFee)} fee applies if I don't collect within ${RULES.graceMins} min of my slot. I can cancel or change time free until ${cancelUntil(st, Student.slot)}.</span>
     </label>
     <button class="btn wide" data-act="pay" ${Student.slot && Student.agreeFee ? "" : "disabled"}>
       Pay ${money(cartTotal())}${Student.slot ? ` · collect ${Student.slot}` : ""}
@@ -285,7 +291,6 @@ function screenOrders() {
     <ul class="orders">
       ${mine.map((o) => {
         const st = stallById(o.stall);
-        const canCancel = (o.status === "pending" || o.status === "accepted") && !isPastCutoff(st, o.slot);
         return `
         <li class="order">
           <div class="row"><span><span class="code-tab num">${stallCode(st)}</span> <strong>${st.name}</strong></span>${statusPill(o.status)}</div>
@@ -296,7 +301,7 @@ function screenOrders() {
           ${o.status === "noshow" ? `<p class="note">Not collected in time. ${money(RULES.noShowFee)} fee charged, rest refunded.</p>` : ""}
           <div class="row-actions">
             ${LIVE.includes(o.status) && o.status !== "collected" ? `<button class="btn btn-ghost sm" data-act="show-qr" data-id="${o.id}">Show QR</button>` : ""}
-            ${canCancel ? `<button class="btn btn-ghost sm" data-act="cancel" data-id="${o.id}">Cancel</button>` : ""}
+            ${canChangeOrder(o) ? `<button class="btn btn-ghost sm" data-act="change-time" data-id="${o.id}">Change time</button><button class="btn btn-ghost sm" data-act="cancel" data-id="${o.id}">Cancel</button>` : ""}
           </div>
         </li>`;
       }).join("")}
@@ -315,6 +320,29 @@ function screenOrders() {
           <div class="row-actions"><button class="btn btn-ghost sm" data-act="stop-repeat" data-id="${r.id}">Stop repeating</button></div>
         </li>`).join("")}
     </ul>` : ""}
+  `;
+}
+
+// My orders → Change time: the same slot buttons as checkout, with the order's current slot highlighted.
+function screenChangeTime() {
+  const o = Store.get().orders.find((x) => x.id === Student.changeOrderId);
+  // The cut-off may pass (or the stall may pack the order) while this screen is open.
+  if (!o || !canChangeOrder(o)) { Student.screen = "orders"; return screenOrders(); }
+  const st = stallById(o.stall);
+  // Qty 0: this order's portions already count towards the pre-order limit, and moving it adds none.
+  const stall = canOrder(st, null, 0);
+  return `
+    <button class="back" data-act="go" data-to="orders">${ICON.back}My orders</button>
+    ${stallHead(st, itemList(o))}
+    <div class="s-head"><h2>Change collection time</h2>
+      <p>Now collecting at <span class="num">${o.slot}</span>. Change it free until ${cancelUntil(st, o.slot)}.</p></div>
+    ${stall.ok ? "" : `<p class="note">${stall.reason}. Your order stays at ${o.slot}.</p>`}
+    <div class="slots">
+      ${allSlots().map((t) => {
+        const c = canOrder(st, t, 0);
+        return `<button class="slot ${o.slot === t ? "on" : ""}" data-act="change-slot" data-t="${t}" ${c.ok ? "" : `disabled title="${c.reason}"`}>${t}</button>`;
+      }).join("")}
+    </div>
   `;
 }
 
@@ -354,7 +382,7 @@ function reminderBanner() {
 function renderStudent() {
   const root = studentRoot();
   if (!root) return;
-  const screens = { home: screenHome, menu: screenMenu, checkout: screenCheckout, done: screenDone, orders: screenOrders, deal: screenDeal };
+  const screens = { home: screenHome, menu: screenMenu, checkout: screenCheckout, done: screenDone, orders: screenOrders, deal: screenDeal, changetime: screenChangeTime };
   root.innerHTML = screens[Student.screen]();
   drawQR();
 }
@@ -404,6 +432,11 @@ document.addEventListener("click", (e) => {
   }
   if (act === "show-qr") { Student.lastOrderId = b.dataset.id; Student.lastRecurringId = null; Student.screen = "done"; }
   if (act === "cancel") { Store.update((s) => { s.orders.find((o) => o.id === b.dataset.id).status = "cancelled"; }); }
+  if (act === "change-time") { Student.changeOrderId = b.dataset.id; Student.screen = "changetime"; }
+  if (act === "change-slot") {
+    Store.update((s) => { s.orders.find((o) => o.id === Student.changeOrderId).slot = b.dataset.t; });
+    Student.screen = "orders";
+  }
   if (act === "stop-repeat") { Store.update((s) => { s.recurring = s.recurring.filter((r) => r.id !== b.dataset.id); }); }
   if (act === "buy-deal") { buyDeal(b.dataset.id); Student.lastDealId = b.dataset.id; Student.screen = "deal"; }
   if (act === "show-deal") { Student.lastDealId = b.dataset.id; Student.screen = "deal"; }

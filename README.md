@@ -3,13 +3,15 @@
 Clickable prototype for the Week 10 Project Showcase. A student pre-orders lunch; the stall sees the order and a data-backed "how much to cook" number.
 **All numbers are sample data.**
 
+On screen the prototype says "customer" (the **Customer** view button, the "Customer phone app" label). The code keeps the name "student" (`student.js`, `Student`, `studentRoot`).
+
 ## Run it
 Open `index.html` in a browser (VS Code: right-click → *Open with Live Server*). No install, no backend.
 
 ## Files
 | File | What's in it |
 |---|---|
-| `student.js` | Student phone app: stalls → menu → collection slot → pay → QR → my orders |
+| `student.js` | Customer phone app: stalls → menu → collection slot → pay → QR → my orders (cancel or change time until the cut-off) |
 | `vendor.js` | Stall tablet: trays to cook + tray counter, then tabs: Orders (lunch line, pre-orders, deals), Plan (forecast, tomorrow's shopping), Stock (limit, sold-out switch, last tray), End of day (leftovers, chart) |
 | `data.js` | Rules, stalls, menus, sample history, order format, the Store |
 | `style.css` | Colours, fonts, all styling |
@@ -33,7 +35,7 @@ Order format (both sides must use exactly this):
 - Batch-cooked stalls (Mixed Veg Rice, Chicken Rice): lunch pre-orders close at **10:00** (2–4h notice).
 - Made-to-order stalls (Ban Mian, Western): order **30 min** before your slot.
 - Collection slots every **15 min**, 11:30–13:30 (staggered to spread the crowd).
-- **$1.00 non-refundable fee** if not collected within **20 min** of the slot. Free cancel until cut-off.
+- **$1.00 non-refundable fee** if not collected within **20 min** of the slot. Free cancel or change of time until cut-off.
 - Stall can't make it → student gets a **voucher** for another day.
 - Collection: student shows QR / 4-digit code; stall checks the code.
 
@@ -48,7 +50,7 @@ History sets the baseline; pre-orders catch spikes (Prof's point: complement for
 Rounding to whole trays shows that small changes in demand may not change the batch size.
 
 ## Demo script for the showcase
-Same order as the demo video (`demo/prepahead-demo.mp4`, kept out of git). Press **Reset demo** first; the clock starts at 09:40.
+Same order as the demo video (`demo/prepahead-demo.mp4`, kept out of git), except step 7, which was added after it was recorded. Press **Reset demo** first; the clock starts at 09:40.
 
 **Part 1: one order, student to stall** (top bar: **Both**, phone and tablet side by side)
 1. **Skip the lunch queue.** Point at "Batch stalls close 10:00" and the early-bird line.
@@ -57,20 +59,21 @@ Same order as the demo video (`demo/prepahead-demo.mp4`, kept out of git). Press
 4. **Pay, with a fair no-show rule.** Tick the $1 fee line, then Pay.
 5. **The collection ticket.** Collection time, QR, 4-digit code, progress line.
 6. **The stall knows before it cooks.** On the tablet the trays flip 09 → 10 and the 12:30 stop on the lunch line grows.
-7. **Accept and pack.** Accept, then Put on shelf: the phone's progress line turns green at the same time.
-8. **Collect with the code.** Drag the clock to 12:30. The student shows the code; on the tablet tap Check code, type it, Confirm.
+7. **Plans change.** On the phone: My orders → Change time → 12:15. The group's 20 portions move from the 12:30 stop to the 12:15 stop, and the trays stay at 10 (same food, different time). Change time and Cancel both disappear after the cut-off, and once the order is on the shelf.
+8. **Accept and pack.** Accept, then Put on shelf: the phone's progress line turns green at the same time.
+9. **Collect with the code.** Drag the clock to 12:15. The student shows the code; on the tablet tap Check code, type it, Confirm.
 
 **Part 2: the stall's side** (top bar: **Stall**, full-width tablet)
 
-9. **The number is final.** After the 10:00 cut-off it says "Final, locked at 10:00".
-10. **History + pre-orders = the number.** Tap "How is 10 worked out?" (Plan tab): expected demand with a likely range, then the waterfall: weekday history 121, pre-orders vs usual +16 (the group order), round up to trays, cook 150.
-11. **Tomorrow's morning shopping.** Ingredients are bought before pre-orders arrive, so tomorrow uses history and weekly orders.
-12. **Count trays as they're cooked.** Tap "+1 tray cooked" up to 10.
-13. **No-shows don't become waste.** Orders tab, drag the clock to 12:45, tap "Resell at 50% off" on the uncollected order.
-14. **Stock.** Pre-order limit and Stop pre-orders; in Last tray, count 45 left: "don't cook another tray".
-15. **End of day.** Drag to 13:55, End of day tab, log 12 leftovers: today's bars appear next to last week's.
+10. **The number is final.** After the 10:00 cut-off it says "Final, locked at 10:00".
+11. **History + pre-orders = the number.** Tap "How is 10 worked out?" (Plan tab): expected demand with a likely range, then the waterfall: weekday history 121, pre-orders vs usual +16 (the group order), round up to trays, cook 150.
+12. **Tomorrow's morning shopping.** Ingredients are bought before pre-orders arrive, so tomorrow uses history and weekly orders.
+13. **Count trays as they're cooked.** Tap "+1 tray cooked" up to 10.
+14. **No-shows don't become waste.** Orders tab, drag the clock to 12:45, tap "Resell at 50% off" on the uncollected order.
+15. **Stock.** Pre-order limit and Stop pre-orders; in Last tray, count 45 left: "don't cook another tray".
+16. **End of day.** Drag to 13:55, End of day tab, log 12 leftovers: today's bars appear next to last week's.
 
-**Short version for visitors passing by (45 s):** steps 2, 6 and 10: a student pre-orders, the trays flip, and the waterfall shows why.
+**Short version for visitors passing by (45 s):** steps 2, 6 and 11: a student pre-orders, the trays flip, and the waterfall shows why.
 
 ## Ideas for next steps
 - Student side: group orders, reminder notification styling, cancellation flow polish.
