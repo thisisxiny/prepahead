@@ -34,14 +34,12 @@ const RULES = {
    history: average over the same weekday, last 4 weeks (sample)
             weeks = that weekday's demand in each of the last 4 weeks (averages to `demand`)
             noShowRate = share of pre-orders not collected (0.04 = 4%)
-   week: last 5 weekdays, portions prepared vs sold (sample)
-   savedThisWeek: portions not cooked this week thanks to pre-orders (sample, shown to students) */
+   week: last 5 weekdays, portions prepared vs sold (sample) */
 const STALLS = [
   {
     id: "caipng", no: "01", name: "Mixed Veg Rice", zh: "杂菜饭", type: "batch", cap: 40, trayPortions: 15,
     history: { demand: 121, weeks: [118, 126, 131, 109], preorders: 20, noShowRate: 0.04 },
     week: { prepared: [150, 150, 165, 150, 150], sold: [118, 124, 131, 109, 122] },
-    savedThisWeek: 40,
     items: [
       { id: "cp1", name: "1 meat + 2 veg", price: 4.0 },
       { id: "cp2", name: "2 meat + 1 veg", price: 4.8 },
@@ -52,7 +50,6 @@ const STALLS = [
     id: "chickenrice", no: "02", name: "Chicken Rice", zh: "鸡饭", type: "batch", cap: 35, trayPortions: 12,
     history: { demand: 96, weeks: [92, 101, 99, 92], preorders: 15, noShowRate: 0.06 },
     week: { prepared: [120, 120, 132, 120, 120], sold: [92, 101, 99, 88, 97] },
-    savedThisWeek: 28,
     items: [
       { id: "cr1", name: "Roasted chicken rice", price: 4.2 },
       { id: "cr2", name: "Steamed chicken rice", price: 4.2 },
@@ -63,7 +60,6 @@ const STALLS = [
     id: "banmian", no: "03", name: "Ban Mian", zh: "板面", type: "made", cap: 30, trayPortions: 10,
     history: { demand: 84, weeks: [80, 88, 86, 82], preorders: 10, noShowRate: 0.03 },
     week: { prepared: [95, 95, 100, 95, 95], sold: [80, 86, 90, 79, 85] },
-    savedThisWeek: 15,
     items: [
       { id: "bm1", name: "Ban mian soup", price: 4.5 },
       { id: "bm2", name: "Dry ban mian", price: 4.5 },
@@ -74,7 +70,6 @@ const STALLS = [
     id: "western", no: "04", name: "Western", zh: "西餐", type: "made", cap: 25, trayPortions: 10,
     history: { demand: 70, weeks: [66, 74, 72, 68], preorders: 8, noShowRate: 0.05 },
     week: { prepared: [80, 80, 85, 80, 80], sold: [66, 72, 74, 63, 71] },
-    savedThisWeek: 12,
     items: [
       { id: "we1", name: "Chicken chop", price: 6.5 },
       { id: "we2", name: "Fish and chips", price: 6.8 },

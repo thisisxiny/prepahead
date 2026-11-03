@@ -191,7 +191,6 @@ input { caret-color: var(--green-text); }
 .stop .zh { font-size: 0.85rem; color: var(--muted); margin-left: 4px; }
 .stop-meta { display: block; font-size: 0.82rem; color: var(--muted); margin-top: 3px; }
 .stop-meta.is-why { color: var(--bad); font-weight: 600; }
-.stop-saved { display: block; font-size: 0.8rem; color: var(--green-text); font-weight: 600; margin-top: 2px; }
 .stop-price { font: 800 1.45rem/1 var(--f-sign); font-stretch: 72%; text-align: right; font-variant-numeric: tabular-nums; }
 .stop-price small { display: block; font: 500 0.72rem/1.4 var(--f-ui); color: var(--muted); }
 

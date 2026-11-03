@@ -188,7 +188,7 @@ A near-monochrome porcelain-and-ink map with one line green, a small yellow lamp
 
 ### Primary
 - **Line Green** (green): the line itself. The stop line on the phone, done segments and filled stops on progress lines, the lunch-line rail, cooked tray stops, the meter fill, the demo clock slider, the green NS tab on the board, and the "Sold" chart bars. Shapes only; it is too light to be text on white.
-- **Line Green, Text** (green-text): green when it has to be words on white: "Saved 40 this week (sample)", the "On shelf" status word, the input caret.
+- **Line Green, Text** (green-text): green when it has to be words on white: the "On shelf" status word, the input caret.
 
 ### Secondary
 - **Lamp Yellow** (lamp) with **Lamp Edge** (lamp-edge): a 9px lamp dot for "now" and "new" only: the early-bird lamp line, the cut-off countdown, the NEW status mark, the current progress stop of a new order, the current slot on the lunch line. The edge keeps a small lamp holding its shape on white.
@@ -317,7 +317,7 @@ A short vertical timeline of when each piece of information arrives: green fille
 One tile per character on a two-tone gradient (Tile Top over Tile Bottom) with a 1px black split across the middle, paint numerals in 800 signage, 0.07em corners, 0.1em gap; a colon stays plain. Size is set by one variable (tile font-size). The tiles are hidden from screen readers, which read the plain text. On a forecast change the tiles flip (rotateX from -88deg with a brightness flash, 0.5s, second tile 0.08s later).
 
 ### Stop Line (Signature)
-On the phone, stalls hang off a vertical 8px green line through 28px white rings with 4px ink borders. Each stop shows its code tab, name, Chinese name, a muted meta line, a green "Saved" line, and a signage price. A closed stop greys its line segment and ring and gives the reason in red. Hover grows the ring 1.15x and underlines the name.
+On the phone, stalls hang off a vertical 8px green line through 28px white rings with 4px ink borders. Each stop shows its code tab, name, Chinese name, a muted meta line, and a signage price. A closed stop greys its line segment and ring and gives the reason in red. Hover grows the ring 1.15x and underlines the name.
 
 ### Progress Line (Signature)
 Four stops per order (new, accepted, on shelf, collected): every step the order has reached is a filled green stop on a solid green bar, the current step included; the current step is a little larger (18px) with an ink edge, and lamp-filled while the order is still new. Steps still to come are hollow Control Edge rings on a dashed hairline. The phone and the stall draw the same line for the same order. The ticket version names every stop.

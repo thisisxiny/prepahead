@@ -71,7 +71,6 @@ function stopRow(st, why) {
         <span>
           <span class="code-tab num">${stallCode(st)}</span><span class="stop-name">${st.name}</span><span class="zh" lang="zh-Hans">${st.zh}</span>
           <span class="stop-meta ${why ? "is-why" : ""}">${why || `${stallType(st)} · ${stallRule(st).toLowerCase()}`}</span>
-          <span class="stop-saved">Saved ${st.savedThisWeek} this week (sample)</span>
         </span>
         <span class="stop-price num"><small>from</small>${money(from)}</span>
       </button>
